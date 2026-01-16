@@ -1,6 +1,7 @@
 "use client";
+import { Facebook, Instagram, Twitter } from "lucide-react";
+import Link from "next/link";
 import React from "react";
-import { Instagram, Twitter, Facebook } from "lucide-react";
 import LogoComponent from "../logo/Logo";
 
 const MainFooter: React.FC = () => {
@@ -47,19 +48,28 @@ const MainFooter: React.FC = () => {
             </h3>
             <ul className="space-y-3 md:space-y-4 lg:text-sm text-base text-white">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="/about"
+                  className="hover:text-white transition-colors"
+                >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="/build-your-menu"
+                  className="hover:text-white transition-colors"
+                >
                   Menu
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  href="/gallery"
+                  className="hover:text-white transition-colors"
+                >
                   Gallery
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -70,16 +80,16 @@ const MainFooter: React.FC = () => {
               Contact
             </h3>
             <ul className="space-y-3 md:space-y-4 lg:text-sm text-base text-white">
-              <li>+966 50 000 0000</li>
+              <li>+966 55 225 0081</li>
               <li>
                 <a
-                  href="mailto:hello@ayadi.sa"
+                  href="mailto:info@ayadicatering.com"
                   className="hover:text-white transition-colors"
                 >
-                  hello@ayadi.sa
+                  info@ayadicatering.com
                 </a>
               </li>
-              <li>Riyadh, Saudi Arabia</li>
+              <li>Jeddah, Saudi Arabia</li>
             </ul>
           </div>
         </div>
@@ -87,7 +97,7 @@ const MainFooter: React.FC = () => {
         {/* Copyright */}
         <div className="border-t border-white/50 pt-6 lg:text-sm text-base text-center">
           <p className="text-white text-xs tracking-wider uppercase">
-            © 2024 Ayadi. All Rights Reserved.
+            © 2024 - {new Date().getFullYear()} Ayadi. All Rights Reserved.
           </p>
         </div>
       </div>

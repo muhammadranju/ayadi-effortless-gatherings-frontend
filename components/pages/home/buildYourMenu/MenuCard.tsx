@@ -26,10 +26,11 @@ const MenuCard: React.FC<MenuCardProps> = ({
     >
       {/* Image Container */}
       {item.image && (
-        <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden p-5">
+        <div className="relative aspect-[4/3] bg-white overflow-hidden p-5">
           <img
             src={item.image}
             alt={item.name}
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102 rounded"
           />
           {isSelected && (
@@ -43,7 +44,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
       {/* Content */}
       <div className="p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-serif text-lg text-charcoal font-medium leading-tight">
+          <h3 className=" text-lg text-charcoal  leading-tight">
             {item.name}
             {item.isVegetarian && (
               <span className="ml-2 text-xs text-forest font-sans font-bold bg-green-100 px-1.5 py-0.5 rounded-sm">
@@ -53,7 +54,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
           </h3>
         </div>
 
-        <p className="text-gray-500 text-sm font-light leading-relaxed mb-4 flex-grow">
+        <p className="text-color text-sm font-light leading-relaxed mb-4 flex-grow">
           {item.description}
         </p>
 
@@ -63,9 +64,9 @@ const MenuCard: React.FC<MenuCardProps> = ({
           </div>
         )}
 
-        <div className="pt-4 mt-auto border-t border-gray-100">
+        <div className="pt-4 mt-auto border-t border-gray-300">
           <span
-            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
+            className={`text-xs font-bold tracking-wider transition-colors ${
               isSelected
                 ? "text-forest"
                 : "text-gray-400 group-hover:text-gray-600"
