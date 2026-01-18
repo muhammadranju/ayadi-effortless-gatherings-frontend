@@ -1,55 +1,14 @@
 "use client";
 import { Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaWhatsapp } from "react-icons/fa6";
 
 // FAQ Data Structure
-const FAQS = [
-  {
-    id: "01",
-    question: "What is “Gatherings by Ayadi”?",
-    answer:
-      "Gatherings by Ayadi  is designed for sharing with family and friends. Each order arrives carefully packed and ready to place directly on your table, so you can focus on enjoying the moment. ",
-  },
-  {
-    id: "02",
-    question: "What’s included in “Gatherings by Ayadi”?",
-    answer:
-      "Each menu includes six thoughtfully designed dishes to accommodate up to 10 guests, ready to be served. Effortless for you, beautiful for your guests.",
-  },
-  {
-    id: "03",
-    question: "Does Ayadi offer same day ordering?",
-    answer:
-      "Yes, absolutely. To give every meal the attention it deserves, we ask for a minimum of 5 hours from confirmation to delivery",
-  },
-  {
-    id: "04",
-    question: "How is my order delivered?",
-    answer:
-      "Every order is handled with attention and care. Your dishes are delivered on time, in temperature-controlled boxes to preserve freshness and flavor.",
-  },
-  {
-    id: "05",
-    question: "Can I make changes after I’ve placed my order?",
-    answer:
-      "If you would like to adjust your order, please contact  us as soon as possible and we will do our best to accommodate. Once preparation has begun, changes may not be available.",
-  },
-  {
-    id: "06",
-    question: "What if I need to cancel my order?",
-    answer:
-      "We understand that plans can change. Cancellations made more than 48 hours before delivery can be redeemed as credit to use within 2 months. Please note that any cancellations made within 48 hours are not possible, as preparations will already be underway.",
-  },
-  {
-    id: "07",
-    question: "How can I reach Ayadi?",
-    answer:
-      "The Ayadi concierge team is delighted to serve you daily from 10 AM to 10 PM. Reach us through WhatsApp, and we will guide you through every detail.",
-  },
-];
+const FAQ_IDS = ["01", "02", "03", "04", "05", "06", "07"];
 
 const FaqPage: React.FC = () => {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState<string>("06");
 
   const toggleFaq = (id: string) => {
@@ -73,11 +32,10 @@ const FaqPage: React.FC = () => {
         {/* Hero Content */}
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white mt-[380px] px-4 md:px-16">
           <h1 className="font-tinos text-4xl md:text-5xl lg:text-7xl mb-6 drop-shadow-lg leading-tight">
-            You Have Questions, We Have Answers
+            {t("faq.heroTitle")}
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl max-w-4xl text-gray-100 font-light leading-relaxed">
-            Everything you need to know about our catering from menus to service
-            designed to make your event effortless and memorable.
+            {t("faq.heroDesc")}
           </p>
         </div>
       </div>
@@ -88,30 +46,32 @@ const FaqPage: React.FC = () => {
           {/* Left Column: Heading */}
           <div className="lg:w-1/2 pt-4">
             <h2 className="font-tinos text-5xl md:text-6xl text-charcoal leading-tight">
-              Frequently Asked <br />
-              <span className="text-amber-700 ">Question</span>
+              {t("faq.sectionTitle")} <br />
+              <span className="text-amber-700 ">
+                {t("faq.sectionTitleSpan")}
+              </span>
             </h2>
           </div>
 
           {/* Right Column: Accordion */}
           <div className="lg:w-2/3 w-full">
             <div className="divide-y divide-gray-200">
-              {FAQS.map((faq) => (
-                <div key={faq.id} className="py-6 md:py-8 group  ">
+              {FAQ_IDS.map((id) => (
+                <div key={id} className="py-6 md:py-8 group  ">
                   <button
-                    onClick={() => toggleFaq(faq.id)}
+                    onClick={() => toggleFaq(id)}
                     className="w-full flex items-start justify-between text-left focus:outline-none cursor-pointer"
                   >
                     <div className="flex items-start gap-6 md:gap-8">
                       <span className="font-tinos text-xl md:text-2xl italic font-bold mt-1 ">
-                        {faq.id}
+                        {id}
                       </span>
                       <span className="font-tinos text-xl md:text-2xl text-charcoal font-bold mt-1 group-hover:text-terracotta transition-colors">
-                        {faq.question}
+                        {t(`faq.questions.${id}.q`)}
                       </span>
                     </div>
                     <div className="ml-4 mt-1">
-                      {openFaq === faq.id ? (
+                      {openFaq === id ? (
                         <div className="rounded-full border border-charcoal p-1">
                           <Minus className="w-6 h-6 text-gray-600" />
                         </div>
@@ -126,14 +86,14 @@ const FaqPage: React.FC = () => {
                   {/* Accordion Content */}
                   <div
                     className={`grid transition-all duration-300 ease-in-out ${
-                      openFaq === faq.id
+                      openFaq === id
                         ? "grid-rows-[1fr] opacity-100 mt-4"
                         : "grid-rows-[0fr] opacity-0"
                     }`}
                   >
                     <div className="overflow-hidden">
                       <p className="pl-[3.5rem] md:pl-[5rem] text-gray-600 leading-relaxed text-lg max-w-2xl">
-                        {faq.answer}
+                        {t(`faq.questions.${id}.a`)}
                       </p>
                     </div>
                   </div>

@@ -1,5 +1,6 @@
 import MainFooter from "@/components/shared/MainFooter";
 import MainHeader from "@/components/shared/MainHeader";
+import I18nProvider from "@/components/providers/I18nProvider";
 import StoreProvider from "@/lib/redux/provider";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
@@ -44,11 +45,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${montserrat.className} antialiased bg-[#F2EEE6]`}>
         <StoreProvider>
-          <MainHeader />
-          <div className="flex flex-col justify-between min-h-screen">
-            {children}
-          </div>
-          <MainFooter />
+          <I18nProvider>
+            <MainHeader />
+            <div className="flex flex-col justify-between min-h-screen">
+              {children}
+            </div>
+            <MainFooter />
+          </I18nProvider>
         </StoreProvider>
         <Toaster richColors />
       </body>

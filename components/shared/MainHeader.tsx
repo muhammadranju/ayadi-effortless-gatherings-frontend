@@ -3,36 +3,46 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaWhatsapp } from "react-icons/fa6";
 import LogoComponent from "../logo/Logo";
 import { Button } from "../ui/button";
 
 const MainHeader: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  const selectedLang = i18n.language; // Get current language from i18n
+
   const pathname = usePathname();
 
   useEffect(() => {
-    // Close menu when route changes
     setIsMenuOpen(false);
   }, [pathname]);
 
+  const flags = [
+    { label: "EN", path: "/icons/en.png", code: "en", name: "English" },
+    { label: "AR", path: "/icons/ar.png", code: "ar", name: "العربية" },
+  ];
+
+  const currentFlag = flags.find((f) => f.code === selectedLang) || flags[0];
+
   const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/gallery", label: "Gallery" },
-    { href: "/faq", label: "FAQ" },
+    { href: "/", label: t("header.home") },
+    { href: "/about", label: t("header.about") },
+    { href: "/gallery", label: t("header.gallery") },
+    { href: "/faq", label: t("header.faq") },
   ];
 
   const isActiveRoute = (href: string) => {
-    if (href === "/") {
-      return pathname === "/";
-    }
+    if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
   return (
     <>
-      <header className="backdrop-blur-lg bg-[#F2EEE6]/80 py-2 px-6 md:px-12 lg:px-20 sticky top-0 z-40 border-b border-orange-100 ">
+      <header className="backdrop-blur-lg bg-[#F2EEE6]/80 py-2 px-6 md:px-12 lg:px-20 sticky top-0 z-40 border-b border-orange-100">
         <div className="lg:container md:max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -48,7 +58,7 @@ const MainHeader: React.FC = () => {
                 className={`font-medium transition-colors duration-200 pb-1 border-b-2 ${
                   isActiveRoute(item.href)
                     ? "text-primary border-primary"
-                    : "text-gray-600 border-b border-transparent  hover:text-black hover:border-gray-300"
+                    : "text-gray-600 border-b border-transparent hover:text-black hover:border-gray-300"
                 }`}
               >
                 {item.label}
@@ -56,46 +66,67 @@ const MainHeader: React.FC = () => {
             ))}
           </nav>
 
-          {/* Right Side Actions */}
+          {/* Right Side Actions - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Language Switcher */}
-            <div className="flex items-center border border-green-500 rounded-full px-3 py-1  cursor-pointer hover:border-gray-400 transition-colors">
-              <span className="font-bold text-sm mr-2 text-gray-700">AR</span>
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
-                <svg viewBox="0 0 60 30" className="w-full h-full object-cover">
-                  <rect
-                    fill="#012169"
-                    width="60"
-                    height="30"
-                    className="w-20 h-20"
+            <div className="relative">
+              <button
+                type="button"
+                className="flex items-center border border-green-500 rounded-full px-3 py-1 cursor-pointer hover:border-gray-400 transition-colors"
+                onClick={() => setIsLangOpen(!isLangOpen)}
+              >
+                <span className="font-bold text-sm mr-2 text-gray-700">
+                  {currentFlag.label}
+                </span>
+                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-200 flex-shrink-0">
+                  <img
+                    src={currentFlag.path}
+                    alt={`${currentFlag.name} flag`}
+                    className="w-full h-full object-cover"
                   />
-                  <path
-                    d="M0,0 L60,30 M60,0 L0,30"
-                    stroke="#fff"
-                    strokeWidth="6"
+                </div>
+              </button>
+
+              {/* Dropdown */}
+              {isLangOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-30 md:hidden"
+                    onClick={() => setIsLangOpen(false)}
                   />
-                  <path
-                    d="M0,0 L60,30 M60,0 L0,30"
-                    stroke="#C8102E"
-                    strokeWidth="4"
-                  />
-                  <path
-                    d="M30,0 L30,30 M0,15 L60,15"
-                    stroke="#fff"
-                    strokeWidth="10"
-                  />
-                  <path
-                    d="M30,0 L30,30 M0,15 L60,15"
-                    stroke="#C8102E"
-                    strokeWidth="6"
-                  />
-                </svg>
-              </div>
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-40">
+                    {flags.map((flag) => (
+                      <button
+                        key={flag.code}
+                        type="button"
+                        className={`w-full flex items-center px-4 py-2.5 text-left text-sm transition-colors ${
+                          selectedLang === flag.code
+                            ? "bg-amber-50 text-amber-800 font-medium"
+                            : "text-gray-700 hover:bg-gray-100"
+                        }`}
+                        onClick={() => {
+                          i18n.changeLanguage(flag.code);
+                          setIsLangOpen(false);
+                        }}
+                      >
+                        <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 mr-3">
+                          <img
+                            src={flag.path}
+                            alt={`${flag.name} flag`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <span>{flag.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* CTA Button */}
             <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-5 rounded-sm font-medium transition-colors duration-200 shadow-sm">
-              Whatsapp <FaWhatsapp size={24} />
+              Whatsapp <FaWhatsapp size={24} className="ml-2" />
             </Button>
           </div>
 
@@ -112,10 +143,10 @@ const MainHeader: React.FC = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Drawer Overlay with Blur */}
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-30 md:hidden transition-all duration-300"
+          className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
         />
@@ -127,7 +158,6 @@ const MainHeader: React.FC = () => {
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Drawer Header */}
         <div className="flex justify-between items-center p-6 border-b border-gray-100">
           <Link
             href="/"
@@ -145,7 +175,6 @@ const MainHeader: React.FC = () => {
           </button>
         </div>
 
-        {/* Drawer Navigation */}
         <nav className="flex flex-col p-6 space-y-2">
           {navItems.map((item) => (
             <Link
@@ -156,46 +185,73 @@ const MainHeader: React.FC = () => {
                   ? "bg-amber-50 text-amber-700 border-l-4 border-amber-700"
                   : "text-gray-600 hover:text-black hover:bg-gray-50"
               }`}
+              onClick={() => setIsMenuOpen(false)}
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        {/* Drawer Footer */}
+        {/* Mobile Language + CTA */}
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-100 bg-white">
-          <div className="flex flex-col space-y-3">
-            <div className="flex items-center border border-gray-300 rounded-full px-3 py-4 justify-center">
-              <span className="font-bold text-sm mr-2">AR</span>
-              <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-200">
-                <svg viewBox="0 0 60 30" className="w-full h-full object-cover">
-                  <rect fill="#012169" width="60" height="30" />
-                  <path
-                    d="M0,0 L60,30 M60,0 L0,30"
-                    stroke="#fff"
-                    strokeWidth="6"
+          <div className="flex flex-col space-y-4">
+            {/* Mobile Language Switcher */}
+            <div className="relative z-50">
+              <button
+                type="button"
+                className="w-full flex items-center justify-center border border-gray-300 rounded-full px-4 py-3 hover:bg-gray-50 transition-colors"
+                onClick={() => setIsLangOpen(!isLangOpen)}
+              >
+                <span className="font-bold text-sm mr-2">
+                  {currentFlag.label}
+                </span>
+                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-200">
+                  <img
+                    src={currentFlag.path}
+                    alt=""
+                    className="w-full h-full object-cover"
                   />
-                  <path
-                    d="M0,0 L60,30 M60,0 L0,30"
-                    stroke="#C8102E"
-                    strokeWidth="4"
+                </div>
+              </button>
+
+              {isLangOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setIsLangOpen(false)}
                   />
-                  <path
-                    d="M30,0 L30,30 M0,15 L60,15"
-                    stroke="#fff"
-                    strokeWidth="10"
-                  />
-                  <path
-                    d="M30,0 L30,30 M0,15 L60,15"
-                    stroke="#C8102E"
-                    strokeWidth="6"
-                  />
-                </svg>
-              </div>
+                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+                    {flags.map((flag) => (
+                      <button
+                        key={flag.code}
+                        className={`w-full flex items-center px-4 py-3 text-sm hover:bg-gray-100 transition-colors ${
+                          selectedLang === flag.code
+                            ? "bg-gray-50 font-medium"
+                            : ""
+                        }`}
+                        onClick={() => {
+                          i18n.changeLanguage(flag.code);
+                          setIsLangOpen(false);
+                        }}
+                      >
+                        <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 mr-3">
+                          <img
+                            src={flag.path}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <span>{flag.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
-            <button className="bg-amber-700 hover:bg-amber-800 text-white px-6 py-2.5 rounded-sm font-medium transition-colors duration-200 w-full">
-              Book Now
-            </button>
+
+            <Button className="bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-sm font-medium transition-colors duration-200 w-full">
+              {t("header.bookNow")}
+            </Button>
           </div>
         </div>
       </div>

@@ -7,6 +7,7 @@ import StepMenuSelection from "@/components/pages/home/buildYourMenu/steps/StepM
 import StepPayment from "@/components/pages/home/buildYourMenu/steps/StepPayment";
 import StepSuccess from "@/components/pages/home/buildYourMenu/steps/StepSuccess";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface BuildYourMenuProps {
   isPackageMode?: boolean;
@@ -15,6 +16,7 @@ interface BuildYourMenuProps {
 const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   isPackageMode = false,
 }) => {
+  const { t } = useTranslation();
   const [step, setStep] = useState(isPackageMode ? 1 : 0);
 
   // Update step if prop changes (though usually initial load matters most)
@@ -78,11 +80,11 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
 
   // Calculations
   const selectedAddonObjects = ADDONS.filter((addon) =>
-    selectedAddons.includes(addon.id)
+    selectedAddons.includes(addon.id),
   );
   const subtotal = selectedAddonObjects.reduce(
     (acc, curr) => acc + (curr.price || 0),
-    0
+    0,
   );
   const total = subtotal;
 
@@ -132,11 +134,10 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
           {step === 0 && (
             <div className="animate-in fade-in slide-in-from-top-4 duration-700">
               <h1 className=" text-4xl md:text-6xl lg:mt-20 mb-4 text-charcoal">
-                Build Your Menu
+                {t("menu.title")}
               </h1>
               <p className="text-color font-light text-lg max-w-2xl mx-auto">
-                Gatherings by Ayadi serves up to 10 guests. Select your perfect
-                combination.
+                {t("menu.subtitle")}
               </p>
             </div>
           )}
@@ -195,13 +196,13 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
               {step === 0 ? (
                 <div className="flex-grow w-full">
                   <h4 className=" text-lg mb-4 text-charcoal">
-                    Selected Add-ons
+                    {t("menu.selectedAddons")}
                   </h4>
 
                   <div className="mb-4">
                     {selectedAddonObjects.length === 0 ? (
                       <p className="text-gray-400 text-sm italic">
-                        No add-ons selected
+                        {t("menu.noAddons")}
                       </p>
                     ) : (
                       <div className="space-y-2">
@@ -224,7 +225,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
 
                   <div className="flex justify-between items-center pt-4 border-t border-gray-100 sr-only">
                     <span className="font-bold text-green-500 text-lg">
-                      Total Add-ons:
+                      {t("menu.totalAddons")}:
                     </span>
                     <span className="font-bold text-green-500 text-lg">
                       {(total * 1.15).toLocaleString(undefined, {
@@ -249,7 +250,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
-                Back
+                {t("menu.back")}
               </button>
               <button
                 onClick={handleNext}
@@ -260,7 +261,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
                     : "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
                 }`}
               >
-                Next
+                {t("menu.next")}
               </button>
             </div>
           </div>

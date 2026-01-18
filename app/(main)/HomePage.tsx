@@ -1,7 +1,12 @@
+"use client";
+
 import { ChooseYourWay } from "@/components/pages/home/ChooseYourWay";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 function HomePage() {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="">
@@ -22,14 +27,15 @@ function HomePage() {
             {/* Left Content */}
             <div className="space-y-6 pt-10 md:pt-0">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 leading-tight">
-                Effortless
+                {t("home.heroTitle")}
                 <br />
-                <span className="text-primary italic">Gatherings.</span>
+                <span className="text-primary italic">
+                  {t("home.heroTitleSpan")}
+                </span>
               </h1>
 
               <p className="text-gray-500 text-lg md:text-xl max-w-md leading-relaxed font-extralight">
-                With AYADI, hosting is stress-free. A few simple steps, and your
-                gathering comes together beautifully.
+                {t("home.heroSubtitle")}
               </p>
             </div>
 
@@ -65,7 +71,8 @@ function HomePage() {
                       fontWeight="bold"
                     >
                       <textPath href="#circlePath" startOffset="0%">
-                        {" . "} MODERN HOSPITALITY {" . "} MODERN HOSPITALITY
+                        {" . "} {t("home.modernHospitality")} {" . "}{" "}
+                        {t("home.modernHospitality")}
                       </textPath>
                     </text>
                   </svg>

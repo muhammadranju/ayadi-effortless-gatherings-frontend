@@ -1,0 +1,144 @@
+{
+  "header": {
+    "logo": "أيادي",
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "gallery": "المعرض",
+    "faq": "الأسئلة الشائعة",
+
+    "bookNow": "",
+    "language": "",
+    "english": "",
+    "arabic": ""
+  },
+  "home": {
+    "heroTitle": "",
+    "heroTitleSpan": "",
+    "heroSubtitle": "",
+    "modernHospitality": "",
+    "chooseTitle": "",
+    "chooseSubtitle": "",
+    "buildOwnTitle": "",
+    "buildOwnDesc": "",
+    "buildOwnBtn": "",
+    "setMenusTitle": "",
+    "setMenusDesc": "",
+    "setMenusBtn": ""
+  },
+  "about": {
+    "storyLabel": "",
+    "meaningTitle": "",
+    "meaningTitle2": "",
+    "meaningTitleSpan": "",
+    "meaningDesc1": "",
+    "meaningDesc2": "",
+    "meaningDesc3": "",
+    "quote": "",
+    "promiseLabel": "",
+    "promiseTitle": "",
+    "promiseTitleSpan": "",
+    "promise1Title": "",
+    "promise1Desc": "",
+    "promise2Title": "",
+    "promise2Desc": "",
+    "promise3Title": "",
+    "promise3Desc": ""
+  },
+  "gallery": {
+    "recentTitle": "",
+    "recentTitleSpan": "",
+    "recentDesc": "",
+    "voiceLabel": "",
+    "voiceSpan": "",
+    "testimonials": {
+      "1": {
+        "text": "",
+        "author": "",
+        "role": ""
+      },
+      "2": {
+        "text": "",
+        "author": "",
+        "role": ""
+      },
+      "3": {
+        "text": "",
+        "author": "",
+        "role": ""
+      }
+    },
+    "stressFreeTitle": "",
+    "stressFreeDesc": "",
+    "whatsapp": ""
+  },
+  "faq": {
+    "heroTitle": "الأسئلة الشائعة",
+    "heroDesc": "لديك أسئلة، لدينا إجابات",
+    "sectionTitle": "كل ما تحتاج لمعرفته عن خدمات التموين لدينا، من القوائم إلى الخدمة المصممة لجعل فعاليتك سهلة ولا تُنسى.",
+    "sectionTitleSpan": "",
+    "questions": {
+      "01": {
+        "q": "ما هي جمعات ايادي ؟",
+        "a": "تم تصميم جمعات أيادي لتكون مثالية للمشاركة مع العائلة والأصدقاء. يصل كل طلب مُعبأ بعناية وجاهزًا للتقديم مباشرة، لتتمكن من التركيز على الاستمتاع باللحظة."
+      },
+      "02": {
+        "q": "ماذا تتضمن جمعات أيادي؟",
+        "a": "تتضمن كل قائمة ستة أطباق مُعدّة بعناية لعشرة ضيوف، جاهزة للتقديم لتمنحك تجربة سهلة، ومظهر أنيق لضيوفك."
+      },
+      "03": {
+        "q": "هل يمكنني الطلب في نفس اليوم؟",
+        "a": "بالتأكيد، ولمنح كل وجبة العناية التي تستحقها يرجى السماح بفترة لا تقل عن ٥ ساعات عمل من بعد تأكيد الطلب للتحضير والتوصيل في الوقت المحدد."
+      },
+      "04": {
+        "q": "كيف يتم توصيل الطلب؟",
+        "a": "نحرص على توصيل طلبكم في الوقت المتفق عليه، حيث تُنقَل في أطباق أنيقة مغلفة داخل صناديق مخصصة للحفاظ على درجة الحرارة وجودة الطعام، لتوضع مباشرة على السفرة."
+      },
+      "05": {
+        "q": "هل يمكنني إجراء تعديلات بعد إتمام الطلب؟",
+        "a": "إذا رغبت في تعديل طلبك، يُرجى التواصل معنا في أقرب وقت ممكن، وسنبذل قصارى جهدنا للتلبية. بعد بدء التحضير، قد لا تكون التعديلات متاحة."
+      },
+      "06": {
+        "q": "ماذا لو احتجت إلى إلغاء طلبي؟",
+        "a": "نُدرك أن الخطط قد تتغير. يمكن تحويل الإلغاءات التي تتم قبل أكثر من ٤٨ ساعة من موعد التسليم إلى رصيد يُستخدم خلال شهرين. يُرجى ملاحظة أن الإلغاءات خلال ٤٨ ساعة من موعد التسليم غير ممكنة، نظرًا لبدء التحضيرات"
+      },
+      "07": {
+        "q": " كيف يمكنني التواصل مع أيادي؟",
+        "a": "   يسعد فريق أيادي بخدمتك يوميًا من الساعة ١٠ صباحًا حتى ١٠ مساءً. يمكنكم التواصل معنا عبر واتساب، وسنرشدك في كل التفاصيل"
+      }
+    }
+  },
+  "menu": {
+    "title": "",
+    "subtitle": "",
+    "selectedAddons": "",
+    "noAddons": "",
+    "totalAddons": "",
+    "back": "",
+    "next": "",
+    "steps": {
+      "salad": "",
+      "saladSubtitle": "",
+      "classics": "",
+      "classicsSubtitle": "",
+      "signatures": "",
+      "signaturesSubtitle": "",
+      "addons": "",
+      "addonsSubtitle": ""
+    }
+  },
+  "packages": {
+    "title": "",
+    "subtitle": "",
+    "guests": "",
+    "classicTitle": "",
+    "classicDesc": "",
+    "menuIncludes": "",
+    "selectPackage": "",
+    "tags": {
+      "appetizers": "",
+      "salads": "",
+      "mainCourses": "",
+      "more": ""
+    }
+  }
+}

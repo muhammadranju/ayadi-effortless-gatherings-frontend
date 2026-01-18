@@ -1,0 +1,144 @@
+{
+  "header": {
+    "logo": "AYADI",
+    "home": "Home",
+    "about": "About",
+    "gallery": "Gallery",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "bookNow": "Book Now",
+    "language": "Language",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "home": {
+    "heroTitle": "Effortless",
+    "heroTitleSpan": "Gatherings.",
+    "heroSubtitle": "With AYADI, hosting is stress-free. A few simple steps, and your gathering comes together beautifully.",
+    "modernHospitality": "MODERN HOSPITALITY",
+    "chooseTitle": "Choose Your Way",
+    "chooseSubtitle": "Build your own menu or choose from our curated set menus",
+    "buildOwnTitle": "Build Your Own",
+    "buildOwnDesc": "Choose 3 classics, 1 salad, and 2 signature items to create your perfect menu",
+    "buildOwnBtn": "Start Selecting",
+    "setMenusTitle": "Set Menus",
+    "setMenusDesc": "Curated menus by our chefs for quick and easy ordering",
+    "setMenusBtn": "View Set Menus"
+  },
+  "about": {
+    "storyLabel": "Our Story",
+    "meaningTitle": "The Meaning",
+    "meaningTitle2": "Behind",
+    "meaningTitleSpan": "The Name.",
+    "meaningDesc1": "<0>AYADI</0> meaning \"Hands\" in Arabic ,(أيادي) symbolizes the personal touch, the giving nature, and the craftsmanship woven into every dish we create.",
+    "meaningDesc2": "Born from a deep love for Saudi hospitality, AYADI was established to bridge the gap between traditional home-cooked generosity and modern, effortless elegance. We believe that hosting should be a joy, not a burden.",
+    "meaningDesc3": "Our team consists of passionate chefs and event stylists who understand the nuances of a Saudi gathering. From the scent of cardamom in our coffee to the precise arrangement of our roaming trays, every detail is curated to honor our heritage while embracing contemporary sophistication.",
+    "quote": "\"We don't just cater events. We craft <0>memories</0>\"",
+    "promiseLabel": "What Drives Us",
+    "promiseTitle": "Our",
+    "promiseTitleSpan": "Promise",
+    "promise1Title": "Stress-free Hosting",
+    "promise1Desc": "We simplify the planning and hosting experience with ready-to-order menus, package selections, and punctual execution, so you can focus on your guests, not logistics.",
+    "promise2Title": "Thoughtfully Crafted",
+    "promise2Desc": "We serve thoughtfully developed menus with refined presentation and a focus on quality and taste, reflecting care and attention in every detail.",
+    "promise3Title": "Delivered with Warmth",
+    "promise3Desc": "We deliver experiences that anticipate your guests' needs, with cultural considerations and modern sensibilities in mind, leaving a lasting impression of warmth & hospitality."
+  },
+  "gallery": {
+    "recentTitle": "Our Recent",
+    "recentTitleSpan": "Works",
+    "recentDesc": "Every frame tells a story of perfection",
+    "voiceLabel": "Voice of",
+    "voiceSpan": "Distinction",
+    "testimonials": {
+      "1": {
+        "text": "\"AYADI transformed our wedding into an unforgettable culinary journey. The attention to detail was extraordinary, and our guests still speak of it as the finest event they've attended.\"",
+        "author": "Princess Noura Al-Saud",
+        "role": "Royal Wedding Celebration"
+      },
+      "2": {
+        "text": "\"Impeccable service, exquisite presentation, and flavors that delighted our international guests. AYADI set a new benchmark for diplomatic events in the Kingdom.\"",
+        "author": "Ambassador Khalid Al-Fahad",
+        "role": "G20 Diplomatic Dinner"
+      },
+      "3": {
+        "text": "\"From concept to execution, AYADI exceeded every expectation. They understand the essence of Saudi hospitality and elevate it to an art form.\"",
+        "author": "Sheikh Mohammed Al-Rajhi",
+        "role": "Private Estate Celebration"
+      }
+    },
+    "stressFreeTitle": "HOSTING DOESN'T HAVE TO BE STRESSFUL",
+    "stressFreeDesc": "With AYADI, hosting is stress-free. We take care of the details, so you can enjoy the moments that matter.",
+    "whatsapp": "Whatsapp"
+  },
+  "faq": {
+    "heroTitle": "You Have Questions, We Have Answers",
+    "heroDesc": "Everything you need to know about our catering from menus to service designed to make your event effortless and memorable.",
+    "sectionTitle": "Frequently Asked",
+    "sectionTitleSpan": "Question",
+    "questions": {
+      "01": {
+        "q": "What is “Gatherings by Ayadi”?",
+        "a": "Gatherings by Ayadi  is designed for sharing with family and friends. Each order arrives carefully packed and ready to place directly on your table, so you can focus on enjoying the moment."
+      },
+      "02": {
+        "q": "What’s included in “Gatherings by Ayadi”?",
+        "a": "Each menu includes six thoughtfully designed dishes to accommodate up to 10 guests, ready to be served. Effortless for you, beautiful for your guests."
+      },
+      "03": {
+        "q": "Does Ayadi offer same day ordering?",
+        "a": "Yes, absolutely. To give every meal the attention it deserves, we ask for a minimum of 5 hours from confirmation to delivery"
+      },
+      "04": {
+        "q": "How is my order delivered?",
+        "a": "Every order is handled with attention and care. Your dishes are delivered on time, in temperature-controlled boxes to preserve freshness and flavor."
+      },
+      "05": {
+        "q": "Can I make changes after I’ve placed my order?",
+        "a": "If you would like to adjust your order, please contact  us as soon as possible and we will do our best to accommodate. Once preparation has begun, changes may not be available."
+      },
+      "06": {
+        "q": "What if I need to cancel my order?",
+        "a": "We understand that plans can change. Cancellations made more than 48 hours before delivery can be redeemed as credit to use within 2 months. Please note that any cancellations made within 48 hours are not possible, as preparations will already be underway."
+      },
+      "07": {
+        "q": "How can I reach Ayadi?",
+        "a": "The Ayadi concierge team is delighted to serve you daily from 10 AM to 10 PM. Reach us through WhatsApp, and we will guide you through every detail."
+      }
+    }
+  },
+  "menu": {
+    "title": "Build Your Menu",
+    "subtitle": "Gatherings by Ayadi serves up to 10 guests. Select your perfect combination.",
+    "selectedAddons": "Selected Add-ons",
+    "noAddons": "No add-ons selected",
+    "totalAddons": "Total Add-ons",
+    "back": "Back",
+    "next": "Next",
+    "steps": {
+      "salad": "Salad",
+      "saladSubtitle": "Select 1 salad",
+      "classics": "Classics",
+      "classicsSubtitle": "Select 3 appetizers",
+      "signatures": "Signature Items",
+      "signaturesSubtitle": "Select 2 main courses",
+      "addons": "Add ons",
+      "addonsSubtitle": "Select up to 6 optional extras"
+    }
+  },
+  "packages": {
+    "title": "Set Packages",
+    "subtitle": "Choose from our carefully curated packages, each designed to create unforgettable dining experiences",
+    "guests": "10 guests",
+    "classicTitle": "Classic Family Feast",
+    "classicDesc": "Curated family-style feasts for intimate gatherings",
+    "menuIncludes": "Menu includes:",
+    "selectPackage": "Select Package",
+    "tags": {
+      "appetizers": "Appetizers",
+      "salads": "Salads",
+      "mainCourses": "Main Courses",
+      "more": "+2 more"
+    }
+  }
+}

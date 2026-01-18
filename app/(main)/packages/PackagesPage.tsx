@@ -1,17 +1,22 @@
+"use client";
+
 import { ArrowRight, User } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const PackagesPage: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-20 ">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-7xl text-black">Set Packages</h2>
+          <h2 className="text-4xl md:text-7xl text-black">
+            {t("packages.title")}
+          </h2>
           <p className="text-gray-500 text-lg md:text-xl font-light max-w-7xl mx-auto">
-            Choose from our carefully curated packages, each designed to create
-            unforgettable dining experiences
+            {t("packages.subtitle")}
           </p>
         </div>
 
@@ -27,7 +32,7 @@ const PackagesPage: React.FC = () => {
               />
               <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-[2px] text-white px-3 py-1.5 rounded-md flex items-center gap-2 text-sm font-medium">
                 <User size={16} strokeWidth={2} />
-                <span>10 guests</span>
+                <span>{t("packages.guests")}</span>
               </div>
             </div>
 
@@ -35,10 +40,10 @@ const PackagesPage: React.FC = () => {
             <div className="p-8 space-y-6">
               <div className="space-y-2">
                 <h3 className="text-2xl  text-gray-900">
-                  Classic Family Feast
+                  {t("packages.classicTitle")}
                 </h3>
-                <p className="text-gray-500 text-[15px] leading-relaxed">
-                  Curated family-style feasts for intimate gatherings
+                <p className="text-gray-500 text-only-[15px] leading-relaxed">
+                  {t("packages.classicDesc")}
                 </p>
               </div>
 
@@ -55,19 +60,19 @@ const PackagesPage: React.FC = () => {
               {/* Menu Includes */}
               <div className="space-y-3">
                 <span className="text-gray-500 text-sm block">
-                  Menu includes:
+                  {t("packages.menuIncludes")}
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {["Appetizers", "Salads", "Main Courses"].map((item) => (
+                  {["appetizers", "salads", "mainCourses"].map((item) => (
                     <span
                       key={item}
                       className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-[4px] text-xs font-medium"
                     >
-                      {item}
+                      {t(`packages.tags.${item}`)}
                     </span>
                   ))}
                   <span className="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-[4px] text-xs font-medium">
-                    +2 more
+                    {t("packages.tags.more")}
                   </span>
                 </div>
               </div>
@@ -77,7 +82,7 @@ const PackagesPage: React.FC = () => {
                 href="/build-your-menu?mode=package"
                 className="w-full bg-green-500 hover:bg-green-700 text-white py-3.5 rounded-md font-medium transition-colors flex items-center justify-center gap-2 mt-2"
               >
-                Select Package
+                {t("packages.selectPackage")}
                 <ArrowRight size={18} />
               </Link>
             </div>

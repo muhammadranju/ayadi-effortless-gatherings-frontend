@@ -157,3 +157,22 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Arabic Font Override */
+html[lang="ar"] body,
+html[lang="ar"] [class*="font-"],
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6,
+html[lang="ar"] p,
+html[lang="ar"] span,
+html[lang="ar"] div,
+html[lang="ar"] button,
+html[lang="ar"] input,
+html[lang="ar"] textarea,
+html[lang="ar"] a {
+  font-family: "IBM Plex Sans Arabic", sans-serif !important;
+}

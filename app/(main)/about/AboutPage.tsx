@@ -1,6 +1,7 @@
 "use client";
 import { Award, Heart, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
+import { Trans, useTranslation } from "react-i18next";
 
 const Hero = () => {
   return (
@@ -19,6 +20,7 @@ const Hero = () => {
 };
 
 const OurStory = () => {
+  const { t } = useTranslation();
   return (
     <section className="py-16 px-6 md:px-12 lg:px-24 w-full">
       <div className="absolute inset-0 bg-white/0 mix-blend-overlay"></div>
@@ -26,43 +28,44 @@ const OurStory = () => {
         {/* Text Content */}
         <div className="order-2 lg:order-1 flex flex-col justify-center space-y-6">
           <span className="uppercase text-xs tracking-[0.2em] text-gray-500 font-bold mt-4 lg:mt-0">
-            Our Story
+            {t("about.storyLabel")}
           </span>
 
           <h2 className="text-4xl md:text-7xl  tracking-wide  text-gray-900 font-semibold leading-tight">
-            The Meaning <br />
-            Behind <br />
-            <span className="text-orange-500 ">The Name.</span>
+            {t("about.meaningTitle")} <br />
+            {t("about.meaningTitle2")} <br />
+            <span className="text-orange-500 ">
+              {t("about.meaningTitleSpan")}
+            </span>
           </h2>
 
           <div className="space-y-6 text-gray-900  text-lg leading-relaxed">
             <p className="font-medium">
-              <strong className="text-orange-500 text-2xl ">AYADI</strong>{" "}
-              meaning "Hands" in Arabic ,(أيادي) symbolizes the personal touch,
-              the giving nature, and the craftsmanship woven into every dish we
-              create.
+              <Trans
+                i18nKey="about.meaningDesc1"
+                components={[
+                  <strong className="text-orange-500 text-2xl " key="0">
+                    AYADI
+                  </strong>,
+                ]}
+              />
             </p>
 
-            <p className="text-base text-gray-600">
-              Born from a deep love for Saudi hospitality, AYADI was established
-              to bridge the gap between traditional home-cooked generosity and
-              modern, effortless elegance. We believe that hosting should be a
-              joy, not a burden.
-            </p>
+            <p className="text-base text-gray-600">{t("about.meaningDesc2")}</p>
 
-            <p className="text-base text-gray-600">
-              Our team consists of passionate chefs and event stylists who
-              understand the nuances of a Saudi gathering. From the scent of
-              cardamom in our coffee to the precise arrangement of our roaming
-              trays, every detail is curated to honor our heritage while
-              embracing contemporary sophistication.
-            </p>
+            <p className="text-base text-gray-600">{t("about.meaningDesc3")}</p>
 
             <hr className="border-[1px] border-gray-800 w-full my-6" />
 
             <blockquote className="font-light text-2xl md:text-3xl italic text-black leading-snug pt-4">
-              "We don't just cater events. We craft{" "}
-              <span className="  text-orange-500">memories</span>"
+              <Trans
+                i18nKey="about.quote"
+                components={[
+                  <span className="  text-orange-500" key="0">
+                    memories
+                  </span>,
+                ]}
+              />
             </blockquote>
           </div>
         </div>
@@ -169,33 +172,37 @@ const OurPromiseCard = ({
 );
 
 const OurPromise = () => {
+  const { t } = useTranslation();
   return (
     <section className="bg-ayadi-dark py-20 px-6 md:px-12 lg:px-24 bg-[#403D3D] mb-20">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <span className="uppercase text-sm tracking-[0.2em] text-green-500 font-bold block mb-4">
-            What Drives Us
+            {t("about.promiseLabel")}
           </span>
           <h2 className="text-5xl md:text-6xl  text-white font-bold">
-            Our <span className=" text-orange-500">Promise</span>
+            {t("about.promiseTitle")}{" "}
+            <span className=" text-orange-500">
+              {t("about.promiseTitleSpan")}
+            </span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           <OurPromiseCard
             icon={Heart}
-            title="Stress-free Hosting"
-            description="We simplify the planning and hosting experience with ready-to-order menus, package selections, and punctual execution, so you can focus on your guests, not logistics."
+            title={t("about.promise1Title")}
+            description={t("about.promise1Desc")}
           />
           <OurPromiseCard
             icon={Award}
-            title="Thoughtfully Crafted"
-            description="We serve thoughtfully developed menus with refined presentation and a focus on quality and taste, reflecting care and attention in every detail."
+            title={t("about.promise2Title")}
+            description={t("about.promise2Desc")}
           />
           <OurPromiseCard
             icon={Sparkles}
-            title="Delivered with Warmth"
-            description="We deliver experiences that anticipate your guests' needs, with cultural considerations and modern sensibilities in mind, leaving a lasting impression of warmth & hospitality."
+            title={t("about.promise3Title")}
+            description={t("about.promise3Desc")}
           />
         </div>
       </div>

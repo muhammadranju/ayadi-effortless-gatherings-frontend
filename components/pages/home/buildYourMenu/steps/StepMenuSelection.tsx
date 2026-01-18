@@ -7,6 +7,7 @@ import {
 import MenuCard from "@/components/pages/home/buildYourMenu/MenuCard";
 import { MenuItem } from "@/components/pages/home/buildYourMenu/types";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface StepMenuSelectionProps {
   selectedSalad: string | null;
@@ -29,13 +30,15 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
   selectedAddons,
   handleAddonSelect,
 }) => {
+  const { t } = useTranslation();
+
   const renderSection = (
     title: string,
     subtitle: string,
     items: MenuItem[],
     selectedIds: string[] | string | null,
     onSelect: (id: string) => void,
-    limit?: number
+    limit?: number,
   ) => {
     return (
       <div className="mb-16">
@@ -48,8 +51,8 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
                 const count = Array.isArray(selectedIds)
                   ? selectedIds.length
                   : selectedIds
-                  ? 1
-                  : 0;
+                    ? 1
+                    : 0;
                 const isActive = i < count;
                 return (
                   <div
@@ -91,36 +94,36 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
   return (
     <div className="mx-auto px-6 md:px-12 py-10">
       {renderSection(
-        "Salad",
-        "Select 1 salad",
+        t("menu.steps.salad"),
+        t("menu.steps.saladSubtitle"),
         SALADS,
         selectedSalad,
         handleSaladSelect,
-        1
+        1,
       )}
       {renderSection(
-        "Classics",
-        "Select 3 appetizers",
+        t("menu.steps.classics"),
+        t("menu.steps.classicsSubtitle"),
         CLASSICS,
         selectedAppetizers,
         handleAppetizerSelect,
-        3
+        3,
       )}
       {renderSection(
-        "Signature Items",
-        "Select 2 main courses",
+        t("menu.steps.signatures"),
+        t("menu.steps.signaturesSubtitle"),
         SIGNATURES,
         selectedMains,
         handleMainSelect,
-        2
+        2,
       )}
       {renderSection(
-        "Add ons",
-        "Select up to 6 optional extras",
+        t("menu.steps.addons"),
+        t("menu.steps.addonsSubtitle"),
         ADDONS,
         selectedAddons,
         handleAddonSelect,
-        6
+        6,
       )}
     </div>
   );
