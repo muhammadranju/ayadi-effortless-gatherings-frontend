@@ -21,7 +21,8 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
   deliveryDetails,
   setDeliveryDetails,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   const [isMapOpen, setIsMapOpen] = React.useState(false);
 
   const handleMapConfirm = (
@@ -77,15 +78,31 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
                 className="w-full pl-4 pr-10 py-3.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none transition-all placeholder:text-gray-300 group-hover:border-gray-300"
                 placeholder={t("menu.steps.streetPlaceholder")}
               />
-              <MapPin
-                className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-800 group-focus-within:text-green-500 transition-colors "
-                size={20}
-              />
-              <Map
-                onClick={() => setIsMapOpen(true)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer"
-                size={20}
-              />
+              {isArabic ? (
+                <>
+                  <MapPin
+                    className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-800 group-focus-within:text-green-500 transition-colors "
+                    size={20}
+                  />
+                  <Map
+                    onClick={() => setIsMapOpen(true)}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer"
+                    size={20}
+                  />
+                </>
+              ) : (
+                <>
+                  <MapPin
+                    className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-800 group-focus-within:text-green-500 transition-colors "
+                    size={20}
+                  />
+                  <Map
+                    onClick={() => setIsMapOpen(true)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer"
+                    size={20}
+                  />
+                </>
+              )}
             </div>
           </div>
 
