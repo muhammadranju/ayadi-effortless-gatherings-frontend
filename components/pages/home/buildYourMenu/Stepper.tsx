@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface StepperProps {
   steps: string[];
@@ -6,6 +7,7 @@ interface StepperProps {
 }
 
 const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
+  const { t } = useTranslation();
   const totalSteps = steps.length;
   // Calculate width percentage based on current step index relative to total intervals
   // Adjusted for side extensions: 10% padding on each side -> 80% effective width
@@ -47,7 +49,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
                     ${index <= currentStep ? "text-charcoal" : "text-gray-400"}
                   `}
                   >
-                    {step}
+                    {t(step)}
                   </span>
                 </div>
               </div>

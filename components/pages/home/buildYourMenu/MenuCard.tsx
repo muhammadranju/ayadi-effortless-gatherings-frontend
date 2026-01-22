@@ -1,6 +1,8 @@
 import React from "react";
 import { MenuItem } from "./types";
 import { Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import Image from "next/image";
 
 interface MenuCardProps {
   item: MenuItem;
@@ -15,6 +17,8 @@ const MenuCard: React.FC<MenuCardProps> = ({
   onSelect,
   disabled,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       onClick={() => !disabled && onSelect()}
@@ -27,9 +31,11 @@ const MenuCard: React.FC<MenuCardProps> = ({
       {/* Image Container */}
       {item.image && (
         <div className="relative aspect-[4/3] bg-white overflow-hidden p-5">
-          <img
+          <Image
+            width={1080}
+            height={720}
             src={item.image}
-            alt={item.name}
+            alt={t(item.name)}
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102 rounded"
           />
@@ -45,7 +51,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
       <div className="p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
           <h3 className=" text-lg text-charcoal  leading-tight">
-            {item.name}
+            {t(item.name)}
             {item.isVegetarian && (
               <span className="ml-2 text-xs text-forest font-sans font-bold bg-green-100 px-1.5 py-0.5 rounded-sm">
                 V
@@ -55,7 +61,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
         </div>
 
         <p className="text-color text-sm font-light leading-relaxed mb-4 flex-grow">
-          {item.description}
+          {item.description ? t(item.description) : ""}
         </p>
 
         {item.price && (

@@ -13,6 +13,7 @@ import {
 } from "date-fns";
 import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface StepDateTimeProps {
   selectedDate: Date | null;
@@ -31,6 +32,7 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
   currentMonth,
   setCurrentMonth,
 }) => {
+  const { t } = useTranslation();
   const renderCalendar = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
@@ -98,17 +100,16 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-6 md:px-12 py-10">
       <h1 className=" text-3xl md:text-5xl text-center mb-4 text-charcoal">
-        Select Date & Time
+        {t("menu.steps.dateTimeTitle")}
       </h1>
       <p className="text-gray-500 text-center mb-10 font-light">
-        Choose your preferred delivery date and time
+        {t("menu.steps.dateTimeSubtitle")}
       </p>
 
       <div className="bg-[#FFF4F2] border border-[#FCD7D7] rounded-md p-4 flex items-center gap-3 text-[#B34545] mb-10">
         <Clock size={20} />
         <span className="text-sm font-medium">
-          Please book at least 24 hours in advance. We deliver between 9:00 AM
-          and 8:00 PM.
+          {t("menu.steps.dateTimeNotice")}
         </span>
       </div>
 
@@ -118,7 +119,8 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
 
       <div className="mb-10">
         <h3 className="flex items-center gap-2 font-medium text-lg mb-6 text-charcoal">
-          <Clock size={20} className="text-green-500" /> Delivery Time
+          <Clock size={20} className="text-green-500" />{" "}
+          {t("menu.steps.deliveryTime")}
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {TIME_SLOTS.map((slot) => (
@@ -142,15 +144,19 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
           <div className="w-1 bg-green-500 h-12 rounded-full hidden md:block"></div>
           <div>
             <h4 className="font-medium mb-1 text-charcoal">
-              Your Selected Slot:
+              {t("menu.steps.selectedSlot")}
             </h4>
             <div className="flex flex-col md:flex-row gap-1 md:gap-6 text-gray-700 text-sm">
               <p>
-                <span className="font-semibold text-green-500">Date:</span>{" "}
+                <span className="font-semibold text-green-500">
+                  {t("menu.steps.date")}
+                </span>{" "}
                 {format(selectedDate, "EEEE, MMMM d, yyyy")}
               </p>
               <p>
-                <span className="font-semibold text-green-500">Time:</span>{" "}
+                <span className="font-semibold text-green-500">
+                  {t("menu.steps.time")}
+                </span>{" "}
                 {selectedTime}
               </p>
             </div>

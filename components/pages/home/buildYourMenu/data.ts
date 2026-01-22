@@ -3,33 +3,29 @@ import { MenuItem } from "./types";
 const SALADS: MenuItem[] = [
   {
     id: "s1",
-    name: "Dates & Fig Salad",
-    description:
-      "Mixed greens with dates, dried figs, and crunchy almonds, with a vinaigrette dressing",
+    name: "menu.items.salads.s1.name",
+    description: "menu.items.salads.s1.desc",
     category: "salad",
     image: "/items/salad/1.jpg",
   },
   {
     id: "s2",
-    name: "Watermelon Feta Salad",
-    description:
-      "Arugula with watermelon and crumbled feta, with a habaq citrus dressing.",
+    name: "menu.items.salads.s2.name",
+    description: "menu.items.salads.s2.desc",
     category: "salad",
     image: "/items/salad/2.jpg",
   },
   {
     id: "s3",
-    name: "Crunchy Chickpea Salad",
-    description:
-      "Iceberg lettuce topped with crunchy chickpeas, with a tahina-caesar dressing.",
+    name: "menu.items.salads.s3.name",
+    description: "menu.items.salads.s3.desc",
     category: "salad",
     image: "/items/salad/3.jpg",
   },
   {
     id: "s4",
-    name: "Charred Corn Salad",
-    description:
-      "Baby spinach with charred corn, parmesan, toasted peanuts, basil-infused dressing",
+    name: "menu.items.salads.s4.name",
+    description: "menu.items.salads.s4.desc",
     category: "salad",
     image: "/items/salad/4.jpg",
   },
@@ -39,46 +35,45 @@ const SALADS: MenuItem[] = [
 const CLASSICS: MenuItem[] = [
   {
     id: "c1",
-    name: "Kubaibat Hail",
-    description: "Vine leaves pockets stuffed with spiced Saudi rice.",
+    name: "menu.items.classics.c1.name",
+    description: "menu.items.classics.c1.desc",
     category: "appetizer",
     isVegetarian: true,
     image: "/items/classics/1.jpg",
   },
   {
     id: "c2",
-    name: "Spinach & Cheese Pockets",
-    description: "Flaky pastry stuffed with spinach and cheese.",
+    name: "menu.items.classics.c2.name",
+    description: "menu.items.classics.c2.desc",
     category: "appetizer",
     isVegetarian: true,
     image: "/items/classics/2.jpg",
   },
   {
     id: "c3",
-    name: "Farmouza",
-    description: "Flaky pastry stuffed with minced beef and onions.",
+    name: "menu.items.classics.c3.name",
+    description: "menu.items.classics.c3.desc",
     category: "appetizer",
     image: "/items/classics/3.jpg",
   },
   {
     id: "c4",
-    name: "Shish Barak",
-    description: "Minced meat dumplings in a yogurt garlic sauce.",
+    name: "menu.items.classics.c4.name",
+    description: "menu.items.classics.c4.desc",
     category: "appetizer",
     image: "/items/classics/4.jpg",
   },
   {
     id: "c5",
-    name: "Creamy Mashed Potatoes",
-    description: "Smooth and buttery mashed potatoes",
+    name: "menu.items.classics.c5.name",
+    description: "menu.items.classics.c5.desc",
     category: "appetizer",
     image: "/items/classics/5.jpg",
   },
   {
     id: "c6",
-    name: "Korean Chicken Drumsticks",
-    description:
-      "Fried chicken drumsticks coated in a Korean-style chili sauce topped with sesame",
+    name: "menu.items.classics.c6.name",
+    description: "menu.items.classics.c6.desc",
     category: "appetizer",
     image: "/items/classics/6.jpg",
   },
@@ -87,74 +82,71 @@ const CLASSICS: MenuItem[] = [
 const SIGNATURES: MenuItem[] = [
   {
     id: "m1",
-    name: "Ayadi Signature Shrimp",
-    description: "Shrimp cooked in a tahina dill sauce and pickled onions.",
+    name: "menu.items.signatures.m1.name",
+    description: "menu.items.signatures.m1.desc",
     category: "main",
     image: "/items/signature/1.jpg",
   },
   {
     id: "m2",
-    name: "Timman Vegetable",
-    description: "Temman rice with butternut squash, zucchini, and eggplants.",
+    name: "menu.items.signatures.m2.name",
+    description: "menu.items.signatures.m2.desc",
     category: "main",
     image: "/items/signature/2.jpg",
   },
   {
     id: "m3",
-    name: "Chicken Saleeg",
-    description: "Creamy saleeg with chicken.",
+    name: "menu.items.signatures.m3.name",
+    description: "menu.items.signatures.m3.desc",
     category: "main",
     image: "/items/signature/3.jpg",
   },
-
   {
     id: "m4",
-    name: "Lamb Qursan",
-    description: "Layers of zucchini, carrot, green beans, pumpkin.",
+    name: "menu.items.signatures.m4.name",
+    description: "menu.items.signatures.m4.desc",
     category: "main",
     image: "/items/signature/5.jpg",
   },
   {
     id: "m5",
-    name: "Seabass Kozbariya",
-    description: "Seabass fillet in a coriander tomato sauce.",
+    name: "menu.items.signatures.m5.name",
+    description: "menu.items.signatures.m5.desc",
     category: "main",
     image: "/items/signature/4.jpg",
   },
   {
     id: "m6",
-    name: "Lasagna",
-    description: "Lasagna with minced beef, tomato sauce, and béchamel",
+    name: "menu.items.signatures.m6.name",
+    description: "menu.items.signatures.m6.desc",
     category: "main",
     image: "/items/signature/6.jpg",
   },
   {
     id: "m7",
-    name: "Tuscan Chicken",
-    description:
-      "Creamy chicken with mushroom, spinach, and cherry tomato confit",
+    name: "menu.items.signatures.m7.name",
+    description: "menu.items.signatures.m7.desc",
     category: "main",
     image: "/items/signature/7.jpg",
   },
   {
     id: "m8",
-    name: "Braised Beef",
-    description: "Braised beef with caramelized onion reduction & thyme jus",
+    name: "menu.items.signatures.m8.name",
+    description: "menu.items.signatures.m8.desc",
     category: "main",
     image: "/items/signature/8.jpg",
   },
   {
     id: "m9",
-    name: "Pesto Orzo",
-    description: "Orzo pasta tossed with basil pesto and parmesan",
+    name: "menu.items.signatures.m9.name",
+    description: "menu.items.signatures.m9.desc",
     category: "main",
     image: "/items/signature/9.png",
   },
   {
     id: "m10",
-    name: "Seared Seabass",
-    description:
-      "Seared seabass fillet with a lemon butter sauce and cherry tomatoes",
+    name: "menu.items.signatures.m10.name",
+    description: "menu.items.signatures.m10.desc",
     category: "main",
     image: "/items/signature/10.png",
   },
@@ -163,32 +155,32 @@ const SIGNATURES: MenuItem[] = [
 const ADDONS: MenuItem[] = [
   {
     id: "a1",
-    name: "White Rice",
+    name: "menu.items.addons.a1",
     category: "addon",
   },
   {
     id: "a2",
-    name: "Grilled Vegetables",
+    name: "menu.items.addons.a2",
     category: "addon",
   },
   {
     id: "a3",
-    name: "Sauces",
+    name: "menu.items.addons.a3",
     category: "addon",
   },
   {
     id: "a4",
-    name: "Salad",
+    name: "menu.items.addons.a4",
     category: "addon",
   },
   {
     id: "a5",
-    name: "Classic",
+    name: "menu.items.addons.a5",
     category: "addon",
   },
   {
     id: "a6",
-    name: "Main Dish",
+    name: "menu.items.addons.a6",
     category: "addon",
   },
 ];
@@ -209,10 +201,10 @@ const TIME_SLOTS = [
 ];
 
 const STEPS = [
-  "Select Menu & Add ons",
-  "Select Date & Time",
-  "Delivery Details",
-  "Payment",
+  "menu.steps.menuSelection",
+  "menu.steps.dateTime",
+  "menu.steps.delivery",
+  "menu.steps.payment",
 ];
 
 export { SALADS, CLASSICS, SIGNATURES, ADDONS, TIME_SLOTS, STEPS };

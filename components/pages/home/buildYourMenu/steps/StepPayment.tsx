@@ -2,6 +2,7 @@ import { ADDONS } from "@/components/pages/home/buildYourMenu/data";
 import { format } from "date-fns";
 import { CheckCircle2, CreditCard } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { FaApple, FaCcVisa, FaRegCreditCard } from "react-icons/fa6";
 
 interface StepPaymentProps {
@@ -21,21 +22,22 @@ const StepPayment: React.FC<StepPaymentProps> = ({
   selectedAddons,
   onComplete,
 }) => {
+  const { t } = useTranslation();
   const selectedAddonObjects = ADDONS.filter((addon) =>
-    selectedAddons.includes(addon.id)
+    selectedAddons.includes(addon.id),
   );
   const subtotal = selectedAddonObjects.reduce(
     (acc, curr) => acc + (curr.price || 0),
-    0
+    0,
   );
 
   return (
     <div className="max-w-7xl mx-auto py-10">
       <h1 className=" text-3xl md:text-5xl text-center mb-4 text-charcoal">
-        Payment
+        {t("menu.steps.paymentTitle")}
       </h1>
       <p className="text-gray-500 text-center mb-10 font-light">
-        Review your order and complete payment
+        {t("menu.steps.paymentSubtitle")}
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -43,7 +45,7 @@ const StepPayment: React.FC<StepPaymentProps> = ({
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white/90 border-2 border-gray-200 p-6 rounded-lg">
             <h3 className="font-medium text-lg mb-4 text-charcoal">
-              Payment Method
+              {t("menu.steps.paymentMethod")}
             </h3>
             <div className="flex gap-4">
               <button
@@ -55,7 +57,9 @@ const StepPayment: React.FC<StepPaymentProps> = ({
                 }`}
               >
                 <FaRegCreditCard size={28} />
-                <span className="text-sm font-semibold">Credit/Debit</span>
+                <span className="text-sm font-semibold">
+                  {t("menu.steps.credit")}
+                </span>
               </button>
               <button
                 onClick={() => setPaymentMethod("mada")}
@@ -66,7 +70,9 @@ const StepPayment: React.FC<StepPaymentProps> = ({
                 }`}
               >
                 <FaCcVisa size={28} />
-                <span className="text-sm font-semibold">Mada</span>
+                <span className="text-sm font-semibold">
+                  {t("menu.steps.mada")}
+                </span>
               </button>
               <button
                 onClick={() => setPaymentMethod("apple")}
@@ -77,19 +83,21 @@ const StepPayment: React.FC<StepPaymentProps> = ({
                 }`}
               >
                 <FaApple size={28} />
-                <span className="text-sm font-semibold">Apple Pay</span>
+                <span className="text-sm font-semibold">
+                  {t("menu.steps.apple")}
+                </span>
               </button>
             </div>
           </div>
 
           <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
             <h4 className="font-medium mb-6 text-charcoal text-lg">
-              Card Details
+              {t("menu.steps.cardDetails")}
             </h4>
             <div className="space-y-5">
               <div>
                 <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  Card Number
+                  {t("menu.steps.cardNumber")}
                 </label>
                 <div className="relative">
                   <input
@@ -105,7 +113,7 @@ const StepPayment: React.FC<StepPaymentProps> = ({
               </div>
               <div>
                 <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  Cardholder Name
+                  {t("menu.steps.cardHolder")}
                 </label>
                 <input
                   type="text"
@@ -116,7 +124,7 @@ const StepPayment: React.FC<StepPaymentProps> = ({
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                    Expiry Date
+                    {t("menu.steps.expiry")}
                   </label>
                   <input
                     type="text"
@@ -126,7 +134,7 @@ const StepPayment: React.FC<StepPaymentProps> = ({
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                    CVV
+                    {t("menu.steps.cvv")}
                   </label>
                   <input
                     type="text"
@@ -138,31 +146,31 @@ const StepPayment: React.FC<StepPaymentProps> = ({
             </div>
             <div className="mt-8 flex items-center gap-3 text-xs text-gray-500 bg-gray-50 p-3 rounded-lg border border-gray-100">
               <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 animate-pulse"></div>
-              Your payment information is secure and encrypted.
+              {t("menu.steps.secure")}
             </div>
           </div>
 
           <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-3 shadow-sm">
             <CheckCircle2 size={24} className="text-blue-500 mt-0.5" />
             <p className="text-sm text-gray-600 leading-relaxed">
-              No refunds are applicable. Once an order is confirmed, the payment
-              is non-refundable. All payments must be made via PayTabs. No other
-              payment methods are accepted.
+              {t("menu.steps.refundPolicy")}
             </p>
           </div>
         </div>
 
         {/* Order Summary */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 h-fit sticky top-6 shadow-lg shadow-gray-100/50">
-          <h3 className=" text-2xl mb-6 text-charcoal">Order Summary</h3>
+          <h3 className=" text-2xl mb-6 text-charcoal">
+            {t("menu.steps.orderSummary")}
+          </h3>
           <div className="space-y-4">
             <div className="pb-6 border-b border-gray-100">
               <h4 className="font-semibold text-sm text-charcoal mb-3 uppercase tracking-wide">
-                Buffet Menu
+                {t("menu.steps.buffetMenu")}
               </h4>
               <div className="text-sm text-gray-500 space-y-2">
                 <p className="flex justify-between">
-                  <span>Date:</span>
+                  <span>{t("menu.steps.date")}</span>
                   <span className="font-medium text-gray-700">
                     {selectedDate
                       ? format(selectedDate, "dd/MM/yyyy")
@@ -170,18 +178,18 @@ const StepPayment: React.FC<StepPaymentProps> = ({
                   </span>
                 </p>
                 <p className="flex justify-between">
-                  <span>Time:</span>
+                  <span>{t("menu.steps.time")}</span>
                   <span className="font-medium text-gray-700">
                     {selectedTime || "Not selected"}
                   </span>
                 </p>
                 <p className="flex justify-between">
-                  <span>Guests:</span>
+                  <span>{t("menu.steps.guests")}</span>
                   <span className="font-medium text-gray-700">20</span>
                 </p>
               </div>
               <div className="flex justify-between mt-4 text-sm text-gray-600 bg-gray-50 p-2 rounded">
-                <span>Price per person:</span>
+                <span>{t("menu.steps.pricePerPerson")}</span>
                 <span className="font-medium">45 SAR</span>
               </div>
               <div className="flex justify-between px-2 pt-2 text-sm text-gray-800 font-medium">
@@ -192,27 +200,29 @@ const StepPayment: React.FC<StepPaymentProps> = ({
 
             <div className="pb-6 border-b border-gray-100 space-y-3">
               <div className="flex justify-between text-sm text-gray-600">
-                <span>Subtotal</span>
+                <span>{t("menu.steps.subtotal")}</span>
                 <span>{900 + subtotal} SAR</span>
               </div>
               <div className="flex justify-between text-sm text-gray-600">
-                <span>VAT (15%)</span>
+                <span>{t("menu.steps.vat")}</span>
                 <span>{((900 + subtotal) * 0.15).toFixed(2)} SAR</span>
               </div>
               <div className="flex justify-between text-sm text-green-500 font-bold">
-                <span>Delivery</span>
-                <span>Free</span>
+                <span>{t("menu.steps.deliveryLabel")}</span>
+                <span>{t("menu.steps.free")}</span>
               </div>
             </div>
 
             <div className="flex justify-between items-end pt-2">
-              <span className=" text-xl text-charcoal">Total</span>
+              <span className=" text-xl text-charcoal">
+                {t("menu.steps.total")}
+              </span>
               <div className="text-right">
                 <span className="font-bold text-2xl text-[#B34545] block">
                   {(900 + subtotal * 1.15).toFixed(2)} SAR
                 </span>
                 <span className="text-xs text-gray-400 font-light">
-                  Inclusive of VAT
+                  {t("menu.steps.inclusiveVat")}
                 </span>
               </div>
             </div>
@@ -221,7 +231,7 @@ const StepPayment: React.FC<StepPaymentProps> = ({
               onClick={onComplete}
               className="w-full py-4 bg-green-500 text-white rounded-lg font-medium hover:bg-[#14452F] hover:shadow-lg hover:shadow-green-500/20 transition-all mt-6 text-lg"
             >
-              Complete Payment
+              {t("menu.steps.completePayment")}
             </button>
           </div>
         </div>
