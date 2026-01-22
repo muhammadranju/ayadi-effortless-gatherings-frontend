@@ -1,6 +1,7 @@
 import React from "react";
-import { Info, MapPin } from "lucide-react";
+import { Info, Map, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import MapModal from "@/components/pages/home/buildYourMenu/steps/MapModal";
 
 interface DeliveryDetails {
   street: string;
@@ -21,6 +22,24 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
   setDeliveryDetails,
 }) => {
   const { t } = useTranslation();
+  const [isMapOpen, setIsMapOpen] = React.useState(false);
+
+  const handleMapConfirm = (
+    lat: number,
+    lng: number,
+    city: string,
+    area: string,
+    street: string,
+  ) => {
+    setDeliveryDetails({
+      ...deliveryDetails,
+      city,
+      area,
+      street,
+    });
+    setIsMapOpen(false);
+  };
+
   return (
     <div className="mx-auto px-6 md:px-12 py-10">
       <h1 className=" text-3xl md:text-5xl text-center mb-4 text-charcoal">
@@ -59,7 +78,12 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
                 placeholder={t("menu.steps.streetPlaceholder")}
               />
               <MapPin
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-green-500 transition-colors"
+                className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-800 group-focus-within:text-green-500 transition-colors "
+                size={20}
+              />
+              <Map
+                onClick={() => setIsMapOpen(true)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer"
                 size={20}
               />
             </div>
@@ -164,6 +188,12 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
           </div>
         </div>
       </div>
+
+      <MapModal
+        isOpen={isMapOpen}
+        onClose={() => setIsMapOpen(false)}
+        onConfirm={handleMapConfirm}
+      />
     </div>
   );
 };
