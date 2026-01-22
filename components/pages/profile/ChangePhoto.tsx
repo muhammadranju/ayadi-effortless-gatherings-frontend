@@ -96,10 +96,13 @@ export default function ChangePhoto() {
     <>
       <BackButton />
       <Card className="w-full pb-12 max-w-xl mx-auto shadow-[2px_4px_4px_rgba(0,0,0,0.1)] border-0">
-        <LogoComponent
-          title="Change Photo"
-          paragraph="Tech Advantage Admin Access"
-        />
+        <div className="flex flex-col items-center pt-8 pb-2">
+          <LogoComponent path="/logo/logo.png" />
+          <h1 className="text-2xl font-bold mt-4 text-center">Change Photo</h1>
+          <p className="text-gray-500 mt-2 text-center">
+            Tech Advantage Admin Access
+          </p>
+        </div>
 
         <div className="w-full max-w-md mx-auto">
           <h2 className="text-lg font-medium text-center mb-2">
