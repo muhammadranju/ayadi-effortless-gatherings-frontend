@@ -197,10 +197,10 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
             />
           </div>
 
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start gap-3">
+          <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start gap-1">
             <Info size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
             <p className="text-xs text-blue-700 leading-relaxed">
-              {t("menu.steps.deliveryNote")}
+              🚚{t("menu.steps.deliveryNote")}
             </p>
           </div>
         </div>
