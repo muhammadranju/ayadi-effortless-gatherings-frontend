@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { ResetPasswordPage } from "./ResetPasswordPage";
 export const metadata: Metadata = {
   title: "Reset Password - TechAdvantage",
   description: "Reset Password",
@@ -19,7 +20,11 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  return <div>Reset Password</div>;
+  return (
+    <>
+      <ResetPasswordPage />
+    </>
+  );
 };
 
 export default page;

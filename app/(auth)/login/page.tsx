@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { LoginPage } from "./LoginPage";
 export const metadata: Metadata = {
   title: "Login - TechAdvantage",
   description: "Login",
@@ -18,7 +19,11 @@ export const metadata: Metadata = {
   },
 };
 const page = () => {
-  return <div>Login</div>;
+  return (
+    <>
+      <LoginPage />
+    </>
+  );
 };
 
 export default page;

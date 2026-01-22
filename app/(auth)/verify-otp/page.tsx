@@ -1,5 +1,5 @@
-import VerifyOTP from "@/components/pages/auth/VerifyOTP";
 import { Metadata } from "next";
+import { VerifyOtpPage } from "./VerifyOtpPage";
 
 export const metadata: Metadata = {
   title: "Verify OTP - TechAdvantage",
@@ -21,7 +21,11 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  return <div>Verify OTP</div>;
+  return (
+    <>
+      <VerifyOtpPage />
+    </>
+  );
 };
 
 export default page;

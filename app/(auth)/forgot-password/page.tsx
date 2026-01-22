@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { ForgotPasswordPage } from "./ForgotPasswordPage";
 
 export const metadata: Metadata = {
   title: "Forgot Password - TechAdvantage",
@@ -21,11 +22,9 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div>
-      <h1 className="uppercase text-4xl font-semibold tracking-[10px] text-center">
-        Forgot Password
-      </h1>
-    </div>
+    <>
+      <ForgotPasswordPage />
+    </>
   );
 };
 
