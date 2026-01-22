@@ -124,7 +124,153 @@
       "signatures": "الأطباق المميزة",
       "signaturesSubtitle": "اختر 2 من الأطباق الرئيسية",
       "addons": "إضافات",
-      "addonsSubtitle": "اختر ما يصل إلى 6 إضافات اختيارية"
+      "addonsSubtitle": "اختر ما يصل إلى 6 إضافات اختيارية",
+      "dateTimeTitle": "اختر التاريخ والوقت",
+      "dateTimeSubtitle": "اختر تاريخ ووقت التوصيل المفضل لديك",
+      "dateTimeNotice": "يرجى الحجز قبل 24 ساعة على الأقل. يتم التوصيل من 9:00 صباحًا إلى 8:00 مساءً.",
+      "deliveryTime": "وقت التوصيل",
+      "selectedSlot": "الوقت المختار:",
+      "date": "التاريخ:",
+      "time": "الوقت:",
+      "deliveryTitle": "عنوان التوصيل",
+      "deliverySubtitle": "أين نُسلم طلبك وكم عدد الضيوف؟",
+      "deliveryInfo": "معلومات التوصيل",
+      "street": "عنوان الشارع *",
+      "streetPlaceholder": "رقم المبنى، اسم الشارع",
+      "city": "المدينة *",
+      "cityPlaceholder": "مثال: الرياض",
+      "area": "الحي *",
+      "areaPlaceholder": "مثال: الملقا",
+      "whatsapp": "رقم واتساب *",
+      "whatsappPlaceholder": "أدخل رقم واتساب",
+      "email": "البريد الإلكتروني *",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
+      "note": "ملاحظة",
+      "notePlaceholder": "مثال: رمز البوابة، تعليمات خاصة",
+      "deliveryNote": "التوصيل مجاني داخل حدود المدينة. قد تُطبق رسوم إضافية للمناطق البعيدة.",
+      "paymentTitle": "الدفع",
+      "paymentSubtitle": "راجع طلبك وأكمل عملية الدفع",
+      "paymentMethod": "طريقة الدفع",
+      "credit": "بطاقة ائتمان / خصم",
+      "mada": "مدى",
+      "apple": "Apple Pay",
+      "cardDetails": "تفاصيل البطاقة",
+      "cardNumber": "رقم البطاقة",
+      "cardHolder": "اسم حامل البطاقة",
+      "expiry": "تاريخ الانتهاء",
+      "cvv": "CVV",
+      "secure": "معلومات الدفع الخاصة بك آمنة ومشفّرة.",
+      "refundPolicy": "لا يوجد استرجاع للمبالغ. بعد تأكيد الطلب، يصبح الدفع غير قابل للاسترداد. جميع المدفوعات تتم عبر PayTabs فقط، ولا تُقبل أي طرق دفع أخرى.",
+      "orderSummary": "ملخص الطلب",
+      "buffetMenu": "قائمة البوفيه",
+      "guests": "الضيوف:",
+      "pricePerPerson": "السعر للفرد:",
+      "subtotal": "المجموع الفرعي",
+      "vat": "ضريبة القيمة المضافة (15%)",
+      "deliveryLabel": "التوصيل",
+      "free": "مجاني",
+      "total": "الإجمالي",
+      "inclusiveVat": "شامل ضريبة القيمة المضافة",
+      "completePayment": "إتمام الدفع",
+      "successTitle": "تم تأكيد طلبك!",
+      "successDesc": "شكرًا لاختيارك أيادي لتجربة استضافة بلا توتر. نعتني بكل طلب بدقة، من التحضير إلى التوصيل، لتستمتع باللحظات حول مائدتك.",
+      "backToHome": "العودة إلى الرئيسية"
+    },
+    "items": {
+      "salads": {
+        "s1": {
+          "name": "Dates & Fig Salad",
+          "desc": "Mixed greens with dates, dried figs, and crunchy almonds, with a vinaigrette dressing"
+        },
+        "s2": {
+          "name": "Watermelon Feta Salad",
+          "desc": "Arugula with watermelon and crumbled feta, with a habaq citrus dressing."
+        },
+        "s3": {
+          "name": "Crunchy Chickpea Salad",
+          "desc": "Iceberg lettuce topped with crunchy chickpeas, with a tahina-caesar dressing."
+        },
+        "s4": {
+          "name": "Charred Corn Salad",
+          "desc": "Baby spinach with charred corn, parmesan, toasted peanuts, basil-infused dressing"
+        }
+      },
+      "classics": {
+        "c1": {
+          "name": "Kubaibat Hail",
+          "desc": "Vine leaves pockets stuffed with spiced Saudi rice."
+        },
+        "c2": {
+          "name": "Spinach & Cheese Pockets",
+          "desc": "Flaky pastry stuffed with spinach and cheese."
+        },
+        "c3": {
+          "name": "Farmouza",
+          "desc": "Flaky pastry stuffed with minced beef and onions."
+        },
+        "c4": {
+          "name": "Shish Barak",
+          "desc": "Minced meat dumplings in a yogurt garlic sauce."
+        },
+        "c5": {
+          "name": "Creamy Mashed Potatoes",
+          "desc": "Smooth and buttery mashed potatoes"
+        },
+        "c6": {
+          "name": "Korean Chicken Drumsticks",
+          "desc": "Fried chicken drumsticks coated in a Korean-style chili sauce topped with sesame"
+        }
+      },
+      "signatures": {
+        "m1": {
+          "name": "Ayadi Signature Shrimp",
+          "desc": "Shrimp cooked in a tahina dill sauce and pickled onions."
+        },
+        "m2": {
+          "name": "Timman Vegetable",
+          "desc": "Temman rice with butternut squash, zucchini, and eggplants."
+        },
+        "m3": {
+          "name": "Chicken Saleeg",
+          "desc": "Creamy saleeg with chicken."
+        },
+        "m4": {
+          "name": "Lamb Qursan",
+          "desc": "Layers of zucchini, carrot, green beans, pumpkin."
+        },
+        "m5": {
+          "name": "Seabass Kozbariya",
+          "desc": "Seabass fillet in a coriander tomato sauce."
+        },
+        "m6": {
+          "name": "Lasagna",
+          "desc": "Lasagna with minced beef, tomato sauce, and béchamel"
+        },
+        "m7": {
+          "name": "Tuscan Chicken",
+          "desc": "Creamy chicken with mushroom, spinach, and cherry tomato confit"
+        },
+        "m8": {
+          "name": "Braised Beef",
+          "desc": "Braised beef with caramelized onion reduction & thyme jus"
+        },
+        "m9": {
+          "name": "Pesto Orzo",
+          "desc": "Orzo pasta tossed with basil pesto and parmesan"
+        },
+        "m10": {
+          "name": "Seared Seabass",
+          "desc": "Seared seabass fillet with a lemon butter sauce and cherry tomatoes"
+        }
+      },
+      "addons": {
+        "a1": "White Rice",
+        "a2": "Grilled Vegetables",
+        "a3": "Sauces",
+        "a4": "Salad",
+        "a5": "Classic",
+        "a6": "Main Dish"
+      }
     }
   },
   "packages": {
@@ -142,6 +288,14 @@
       "more": "+2 إضافات"
     }
   },
-
-  "footer": {}
+  "footer": {
+    "paragraph": "تجلب أيادي دفء وكرم الضيافة السعودية الحديثة إلى منزلك، بأسلوب سهل، جميل، ومليء بالعناية.",
+    "contact": "اتصل بنا",
+    "quickLinks": "روابط سريعة",
+    "about": "من نحن",
+    "menu": "القائمة",
+    "gallery": "المعرض",
+    "address": "جدة، المملكة العربية السعودية",
+    "copyright": "أيادي. جميع الحقوق محفوظة."
+  }
 }

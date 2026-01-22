@@ -107,6 +107,7 @@
       }
     }
   },
+
   "menu": {
     "title": "Build Your Menu",
     "subtitle": "Gatherings by Ayadi serves up to 10 guests. Select your perfect combination.",
@@ -115,7 +116,12 @@
     "totalAddons": "Total Add-ons",
     "back": "Back",
     "next": "Next",
+    "error": "Please complete the selection",
     "steps": {
+      "menuSelection": "Menu Selection",
+      "delivery": "Delivery Details",
+      "dateTime": "Date & Time",
+      "payment": "Payment",
       "salad": "Salad",
       "saladSubtitle": "Select 1 salad",
       "classics": "Classics",
@@ -123,7 +129,153 @@
       "signatures": "Signature Items",
       "signaturesSubtitle": "Select 2 main courses",
       "addons": "Add ons",
-      "addonsSubtitle": "Select up to 6 optional extras"
+      "addonsSubtitle": "Select up to 6 optional extras",
+      "dateTimeTitle": "Select Date & Time",
+      "dateTimeSubtitle": "Choose your preferred delivery date and time",
+      "dateTimeNotice": "Please book at least 24 hours in advance. We deliver between 9:00 AM and 8:00 PM.",
+      "deliveryTime": "Delivery Time",
+      "selectedSlot": "Your Selected Slot:",
+      "date": "Date:",
+      "time": "Time:",
+      "deliveryTitle": "Delivery Address",
+      "deliverySubtitle": "Where should we deliver your order and how many guests will be attending?",
+      "deliveryInfo": "Delivery Information",
+      "street": "Street Address *",
+      "streetPlaceholder": "Building number, street name",
+      "city": "City *",
+      "cityPlaceholder": "e.g., Riyadh",
+      "area": "Area *",
+      "areaPlaceholder": "e.g., Al Malqa",
+      "whatsapp": "Whats-app Number *",
+      "whatsappPlaceholder": "Enter whats-app number",
+      "email": "Email *",
+      "emailPlaceholder": "Enter your email",
+      "note": "Note",
+      "notePlaceholder": "e.g., Gate code, Special instructions",
+      "deliveryNote": "Free delivery within city limits. Additional charges may apply for remote areas.",
+      "paymentTitle": "Payment",
+      "paymentSubtitle": "Review your order and complete payment",
+      "paymentMethod": "Payment Method",
+      "credit": "Credit/Debit",
+      "mada": "Mada",
+      "apple": "Apple Pay",
+      "cardDetails": "Card Details",
+      "cardNumber": "Card Number",
+      "cardHolder": "Cardholder Name",
+      "expiry": "Expiry Date",
+      "cvv": "CVV",
+      "secure": "Your payment information is secure and encrypted.",
+      "refundPolicy": "No refunds are applicable. Once an order is confirmed, the payment is non-refundable. All payments must be made via PayTabs. No other payment methods are accepted.",
+      "orderSummary": "Order Summary",
+      "buffetMenu": "Buffet Menu",
+      "guests": "Guests:",
+      "pricePerPerson": "Price per person:",
+      "subtotal": "Subtotal",
+      "vat": "VAT (15%)",
+      "deliveryLabel": "Delivery",
+      "free": "Free",
+      "total": "Total",
+      "inclusiveVat": "Inclusive of VAT",
+      "completePayment": "Complete Payment",
+      "successTitle": "Your Order is Confirmed!",
+      "successDesc": "Thank you for choosing Ayadi for your stress-free hosting experience. We handle every order with attention to detail, from preparation to delivery, so you can enjoy the moments around your table.",
+      "backToHome": "Back to Home"
+    },
+    "items": {
+      "salads": {
+        "s1": {
+          "name": "Dates & Fig Salad",
+          "desc": "Mixed greens with dates, dried figs, and crunchy almonds, with a vinaigrette dressing"
+        },
+        "s2": {
+          "name": "Watermelon Feta Salad",
+          "desc": "Arugula with watermelon and crumbled feta, with a habaq citrus dressing."
+        },
+        "s3": {
+          "name": "Crunchy Chickpea Salad",
+          "desc": "Iceberg lettuce topped with crunchy chickpeas, with a tahina-caesar dressing."
+        },
+        "s4": {
+          "name": "Charred Corn Salad",
+          "desc": "Baby spinach with charred corn, parmesan, toasted peanuts, basil-infused dressing"
+        }
+      },
+      "classics": {
+        "c1": {
+          "name": "Kubaibat Hail",
+          "desc": "Vine leaves pockets stuffed with spiced Saudi rice."
+        },
+        "c2": {
+          "name": "Spinach & Cheese Pockets",
+          "desc": "Flaky pastry stuffed with spinach and cheese."
+        },
+        "c3": {
+          "name": "Farmouza",
+          "desc": "Flaky pastry stuffed with minced beef and onions."
+        },
+        "c4": {
+          "name": "Shish Barak",
+          "desc": "Minced meat dumplings in a yogurt garlic sauce."
+        },
+        "c5": {
+          "name": "Creamy Mashed Potatoes",
+          "desc": "Smooth and buttery mashed potatoes"
+        },
+        "c6": {
+          "name": "Korean Chicken Drumsticks",
+          "desc": "Fried chicken drumsticks coated in a Korean-style chili sauce topped with sesame"
+        }
+      },
+      "signatures": {
+        "m1": {
+          "name": "Ayadi Signature Shrimp",
+          "desc": "Shrimp cooked in a tahina dill sauce and pickled onions."
+        },
+        "m2": {
+          "name": "Timman Vegetable",
+          "desc": "Temman rice with butternut squash, zucchini, and eggplants."
+        },
+        "m3": {
+          "name": "Chicken Saleeg",
+          "desc": "Creamy saleeg with chicken."
+        },
+        "m4": {
+          "name": "Lamb Qursan",
+          "desc": "Layers of zucchini, carrot, green beans, pumpkin."
+        },
+        "m5": {
+          "name": "Seabass Kozbariya",
+          "desc": "Seabass fillet in a coriander tomato sauce."
+        },
+        "m6": {
+          "name": "Lasagna",
+          "desc": "Lasagna with minced beef, tomato sauce, and béchamel"
+        },
+        "m7": {
+          "name": "Tuscan Chicken",
+          "desc": "Creamy chicken with mushroom, spinach, and cherry tomato confit"
+        },
+        "m8": {
+          "name": "Braised Beef",
+          "desc": "Braised beef with caramelized onion reduction & thyme jus"
+        },
+        "m9": {
+          "name": "Pesto Orzo",
+          "desc": "Orzo pasta tossed with basil pesto and parmesan"
+        },
+        "m10": {
+          "name": "Seared Seabass",
+          "desc": "Seared seabass fillet with a lemon butter sauce and cherry tomatoes"
+        }
+      },
+      "addons": {
+        "a1": "White Rice",
+        "a2": "Grilled Vegetables",
+        "a3": "Sauces",
+        "a4": "Salad",
+        "a5": "Classic",
+        "a6": "Main Dish"
+      }
     }
   },
   "packages": {
@@ -140,5 +292,14 @@
       "mainCourses": "Main Courses",
       "more": "+2 more"
     }
+  },
+  "footer": {
+    "paragraph": "Ayadi brings the warmth and generosity of modern Saudi hospitality to your home, effortless, beautiful, and full of care.",
+    "quickLinks": "Quick Links",
+    "about": "About",
+    "menu": "Menu",
+    "gallery": "Gallery",
+    "address": "Jeddah, Saudi Arabia",
+    "copyright": "Ayadi. All Rights Reserved."
   }
 }

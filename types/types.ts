@@ -1,0 +1,80 @@
+import { LucideIcon } from "lucide-react";
+
+export interface NavItem {
+  title: string;
+  icon: LucideIcon;
+  href: string;
+  isActive?: boolean;
+}
+
+export interface StatCardProps {
+  title: string;
+  value: string;
+  trend?: string;
+  trendPositive?: boolean;
+  subtitle?: string;
+  isDark?: boolean;
+  accentColor?: string; // Hex code for the left border
+  actionText?: string;
+}
+
+export interface ChartDataPoint {
+  name: string;
+  value: number;
+}
+
+export interface Order {
+  id: string;
+  customerName: string;
+  isVip: boolean;
+  status: "CONFIRMED" | "IN PROGRESS" | "COMPLETED";
+  date: string;
+  time: string;
+  menu: string;
+  guests: number;
+  amount: string;
+}
+
+export interface MenuPackage {
+  id: string;
+  name: string;
+  arabicName: string;
+  description: string;
+  arabicDescription: string;
+  price: number;
+  image: string;
+  status: "Available" | "Unavailable";
+}
+
+export interface MenuCategory {
+  id: string;
+  name: string;
+  type: string;
+  image: string;
+}
+
+export interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+}
+
+export interface CalendarDay {
+  date: number;
+  status?: "confirmed" | "in-progress" | null;
+  isSelected?: boolean;
+  isCurrentMonth?: boolean;
+}
+
+export interface TimeSlot {
+  id: string;
+  time: string;
+  isSelected?: boolean;
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+}
