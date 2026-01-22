@@ -1,5 +1,11 @@
 "use client";
-import { ADDONS, STEPS } from "@/components/pages/home/buildYourMenu/data";
+import {
+  ADDONS,
+  CLASSICS,
+  SALADS,
+  SIGNATURES,
+  STEPS,
+} from "@/components/pages/home/buildYourMenu/data";
 import Stepper from "@/components/pages/home/buildYourMenu/Stepper";
 import StepDateTime from "@/components/pages/home/buildYourMenu/steps/StepDateTime";
 import StepDelivery from "@/components/pages/home/buildYourMenu/steps/StepDelivery";
@@ -81,7 +87,8 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   };
 
   // Calculations
-  const selectedAddonObjects = ADDONS.filter((addon) =>
+  const allItems = [...ADDONS, ...SALADS, ...CLASSICS, ...SIGNATURES];
+  const selectedAddonObjects = allItems.filter((addon) =>
     selectedAddons.includes(addon.id),
   );
   const subtotal = selectedAddonObjects.reduce(
