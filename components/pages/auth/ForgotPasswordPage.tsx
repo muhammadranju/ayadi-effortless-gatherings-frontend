@@ -93,10 +93,15 @@ export default function ForgotPassword() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-xl mx-auto shadow-[2px_4px_4px_rgba(0,0,0,0.1)] border-0">
         <RedirectIfAuthenticated />
-        <LogoComponent
-          title="Forgot Password"
-          paragraph="Tech Advantage Admin Access"
-        />
+        <div className="flex flex-col items-center pt-8 pb-2">
+          <LogoComponent path="/logo/logo.png" />
+          <h1 className="text-2xl font-bold mt-4 text-center">
+            Forgot Password
+          </h1>
+          <p className="text-gray-500 mt-2 text-center">
+            Tech Advantage Admin Access
+          </p>
+        </div>
         <CardContent className="px-8 pb-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">

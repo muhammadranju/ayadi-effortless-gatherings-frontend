@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
@@ -7,7 +8,7 @@ const BackButton = ({ backText = "Back" }: { backText?: string }) => {
   const router = useRouter();
   return (
     <Button
-      className="m-5 px-4  rounded-full border-b-2 hover:border-black transition-all duration-300 ease-in-out "
+      className="m-5 px-4 bg-white  rounded-full border-b-2 hover:border-black transition-all duration-300 ease-in-out "
       variant="ghost"
       size="sm"
       onClick={() => router.back()}
