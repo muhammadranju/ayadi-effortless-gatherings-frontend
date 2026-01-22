@@ -58,11 +58,11 @@ export const VerifyOtpPage = () => {
         <div className="relative flex flex-col items-center justify-center w-full max-w-7xl px-10">
           <div className="relative z-10 w-full">
             <Image
-              width={1000}
-              height={700}
               src="/bg/login-bg.png"
-              alt="Catering Service Illustration"
-              className="w-full object-cover h-[700px]"
+              alt="Login background"
+              width={1000}
+              height={1000}
+              className="object-cover opacity-90 w-full h-full"
             />
           </div>
         </div>

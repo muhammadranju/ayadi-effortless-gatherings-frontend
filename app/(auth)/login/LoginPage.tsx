@@ -14,10 +14,11 @@ export const LoginPage: React.FC = () => {
           {/* Image Placeholder imitating the 3D illustration */}
           <div className="relative z-10 w-full">
             <Image
-              src="/bg/hero-slider1.png"
+              src="/bg/login-bg.png"
               alt="Login background"
-              fill
-              className="object-cover opacity-90"
+              width={1000}
+              height={1000}
+              className="object-cover opacity-90 w-full h-full"
             />
           </div>
         </div>

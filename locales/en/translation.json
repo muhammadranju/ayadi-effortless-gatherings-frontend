@@ -72,7 +72,8 @@
     "whatsapp": "Whatsapp"
   },
   "faq": {
-    "heroTitle": "You Have Questions, We Have Answers",
+    "heroTitle": "Frequently Asked",
+    "heroTitleSpan": "Questions",
     "heroDesc": "Everything you need to know about our catering from menus to service designed to make your event effortless and memorable.",
     "sectionTitle": "Frequently Asked",
     "sectionTitleSpan": "Question",
