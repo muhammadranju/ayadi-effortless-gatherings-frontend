@@ -6,6 +6,7 @@ export interface MenuItem {
   image?: string;
   category: "salad" | "appetizer" | "main" | "addon" | "starter" | "dessert";
   isVegetarian?: boolean;
+  relatedItems?: MenuItem[];
 }
 
 export interface MenuSectionProps {

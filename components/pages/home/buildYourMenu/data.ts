@@ -172,16 +172,19 @@ const ADDONS: MenuItem[] = [
     id: "a4",
     name: "menu.items.addons.a4",
     category: "addon",
+    relatedItems: SALADS,
   },
   {
     id: "a5",
     name: "menu.items.addons.a5",
     category: "addon",
+    relatedItems: CLASSICS,
   },
   {
     id: "a6",
     name: "menu.items.addons.a6",
     category: "addon",
+    relatedItems: SIGNATURES,
   },
 ];
 
