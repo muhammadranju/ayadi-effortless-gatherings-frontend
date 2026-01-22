@@ -23,10 +23,10 @@ function HomePage() {
             </span>
           </div>
 
-          <div className="lg:container md:max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+          <div className="lg:container md:max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left Content */}
             <div className="space-y-6 pt-10 md:pt-0">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 leading-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-8xl font-semibold text-gray-900 leading-tight">
                 {t("home.heroTitle")}
                 <br />
                 <span className="text-primary italic">
@@ -34,7 +34,7 @@ function HomePage() {
                 </span>
               </h1>
 
-              <p className="text-gray-500 text-lg md:text-xl max-w-md leading-relaxed font-extralight">
+              <p className="text-gray-500 text-lg md:text-2xl max-w-md leading-relaxed font-normal">
                 {t("home.heroSubtitle")}
               </p>
             </div>
