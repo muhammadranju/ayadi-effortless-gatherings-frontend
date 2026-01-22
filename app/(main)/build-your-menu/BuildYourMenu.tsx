@@ -118,12 +118,12 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   };
 
   return (
-    <div className=" min-h-screen pb-40 max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl pb-40 mx-auto">
       {/* Header */}
       {step < 4 && (
-        <div className="pt-10 pb-6 text-center px-4 mx-auto">
+        <div>
           <Stepper steps={STEPS} currentStep={step} />
-          {step === 0 && (
+          {step === 4 && (
             <div className="animate-in fade-in slide-in-from-top-4 duration-700">
               <h1 className=" text-4xl md:text-6xl lg:mt-20 mb-4 text-charcoal">
                 {t("menu.title")}

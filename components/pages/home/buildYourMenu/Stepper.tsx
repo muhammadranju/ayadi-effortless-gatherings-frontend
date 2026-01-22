@@ -17,8 +17,8 @@ const Stepper: React.FC<StepperProps> = ({ steps, currentStep }) => {
     sidePadding + (currentStep / (totalSteps - 1)) * effectiveWidth;
 
   return (
-    <div className="w-full px-2 md:px-0 mb-12 mt-4 relative">
-      <div className="relative w-full">
+    <div className="w-full px-2 md:px-0 mb-12 mt-4 ">
+      <div className="relative w-full ">
         {/* Background Track */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-3 bg-gray-300 rounded-full -z-10" />
 

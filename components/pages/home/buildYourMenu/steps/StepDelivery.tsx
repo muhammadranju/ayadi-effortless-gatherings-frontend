@@ -22,7 +22,7 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="max-w-7xl mx-auto px-6 md:px-12 py-10">
+    <div className="mx-auto px-6 md:px-12 py-10">
       <h1 className=" text-3xl md:text-5xl text-center mb-4 text-charcoal">
         {t("menu.steps.deliveryTitle")}
       </h1>
@@ -31,11 +31,11 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
       </p>
 
       <div className="bg-white border border-gray-100 shadow-xl shadow-gray-100/80 rounded-2xl p-8 md:p-10">
-        <div className="flex items-center gap-3 mb-8 text-green-500 bg-[#FEF2F2] p-4 rounded-xl w-fit">
-          <div className="bg-white p-2 rounded-full shadow-sm">
-            <MapPin size={20} className="text-[#B34545]" />
+        <div className="flex items-center gap-3 mb-8 text-green-500  p-4 rounded-xl w-fit">
+          <div className=" p-2 rounded-full shadow-sm bg-pink-50">
+            <MapPin size={20} className="text-orange-500" />
           </div>
-          <span className="text-[#B34545] font-semibold text-sm tracking-wide">
+          <span className=" text-black font-semibold text-sm tracking-wide">
             {t("menu.steps.deliveryInfo")}
           </span>
         </div>
