@@ -24,9 +24,16 @@ const Hero = () => {
       {/* Centered Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4 pb-16">
         {/* EST Year */}
-        <span className="text-orange-500 text-xs md:text-lg tracking-[0.4em] font-bold uppercase mb-4 md:mb-6 border-b-4 border-orange-500">
+        <span className="text-orange-500 text-xs md:text-lg tracking-[0.4em] font-bold uppercase ">
           {t("about.est")}
         </span>
+        <Image
+          src="/icons/line.png"
+          alt=""
+          width={170}
+          height={100}
+          className=" mb-4 md:mb-6"
+        />
 
         {/* Main Title Group */}
         <div className="relative flex flex-col items-center">

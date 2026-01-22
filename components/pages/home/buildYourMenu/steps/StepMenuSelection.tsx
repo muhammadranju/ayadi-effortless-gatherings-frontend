@@ -107,7 +107,7 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
         CLASSICS,
         selectedAppetizers,
         handleAppetizerSelect,
-        3,
+        2,
       )}
       {renderSection(
         t("menu.steps.signatures"),
@@ -115,7 +115,7 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
         SIGNATURES,
         selectedMains,
         handleMainSelect,
-        2,
+        3,
       )}
       {renderSection(
         t("menu.steps.addons"),

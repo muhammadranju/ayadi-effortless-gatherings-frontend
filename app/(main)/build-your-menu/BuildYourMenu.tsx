@@ -59,7 +59,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   const handleAppetizerSelect = (id: string) => {
     if (selectedAppetizers.includes(id)) {
       setSelectedAppetizers((prev) => prev.filter((item) => item !== id));
-    } else if (selectedAppetizers.length < 3) {
+    } else if (selectedAppetizers.length < 2) {
       setSelectedAppetizers((prev) => [...prev, id]);
     }
   };
@@ -67,7 +67,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   const handleMainSelect = (id: string) => {
     if (selectedMains.includes(id)) {
       setSelectedMains((prev) => prev.filter((item) => item !== id));
-    } else if (selectedMains.length < 2) {
+    } else if (selectedMains.length < 3) {
       setSelectedMains((prev) => [...prev, id]);
     }
   };
@@ -95,8 +95,8 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
     if (step === 0)
       return (
         selectedSalad &&
-        selectedAppetizers.length === 3 &&
-        selectedMains.length === 2
+        selectedAppetizers.length === 2 &&
+        selectedMains.length === 3
       );
     if (step === 1) return selectedDate && selectedTime;
     if (step === 2)
