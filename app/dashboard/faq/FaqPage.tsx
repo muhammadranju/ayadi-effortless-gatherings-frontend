@@ -1,7 +1,12 @@
 import React from "react";
+import { FAQManagement } from "./FAQManagement";
 
 function FaqPage() {
-  return <div>FaqPage</div>;
+  return (
+    <>
+      <FAQManagement />
+    </>
+  );
 }
 
 export default FaqPage;
