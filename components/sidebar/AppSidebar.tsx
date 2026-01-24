@@ -12,6 +12,8 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { logout } from "@/lib/redux/features/auth/authSlice";
+import { useAppDispatch } from "@/lib/redux/hooks";
 import {
   Calendar,
   Home,
@@ -85,11 +87,12 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const router = useRouter();
   const { toggleSidebar } = useSidebar();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  // const handleLogout = React.useCallback(() => {
-  //   dispatch(logout());
-  // }, [dispatch]);
+  const handleLogout = React.useCallback(() => {
+    dispatch(logout());
+    router.push("/");
+  }, [dispatch]);
 
   return (
     <Sidebar {...props} className="text-white flex flex-col z-50 fixed">
@@ -107,8 +110,8 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
             alt="logo"
             blurDataURL="/logo/logo-2.png"
             className=" rounded-md   w-44 object-contain "
-            width={100}
-            height={100}
+            width={800}
+            height={800}
           />
         </div>
       </SidebarHeader>
@@ -139,8 +142,8 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
           Go Home
         </Button>
         <Button
-          // onClick={handleLogout}
-          className="bg-[#3F604F] hover:bg-neutral-700/50 py-6 w-full rounded-lg text-lg text-white"
+          onClick={handleLogout}
+          className="bg-[#3F604F] hover:bg-red-700/50 py-6 w-full rounded-lg text-lg text-white"
         >
           <LogIn className=" h-6 w-6 -mr-1" />
           Logout

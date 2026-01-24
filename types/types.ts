@@ -36,13 +36,17 @@ export interface Order {
 }
 
 export interface MenuPackage {
-  id: string;
-  name: string;
-  arabicName: string;
+  _id: string;
+  platterName: string;
+  platterNameArabic: string;
   description: string;
-  arabicDescription: string;
-  price: number;
+  descriptionArabic: string;
   image: string;
+  items: string[];
+  itemsArabic: string[];
+  price: number;
+  person: number;
+  isAvailable: boolean;
   status: "Available" | "Unavailable";
 }
 
@@ -51,13 +55,21 @@ export interface MenuCategory {
   name: string;
   type: string;
   image: string;
+  nameArabic: string;
 }
 
 export interface MenuItem {
   id: string;
   name: string;
+
+  platterName: string;
+  platterNameArabic: string;
   description: string;
+  descriptionArabic: string;
   image: string;
+  price: number;
+  isAvailable: boolean;
+  person: number;
 }
 
 export interface CalendarDay {
