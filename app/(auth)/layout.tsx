@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Toaster } from "sonner";
 import "../globals.css";
+import StoreProvider from "@/lib/redux/provider";
 
 export const metadata: Metadata = {
   title: "Auth - TechAdvantage",
@@ -29,12 +30,14 @@ export default function AuthLayout({
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen grid place-items-center">
-          <div className="w-full  bg-white ">
-            <Toaster richColors />
-            {children}
+        <StoreProvider>
+          <div className="min-h-screen grid place-items-center">
+            <div className="w-full  bg-white ">
+              <Toaster richColors />
+              {children}
+            </div>
           </div>
-        </div>
+        </StoreProvider>
       </body>
     </html>
   );

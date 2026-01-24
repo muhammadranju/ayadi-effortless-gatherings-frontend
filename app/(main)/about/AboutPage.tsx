@@ -8,14 +8,13 @@ import { Trans, useTranslation } from "react-i18next";
 const Hero = () => {
   const { t } = useTranslation();
   return (
-    <div className="relative w-full h-[60vh] md:h-[95vh] overflow-hidden bg-gray-900">
+    <div className="relative w-full h-[60vh] md:h-[95vh] overflow-hidden">
       {/* Background Image */}
       <Image
         src="/bg/about-hero-2.png"
         alt="Cookies and Recipe Book"
         fill
         className="object-cover object-center"
-        priority
       />
 
       {/* Dark overlay for text readability */}
