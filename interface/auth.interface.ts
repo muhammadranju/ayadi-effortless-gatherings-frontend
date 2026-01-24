@@ -6,6 +6,7 @@ export interface User {
   avatar?: string;
   image?: string;
   username?: string;
+  role?: string;
   data: any;
   user: any;
 }
@@ -49,10 +50,12 @@ export interface ResetPasswordRequest {
 }
 
 export interface LoginResponse {
-  data: string;
+  data: {
+    token: string;
+    user: User;
+  };
   message?: string;
   success?: boolean;
-  role: string;
 }
 
 export interface UserProfileResponse {

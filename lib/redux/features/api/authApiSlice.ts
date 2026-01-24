@@ -23,42 +23,17 @@ export const authApiSlice = apiSlice.injectEndpoints({
         dispatch(setLoading(true));
         try {
           const { data } = await queryFulfilled;
+          const { token, user } = data.data;
 
-          // Store token temporarily
-          const token = data.data;
-
-          // Now fetch user profile with the token
-          const profileResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user/profile`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-
-          if (!profileResponse.ok) {
-            toast.error("Failed to fetch user profile");
-            throw new Error("Failed to fetch user profile");
-          }
-          const profileData = await profileResponse.json();
-
-          if (process.env.NEXT_PUBLIC_ROLE !== profileData?.data?.role) {
-            toast.error("You are not authorized to access this page");
-            throw new Error("You are not authorized to access this page");
-          }
-
-          // Set credentials with both token and user data
+          // Dispatch credentials with user and token from login response
           dispatch(
             setCredentials({
-              user: profileData.user || profileData, // Handle different response structures
+              user: user,
               token: token,
-            })
+            }),
           );
         } catch (error) {
-          dispatch(logout()); // Clear any partial state
-          throw error; // Re-throw to handle in component
+          // dispatch(logout());
         } finally {
           dispatch(setLoading(false));
         }
