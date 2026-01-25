@@ -25,6 +25,7 @@ export interface ChartDataPoint {
 
 export interface Order {
   id: string;
+  _id: string;
   customerName: string;
   isVip: boolean;
   status: "CONFIRMED" | "IN PROGRESS" | "COMPLETED";
@@ -52,6 +53,7 @@ export interface MenuPackage {
 
 export interface MenuCategory {
   id: string;
+  _id: string;
   name: string;
   type: string;
   image: string;
@@ -59,6 +61,7 @@ export interface MenuCategory {
 }
 
 export interface MenuItem {
+  _id: string;
   id: string;
   name: string;
 
@@ -80,12 +83,14 @@ export interface CalendarDay {
 }
 
 export interface TimeSlot {
+  _id: string;
   id: string;
   time: string;
   isSelected?: boolean;
 }
 
 export interface FAQItem {
+  _id: string;
   id: string;
   question: string;
   answer: string;

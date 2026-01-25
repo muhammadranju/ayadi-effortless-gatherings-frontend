@@ -42,7 +42,7 @@ export const ItemsView: React.FC<ItemsViewProps> = ({
           key={item.id}
           className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-all hover:shadow-md"
         >
-          <div className="relative h-40 w-full overflow-hidden rounded-t-lg">
+          <div className="relative h-64 w-full overflow-hidden rounded-t-lg">
             <Image
               src={
                 item.image.startsWith("http")
@@ -78,7 +78,7 @@ export const ItemsView: React.FC<ItemsViewProps> = ({
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
                       className="bg-red-600 hover:bg-red-700 text-white"
-                      onClick={() => onDelete(item.id)}
+                      onClick={() => onDelete(item._id)}
                     >
                       Delete
                     </AlertDialogAction>
@@ -88,10 +88,29 @@ export const ItemsView: React.FC<ItemsViewProps> = ({
             </div>
           </div>
           <div className="p-6">
-            <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
+            <h3 className="text-lg font-medium text-gray-900">
+              {item.platterName}
+            </h3>
+            <h3 className="text-base font-medium text-gray-600 text-right">
+              {item.platterNameArabic}
+            </h3>
             <p className="mt-2 text-sm text-gray-500 leading-relaxed">
               {item.description}
             </p>
+            <p className="mt-2 text-sm text-gray-500 leading-relaxed text-right">
+              {item.descriptionArabic}
+            </p>
+
+            <div className="mt-4 flex items-center justify-between">
+              <span className="text-lg font-semibold text-gray-900">
+                SAR {item.price}
+              </span>
+              <p className="text-sm font-semibold text-gray-900 text-right p-0.5 bg-emerald-100 rounded-full px-2">
+                <span className="text-xs text-emerald-900">
+                  {item.isAvailable ? "Available" : "Not Available"}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       ))}
