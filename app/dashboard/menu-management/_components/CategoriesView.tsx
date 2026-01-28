@@ -29,11 +29,11 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({
 }) => {
   return (
     <>
-      {categoriesList.map((cat) => (
+      {categoriesList?.reverse()?.map((cat) => (
         <div
-          key={cat.id}
+          key={cat._id}
           className="group cursor-pointer overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-all hover:shadow-md"
-          onClick={() => onCategoryClick(cat.id)}
+          onClick={() => onCategoryClick(cat._id)}
         >
           <div className="relative h-64 w-full">
             <Image
@@ -82,7 +82,7 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({
                       className="bg-red-600 hover:bg-red-700 text-white"
                       onClick={(e) => {
                         e.stopPropagation();
-                        onDelete(cat.id);
+                        onDelete(cat._id);
                       }}
                     >
                       Delete

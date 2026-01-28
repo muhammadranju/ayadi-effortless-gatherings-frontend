@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useEffect } from "react";
-import { X, Plus } from "lucide-react";
+import { X, Plus, Loader2 } from "lucide-react";
 import Image from "next/image";
 import {
   useCreateSetPackageMutation,
@@ -21,6 +21,8 @@ interface MenuModalProps {
   onClose: () => void;
   type: "PACKAGE" | "CATEGORY" | "ITEM";
   editingItem?: any;
+  categoryId?: string;
+  refetch?: any;
 }
 
 export const MenuModal: React.FC<MenuModalProps> = ({
@@ -28,6 +30,8 @@ export const MenuModal: React.FC<MenuModalProps> = ({
   onClose,
   type,
   editingItem,
+  categoryId,
+  refetch,
 }) => {
   const [createSetPackage] = useCreateSetPackageMutation();
   const [updateSetPackage] = useUpdateSetPackageMutation();
@@ -52,9 +56,11 @@ export const MenuModal: React.FC<MenuModalProps> = ({
     itemTitleArabic: "",
     itemDescription: "",
     itemDescriptionArabic: "",
+    categoryId: "",
   });
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -81,6 +87,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             itemTitleArabic: "",
             itemDescription: "",
             itemDescriptionArabic: "",
+            categoryId: categoryId || "",
           });
         } else if (type === "CATEGORY") {
           setFormData({
@@ -99,6 +106,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             itemTitleArabic: "",
             itemDescription: "",
             itemDescriptionArabic: "",
+            categoryId: categoryId || "",
           });
         } else if (type === "ITEM") {
           setFormData({
@@ -108,7 +116,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             platterDescriptionArabic: "",
             items: "",
             itemsArabic: "",
-            price: "",
+            price: editingItem.price || "",
             person: "",
             categoryType: "",
             categoryName: "",
@@ -117,6 +125,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             itemTitleArabic: editingItem.platterNameArabic || "",
             itemDescription: editingItem.description || "",
             itemDescriptionArabic: editingItem.descriptionArabic || "",
+            categoryId: categoryId || "",
           });
         }
 
@@ -148,6 +157,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
           itemTitleArabic: "",
           itemDescription: "",
           itemDescriptionArabic: "",
+          categoryId: categoryId || "",
         });
         setFile(null);
         setPreview("");
@@ -179,6 +189,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const data = new FormData();
       if (file) {
@@ -207,8 +218,10 @@ export const MenuModal: React.FC<MenuModalProps> = ({
 
         if (editingItem) {
           await updateSetPackage({ id: editingItem._id, data }).unwrap();
+          if (refetch) refetch();
         } else {
           await createSetPackage(data).unwrap();
+          if (refetch) refetch();
         }
       } else if (type === "CATEGORY") {
         data.append("name", formData.categoryName);
@@ -216,9 +229,11 @@ export const MenuModal: React.FC<MenuModalProps> = ({
         data.append("type", formData.categoryType);
 
         if (editingItem) {
-          await updateCategory({ id: editingItem.id, data }).unwrap();
+          await updateCategory({ id: editingItem._id, data }).unwrap();
+          if (refetch) refetch();
         } else {
           await createCategory(data).unwrap();
+          if (refetch) refetch();
         }
       } else if (type === "ITEM") {
         data.append("name", formData.itemTitle);
@@ -228,16 +243,21 @@ export const MenuModal: React.FC<MenuModalProps> = ({
         data.append("descriptionArabic", formData.itemDescriptionArabic);
         data.append("price", formData.price);
         data.append("isAvailable", "true");
+        data.append("categoryId", formData.categoryId);
 
         if (editingItem) {
-          await updateBuildPackage({ id: editingItem.id, data }).unwrap();
+          await updateBuildPackage({ id: editingItem._id, data }).unwrap();
+          if (refetch) refetch();
         } else {
           await createBuildPackage(data).unwrap();
+          if (refetch) refetch();
         }
       }
       onClose();
     } catch (err) {
       console.error("Failed to save:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -434,41 +454,6 @@ export const MenuModal: React.FC<MenuModalProps> = ({
               <>
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Category Type <span className="text-red-400">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      name="categoryType"
-                      value={formData.categoryType}
-                      onChange={handleChange}
-                      className="w-full appearance-none rounded-md border border-gray-300 bg-white px-4 py-3 text-sm text-gray-400 focus:border-emerald-900 focus:outline-none focus:ring-1 focus:ring-emerald-900"
-                    >
-                      <option value="">Select Category Type</option>
-                      <option value="Salads">Salads</option>
-                      <option value="Main Course">Main Course</option>
-                    </select>
-                    <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-                      <svg
-                        width="12"
-                        height="8"
-                        viewBox="0 0 12 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1 1.5L6 6.5L11 1.5"
-                          stroke="#9CA3AF"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
                     Category Name <span className="text-red-400">*</span>
                   </label>
                   <input
@@ -637,9 +622,10 @@ export const MenuModal: React.FC<MenuModalProps> = ({
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full rounded-md bg-emerald-900 py-3.5 text-base font-medium text-white shadow-sm hover:bg-emerald-900Hover transition-colors"
+              disabled={isLoading}
+              className="w-full flex justify-center items-center rounded-md bg-emerald-900 py-3.5 text-base font-medium text-white shadow-sm hover:bg-emerald-900Hover transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Add
+              {isLoading ? <Loader2 className="animate-spin" /> : "Add"}
             </button>
           </form>
         </div>

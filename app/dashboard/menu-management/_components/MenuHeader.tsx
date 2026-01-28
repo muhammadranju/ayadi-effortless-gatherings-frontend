@@ -1,7 +1,15 @@
 import React from "react";
 import { Search } from "lucide-react";
 
-export const MenuHeader = () => {
+interface MenuHeaderProps {
+  searchValue?: string;
+  onSearchChange?: (value: string) => void;
+}
+
+export const MenuHeader: React.FC<MenuHeaderProps> = ({
+  searchValue,
+  onSearchChange,
+}) => {
   return (
     <>
       <h3 className="text-4xl font-semibold mb-6 border-b border-gray-200">
@@ -17,6 +25,8 @@ export const MenuHeader = () => {
           <input
             type="text"
             placeholder="Search here......."
+            value={searchValue}
+            onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
             className="w-full rounded-lg border border-gray-300 py-3 pl-10 pr-4 text-sm text-gray-700 placeholder-gray-400 focus:border-emerald-900 focus:outline-none focus:ring-1 focus:ring-emerald-900"
           />
         </div>

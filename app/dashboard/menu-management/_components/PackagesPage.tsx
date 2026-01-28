@@ -21,6 +21,7 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
   const [packagesList, setPackagesList] = useState<MenuPackage[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [deleteSetPackage] = useDeleteSetPackageMutation();
   const { data } = useGetSetPackageListQuery(null);
@@ -54,9 +55,13 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
     setIsModalOpen(true);
   };
 
+  const filteredPackages = packagesList.filter((pkg) =>
+    pkg.platterName.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
     <>
-      <MenuHeader />
+      <MenuHeader searchValue={searchTerm} onSearchChange={setSearchTerm} />
 
       <MenuTabs
         activeTab="PACKAGES"
@@ -70,7 +75,7 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <PackagesView
-          packagesList={packagesList}
+          packagesList={filteredPackages}
           onDelete={handleDeletePackage}
           onEdit={handleEdit}
         />

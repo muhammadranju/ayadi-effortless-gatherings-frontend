@@ -23,9 +23,10 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
   const [categoriesList, setCategoriesList] = useState<MenuCategory[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [deleteCategory] = useDeleteCategoryMutation();
-  const { data: categoriesData } = useGetCategoryListQuery(null);
+  const { data: categoriesData, refetch } = useGetCategoryListQuery(null);
 
   useEffect(() => {
     if (categoriesData?.data) {
@@ -56,9 +57,13 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
     setIsModalOpen(true);
   };
 
+  const filteredCategories = categoriesList.filter((category) =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
   return (
     <>
-      <MenuHeader />
+      <MenuHeader searchValue={searchTerm} onSearchChange={setSearchTerm} />
 
       <MenuTabs
         activeTab="BUILD_OWN"
@@ -83,7 +88,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <CategoriesView
-          categoriesList={categoriesList}
+          categoriesList={filteredCategories}
           onCategoryClick={(id) => navigateToItems(id)}
           onDelete={handleDeleteCategory}
           onEdit={handleEdit}
@@ -95,6 +100,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
         onClose={handleCloseModal}
         type="CATEGORY"
         editingItem={editingItem}
+        refetch={refetch}
       />
     </>
   );

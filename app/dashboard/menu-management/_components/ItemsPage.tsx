@@ -25,13 +25,14 @@ export const ItemsPage: React.FC<ItemsPageProps> = ({
   const [itemsList, setItemsList] = useState<MenuItem[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [deleteBuildPackage] = useDeleteBuildPackageMutation();
   const { data: itemsData } = useGetBuildPackageListQuery(
     categoryId ? { category: categoryId } : null,
   );
 
-  console.log(categoryId);
+  // console.log(categoryId);
 
   useEffect(() => {
     if (itemsData?.data) {
@@ -62,9 +63,15 @@ export const ItemsPage: React.FC<ItemsPageProps> = ({
     setIsModalOpen(true);
   };
 
+  const filteredItems = itemsList.filter((item) =>
+    (item.platterName || item.name || "")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase()),
+  );
+
   return (
     <>
-      <MenuHeader />
+      <MenuHeader searchValue={searchTerm} onSearchChange={setSearchTerm} />
 
       <MenuTabs
         activeTab="BUILD_OWN"
@@ -80,7 +87,7 @@ export const ItemsPage: React.FC<ItemsPageProps> = ({
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <ItemsView
-          items={itemsList}
+          items={filteredItems}
           onBack={navigateToCategories}
           onDelete={handleDeleteItem}
           onEdit={handleEdit}
@@ -92,6 +99,7 @@ export const ItemsPage: React.FC<ItemsPageProps> = ({
         onClose={handleCloseModal}
         type="ITEM"
         editingItem={editingItem}
+        categoryId={categoryId || ""}
       />
     </>
   );

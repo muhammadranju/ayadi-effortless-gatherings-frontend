@@ -39,7 +39,7 @@ export const ItemsView: React.FC<ItemsViewProps> = ({
       </div>
       {items.map((item) => (
         <div
-          key={item.id}
+          key={item._id}
           className="overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-all hover:shadow-md"
         >
           <div className="relative h-64 w-full overflow-hidden rounded-t-lg">
