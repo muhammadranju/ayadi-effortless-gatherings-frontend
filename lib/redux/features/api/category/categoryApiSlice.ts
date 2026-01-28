@@ -4,7 +4,7 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCategoryList: builder.query({
       query: () => ({
-        url: `/category`,
+        url: `/category?sortOrder=asc&limit=3`,
       }),
       providesTags: ["Category"],
       // Transform response to handle different response structures

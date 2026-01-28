@@ -7,7 +7,11 @@ export const buildPackageApiSlice = apiSlice.injectEndpoints({
         let queryString = "";
         if (params) {
           const searchParams = new URLSearchParams();
-          if (params.category) searchParams.append("category", params.category);
+          Object.keys(params).forEach((key) => {
+            if (params[key]) {
+              searchParams.append(key, params[key]);
+            }
+          });
           queryString = `?${searchParams.toString()}`;
         }
         return {
