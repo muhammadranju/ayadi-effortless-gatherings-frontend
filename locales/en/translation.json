@@ -120,6 +120,11 @@
     "subtitle": "Gatherings by Ayadi serves up to 10 guests. Select your perfect combination.",
     "selectedAddons": "Selected Add-ons",
     "noAddons": "No add-ons selected",
+    "chooseOption": "Choose option",
+    "selectOption": "Select option",
+    "clickToSelect": "Click to select",
+    "SARprice": "⃁",
+
     "totalAddons": "Total Add-ons",
     "back": "Back",
     "next": "Next",
@@ -308,7 +313,7 @@
   "packages": {
     "title": "Set Packages",
     "subtitle": "Choose from our carefully curated packages, each designed to create unforgettable dining experiences",
-    "guests": "10 guests",
+    "guests": "guests",
     "classicTitle": "Classic Family Feast",
     "classicDesc": "Curated family-style feasts for intimate gatherings",
     "menuIncludes": "Menu includes:",
