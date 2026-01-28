@@ -1,12 +1,19 @@
 export interface MenuItem {
   id: string;
   name: string;
+  nameArabic?: string;
+
   description?: string;
+  descriptionArabic?: string;
   price?: number;
   image?: string;
   category: "salad" | "appetizer" | "main" | "addon" | "starter" | "dessert";
   isVegetarian?: boolean;
   relatedItems?: MenuItem[];
+
+  platterName?: string;
+  platterNameArabic?: string;
+  isAvailable?: boolean;
 }
 
 export interface MenuSectionProps {

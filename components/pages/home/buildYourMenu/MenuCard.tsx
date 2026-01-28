@@ -1,6 +1,6 @@
 import React from "react";
 import { MenuItem } from "./types";
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 
@@ -17,7 +17,9 @@ const MenuCard: React.FC<MenuCardProps> = ({
   onSelect,
   disabled,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const isAribic = i18n.language === "ar";
 
   return (
     <div
@@ -34,7 +36,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
           <Image
             width={1080}
             height={720}
-            src={item.image}
+            src={`${process.env.NEXT_PUBLIC_BASE_SERVER_URL}${item.image}`}
             alt={t(item.name)}
             loading="lazy"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102 rounded"
@@ -51,26 +53,20 @@ const MenuCard: React.FC<MenuCardProps> = ({
       <div className="p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
           <h3 className=" text-lg text-charcoal  leading-tight">
-            {t(item.name)}
-            {item.isVegetarian && (
-              <span className="ml-2 text-xs text-forest font-sans font-bold bg-green-100 px-1.5 py-0.5 rounded-sm">
-                V
-              </span>
-            )}
+            {isAribic ? item.platterNameArabic : item.name}
           </h3>
         </div>
-
         <p className="text-color text-sm font-light leading-relaxed mb-4 flex-grow">
-          {item.description ? t(item.description) : ""}
+          {isAribic ? item.descriptionArabic : item.description}
         </p>
 
         {item.price && (
           <div className="text-forest font-semibold text-sm mb-3">
-            {item.price} SAR
+            {item.price} {t("menu.SARprice")}
           </div>
         )}
 
-        <div className="pt-4 mt-auto border-t border-gray-300">
+        <div className="pt-4 mt-auto border-t border-gray-300 flex justify-between items-center bg-white">
           <span
             className={`text-xs font-bold tracking-wider transition-colors ${
               isSelected
@@ -78,8 +74,20 @@ const MenuCard: React.FC<MenuCardProps> = ({
                 : "text-gray-400 group-hover:text-gray-600"
             }`}
           >
-            {isSelected ? "Selected" : "Click to select"}
+            {item.relatedItems && item.relatedItems.length > 0
+              ? t("menu.chooseOption")
+              : isSelected
+                ? t("menu.selectOption")
+                : t("menu.clickToSelect")}
           </span>
+          {item.relatedItems && item.relatedItems.length > 0 && (
+            <ChevronDown
+              size={16}
+              className={`transition-transform duration-300 text-gray-400 ${
+                isSelected ? "rotate-180" : ""
+              }`}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,12 +1,6 @@
-import {
-  ADDONS,
-  CLASSICS,
-  SALADS,
-  SIGNATURES,
-} from "@/components/pages/home/buildYourMenu/data";
 import MenuCard from "@/components/pages/home/buildYourMenu/MenuCard";
 import { MenuItem } from "@/components/pages/home/buildYourMenu/types";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 interface MenuSectionProps {
@@ -17,6 +11,20 @@ interface MenuSectionProps {
   onSelect: (id: string) => void;
   limit?: number;
 }
+interface StepMenuSelectionProps {
+  selectedSalad: string | null;
+  handleSaladSelect: (id: string) => void;
+  selectedAppetizers: string[];
+  handleAppetizerSelect: (id: string) => void;
+  selectedMains: string[];
+  handleMainSelect: (id: string) => void;
+  selectedAddons: string[];
+  handleAddonSelect: (id: string) => void;
+  salads: MenuItem[];
+  classics: MenuItem[];
+  signatures: MenuItem[];
+  addons: MenuItem[];
+}
 
 const MenuSection: React.FC<MenuSectionProps> = ({
   title,
@@ -26,7 +34,8 @@ const MenuSection: React.FC<MenuSectionProps> = ({
   onSelect,
   limit,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isArabic = i18n.language === "ar";
   // Only used for local toggle state of dropdowns
   const [expandedIds, setExpandedIds] = React.useState<string[]>([]);
 
@@ -135,7 +144,13 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                             isSubDisabled ? "opacity-50 cursor-not-allowed" : ""
                           }`}
                         >
-                          <span className="font-medium">{t(subItem.name)}</span>
+                          <span className="font-medium">
+                            {isArabic
+                              ? subItem.platterNameArabic ||
+                                subItem.nameArabic ||
+                                subItem.name
+                              : t(subItem.name)}
+                          </span>
                           {isSubSelected && (
                             <span className="text-green-600">✓</span>
                           )}
@@ -163,17 +178,6 @@ const MenuSection: React.FC<MenuSectionProps> = ({
   );
 };
 
-interface StepMenuSelectionProps {
-  selectedSalad: string | null;
-  handleSaladSelect: (id: string) => void;
-  selectedAppetizers: string[];
-  handleAppetizerSelect: (id: string) => void;
-  selectedMains: string[];
-  handleMainSelect: (id: string) => void;
-  selectedAddons: string[];
-  handleAddonSelect: (id: string) => void;
-}
-
 const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
   selectedSalad,
   handleSaladSelect,
@@ -183,6 +187,10 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
   handleMainSelect,
   selectedAddons,
   handleAddonSelect,
+  salads,
+  classics,
+  signatures,
+  addons,
 }) => {
   const { t } = useTranslation();
 
@@ -191,7 +199,7 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
       <MenuSection
         title={t("menu.steps.salad")}
         subtitle={t("menu.steps.saladSubtitle")}
-        items={SALADS}
+        items={salads}
         selectedIds={selectedSalad}
         onSelect={handleSaladSelect}
         limit={1}
@@ -199,7 +207,7 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
       <MenuSection
         title={t("menu.steps.classics")}
         subtitle={t("menu.steps.classicsSubtitle")}
-        items={CLASSICS}
+        items={classics}
         selectedIds={selectedAppetizers}
         onSelect={handleAppetizerSelect}
         limit={2}
@@ -207,7 +215,7 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
       <MenuSection
         title={t("menu.steps.signatures")}
         subtitle={t("menu.steps.signaturesSubtitle")}
-        items={SIGNATURES}
+        items={signatures}
         selectedIds={selectedMains}
         onSelect={handleMainSelect}
         limit={3}
@@ -215,7 +223,7 @@ const StepMenuSelection: React.FC<StepMenuSelectionProps> = ({
       <MenuSection
         title={t("menu.steps.addons")}
         subtitle={t("menu.steps.addonsSubtitle")}
-        items={ADDONS}
+        items={addons}
         selectedIds={selectedAddons}
         onSelect={handleAddonSelect}
         limit={6}
