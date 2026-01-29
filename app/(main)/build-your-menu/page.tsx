@@ -12,10 +12,14 @@ interface PageProps {
 async function page(props: PageProps) {
   const searchParams = await props.searchParams;
   const isPackageMode = searchParams?.mode === "package";
+  const packageId =
+    typeof searchParams?.packageId === "string"
+      ? searchParams.packageId
+      : undefined;
 
   return (
     <>
-      <BuildYourMenu isPackageMode={isPackageMode} />
+      <BuildYourMenu isPackageMode={isPackageMode} packageId={packageId} />
     </>
   );
 }

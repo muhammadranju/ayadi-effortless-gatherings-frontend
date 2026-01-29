@@ -10,16 +10,33 @@ import StepPayment from "@/components/pages/home/buildYourMenu/steps/StepPayment
 import StepSuccess from "@/components/pages/home/buildYourMenu/steps/StepSuccess";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useCreateOrderMutation } from "@/lib/redux/features/api/orders/ordersApiSlice";
+import toast from "react-hot-toast";
+
+import { useGetSetPackageListQuery } from "@/lib/redux/features/api/set-package/setPackageApiSlice";
 
 interface BuildYourMenuProps {
   isPackageMode?: boolean;
+  packageId?: string;
 }
 
 const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   isPackageMode = false,
+  packageId,
 }) => {
   const { t } = useTranslation();
   const [step, setStep] = useState(isPackageMode ? 1 : 0);
+
+  // Fetch Set Packages to find the selected one
+  const { data: setPackagesData } = useGetSetPackageListQuery(undefined);
+  const selectedPackage = useMemo(() => {
+    if (!isPackageMode || !packageId || !setPackagesData?.data?.data)
+      return null;
+    return (
+      setPackagesData.data.data.find((pkg: any) => pkg._id === packageId) ||
+      null
+    );
+  }, [isPackageMode, packageId, setPackagesData]);
 
   // Update step if prop changes (though usually initial load matters most)
   useEffect(() => {
@@ -205,18 +222,56 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
     }
   };
 
-  // Calculations
+  // Calculations - Get actual selected items with their prices
+  const selectedSaladObject = useMemo(() => {
+    if (!selectedSalad) return null;
+    return salads.find((item) => item.id === selectedSalad) || null;
+  }, [selectedSalad, salads]);
+
+  const selectedAppetizerObjects = useMemo(() => {
+    return selectedAppetizers
+      .map((id) => classics.find((item) => item.id === id))
+      .filter((item): item is MenuItem => !!item);
+  }, [selectedAppetizers, classics]);
+
+  const selectedMainObjects = useMemo(() => {
+    return selectedMains
+      .map((id) => signatures.find((item) => item.id === id))
+      .filter((item): item is MenuItem => !!item);
+  }, [selectedMains, signatures]);
+
   const selectedAddonObjects = useMemo(() => {
     return selectedAddons
       .map((id) => allItemsForCalculation.find((item) => item.id === id))
       .filter((item): item is MenuItem => !!item);
   }, [selectedAddons, allItemsForCalculation]);
 
-  const subtotal = selectedAddonObjects.reduce(
+  // Calculate prices for Build Your Own mode
+  const saladPrice = selectedSaladObject?.price || 0;
+  const appetizersPrice = selectedAppetizerObjects.reduce(
     (acc, curr) => acc + (curr.price || 0),
     0,
   );
-  const total = subtotal;
+  const mainsPrice = selectedMainObjects.reduce(
+    (acc, curr) => acc + (curr.price || 0),
+    0,
+  );
+  const addonsPrice = selectedAddonObjects.reduce(
+    (acc, curr) => acc + (curr.price || 0),
+    0,
+  );
+
+  // Base price = salad + appetizers + mains (for Build Your Own) OR package price
+  const packagePrice = selectedPackage ? selectedPackage.price : 0;
+  const buildYourOwnBasePrice = isPackageMode
+    ? 0
+    : saladPrice + appetizersPrice + mainsPrice;
+  const basePrice = isPackageMode ? packagePrice : buildYourOwnBasePrice;
+
+  // Total = base price + addons
+  const subtotal = basePrice + addonsPrice;
+  const vat = subtotal * 0.15;
+  const total = subtotal + vat;
 
   // Navigation Logic
   const canGoNext = () => {
@@ -243,6 +298,58 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   };
   const handleBack = () => {
     if (step > (isPackageMode ? 1 : 0)) setStep(step - 1);
+  };
+
+  // ... existing imports ...
+
+  // Inside component:
+  const [createOrder, { isLoading: isSubmitting }] = useCreateOrderMutation();
+
+  // --- NEW: Data Aggregation & Logging ---
+  const handleCompleteBooking = async () => {
+    // 1. Organize selected menu items
+    const bookingData = {
+      orderType: isPackageMode ? "SET_PACKAGE" : "BUILD_YOUR_OWN",
+      // Include selected package details if in package mode
+      selectedPackage: isPackageMode ? selectedPackage : null,
+
+      menuSelection: isPackageMode
+        ? null
+        : {
+            salad: selectedSaladObject,
+            appetizers: selectedAppetizerObjects,
+            mains: selectedMainObjects,
+          },
+      addons: selectedAddons,
+      dateTime: {
+        date: selectedDate,
+        time: selectedTime,
+      },
+      deliveryDetails: deliveryDetails,
+      paymentMethod: paymentMethod,
+      // Pricing Breakdown
+      pricing: {
+        basePrice: basePrice,
+        addonsPrice: addonsPrice,
+        subtotal: subtotal,
+        vat: vat,
+        total: total,
+      },
+    };
+
+    console.group("🛒 Booking Data Aggregated");
+    console.log("Full Booking Payload:", bookingData);
+    console.groupEnd();
+
+    try {
+      await createOrder(bookingData).unwrap();
+      toast.success(t("Order placed successfully!"));
+      // Proceed to Success Step
+      handleNext();
+    } catch (error) {
+      console.error("Failed to create order:", error);
+      toast.error(t("Failed to place order. Please try again."));
+    }
   };
 
   const { i18n } = useTranslation();
@@ -308,7 +415,13 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
             selectedDate={selectedDate}
             selectedTime={selectedTime}
             selectedAddons={selectedAddons}
-            onComplete={handleNext}
+            subtotal={subtotal}
+            vat={vat}
+            total={total}
+            basePrice={basePrice}
+            isPackageMode={isPackageMode}
+            selectedPackage={selectedPackage}
+            onComplete={handleCompleteBooking}
           />
         )}
         {step === 4 && <StepSuccess />}
