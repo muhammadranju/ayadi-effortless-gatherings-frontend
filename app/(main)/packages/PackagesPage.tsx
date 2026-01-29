@@ -133,7 +133,7 @@ const PackagesPage: React.FC = () => {
 
                 {/* Button */}
                 <Link
-                  href="/build-your-menu?mode=package"
+                  href={`/build-your-menu?mode=package&packageId=${packageItem._id}`}
                   className="w-full bg-green-500 hover:bg-green-700 text-white py-3.5 rounded-md font-medium transition-colors flex items-center justify-center gap-2 mt-2"
                 >
                   {t("packages.selectPackage")}
