@@ -1,7 +1,5 @@
-import { ADDONS } from "@/components/pages/home/buildYourMenu/data";
 import { format } from "date-fns";
 import { CheckCircle2, CreditCard } from "lucide-react";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { FaApple, FaCcVisa, FaRegCreditCard } from "react-icons/fa6";
 
@@ -11,7 +9,14 @@ interface StepPaymentProps {
   selectedDate: Date | null;
   selectedTime: string | null;
   selectedAddons: string[];
+  subtotal: number;
+  vat: number;
+  total: number;
+  basePrice: number;
+  isPackageMode?: boolean;
+  selectedPackage?: any;
   onComplete: () => void;
+  isLoading?: boolean;
 }
 
 const StepPayment: React.FC<StepPaymentProps> = ({
@@ -20,16 +25,16 @@ const StepPayment: React.FC<StepPaymentProps> = ({
   selectedDate,
   selectedTime,
   selectedAddons,
+  subtotal,
+  vat,
+  total,
+  basePrice,
+  isPackageMode = false,
+  selectedPackage,
   onComplete,
+  isLoading = false,
 }) => {
   const { t } = useTranslation();
-  const selectedAddonObjects = ADDONS.filter((addon) =>
-    selectedAddons.includes(addon.id),
-  );
-  const subtotal = selectedAddonObjects.reduce(
-    (acc, curr) => acc + (curr.price || 0),
-    0,
-  );
 
   return (
     <div className="max-w-7xl mx-auto py-10">
@@ -166,7 +171,9 @@ const StepPayment: React.FC<StepPaymentProps> = ({
           <div className="space-y-4">
             <div className="pb-6 border-b border-gray-100">
               <h4 className="font-semibold text-sm text-charcoal mb-3 uppercase tracking-wide">
-                {t("menu.steps.buffetMenu")}
+                {isPackageMode && selectedPackage
+                  ? selectedPackage.platterName
+                  : t("menu.steps.buffetMenu")}
               </h4>
               <div className="text-sm text-gray-500 space-y-2">
                 <p className="flex justify-between">
@@ -183,29 +190,31 @@ const StepPayment: React.FC<StepPaymentProps> = ({
                     {selectedTime || "Not selected"}
                   </span>
                 </p>
-                <p className="flex justify-between">
-                  <span>{t("menu.steps.guests")}</span>
-                  <span className="font-medium text-gray-700">20</span>
-                </p>
+                {isPackageMode && selectedPackage && (
+                  <p className="flex justify-between">
+                    <span>{t("menu.steps.guests")}</span>
+                    <span className="font-medium text-gray-700">
+                      {selectedPackage.person}
+                    </span>
+                  </p>
+                )}
               </div>
-              <div className="flex justify-between mt-4 text-sm text-gray-600 bg-gray-50 p-2 rounded">
-                <span>{t("menu.steps.pricePerPerson")}</span>
-                <span className="font-medium">45 SAR</span>
-              </div>
-              <div className="flex justify-between px-2 pt-2 text-sm text-gray-800 font-medium">
-                <span>20 guests × 45 SAR</span>
-                <span>900 SAR</span>
+              <div className="flex justify-between px-2 pt-4 mt-4 text-sm text-gray-800 font-medium border-t border-gray-100">
+                <span>
+                  {isPackageMode ? "Package Price" : "Menu Base Price"}
+                </span>
+                <span>{basePrice.toFixed(2)} SAR</span>
               </div>
             </div>
 
             <div className="pb-6 border-b border-gray-100 space-y-3">
               <div className="flex justify-between text-sm text-gray-600">
                 <span>{t("menu.steps.subtotal")}</span>
-                <span>{900 + subtotal} SAR</span>
+                <span>{subtotal.toFixed(2)} SAR</span>
               </div>
               <div className="flex justify-between text-sm text-gray-600">
-                <span>{t("menu.steps.vat")}</span>
-                <span>{((900 + subtotal) * 0.15).toFixed(2)} SAR</span>
+                <span>{t("menu.steps.vat")} (15%)</span>
+                <span>{vat.toFixed(2)} SAR</span>
               </div>
               <div className="flex justify-between text-sm text-green-500 font-bold">
                 <span>{t("menu.steps.deliveryLabel")}</span>
@@ -219,7 +228,7 @@ const StepPayment: React.FC<StepPaymentProps> = ({
               </span>
               <div className="text-right">
                 <span className="font-bold text-2xl text-[#B34545] block">
-                  {(900 + subtotal * 1.15).toFixed(2)} SAR
+                  {total.toFixed(2)} SAR
                 </span>
                 <span className="text-xs text-gray-400 font-light">
                   {t("menu.steps.inclusiveVat")}
@@ -229,9 +238,21 @@ const StepPayment: React.FC<StepPaymentProps> = ({
 
             <button
               onClick={onComplete}
-              className="w-full py-4 bg-green-500 text-white rounded-lg font-medium hover:bg-[#14452F] hover:shadow-lg hover:shadow-green-500/20 transition-all mt-6 text-lg"
+              disabled={isLoading}
+              className={`w-full py-4 rounded-lg font-medium transition-all mt-6 text-lg flex justify-center items-center gap-2 ${
+                isLoading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-500 text-white hover:bg-[#14452F] hover:shadow-lg hover:shadow-green-500/20"
+              }`}
             >
-              {t("menu.steps.completePayment")}
+              {isLoading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                t("menu.steps.completePayment")
+              )}
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import MenuCard from "@/components/pages/home/buildYourMenu/MenuCard";
 import { MenuItem } from "@/components/pages/home/buildYourMenu/types";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 interface MenuSectionProps {
@@ -81,10 +81,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({
             ? selectedIds.includes(item.id)
             : selectedIds === item.id;
 
-          const isDisabled =
-            limit && Array.isArray(selectedIds)
+          const isDisabled = limit
+            ? Array.isArray(selectedIds)
               ? selectedIds.length >= limit && !isSelected
-              : false;
+              : selectedIds !== null && !isSelected
+            : false;
 
           // If it has related items, we just show the card as a "folder"
           // Clicking it toggles the dropdown, NOT selection of the folder itself
@@ -123,10 +124,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({
                         ? selectedIds.includes(subItem.id)
                         : selectedIds === subItem.id;
 
-                      const isSubDisabled =
-                        limit && Array.isArray(selectedIds)
+                      const isSubDisabled = limit
+                        ? Array.isArray(selectedIds)
                           ? selectedIds.length >= limit && !isSubSelected
-                          : false;
+                          : selectedIds !== null && !isSubSelected
+                        : false;
 
                       return (
                         <button

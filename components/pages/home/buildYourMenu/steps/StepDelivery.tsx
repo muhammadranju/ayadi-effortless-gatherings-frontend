@@ -148,7 +148,7 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
               {t("menu.steps.whatsapp")}
             </label>
             <input
-              type="text"
+              type="number"
               value={deliveryDetails.whatsapp}
               onChange={(e) =>
                 setDeliveryDetails({

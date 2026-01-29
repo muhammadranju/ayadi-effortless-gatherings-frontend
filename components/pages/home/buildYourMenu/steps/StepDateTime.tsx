@@ -1,6 +1,5 @@
 import { TIME_SLOTS } from "@/components/pages/home/buildYourMenu/data";
 import {
-  addMonths,
   eachDayOfInterval,
   endOfMonth,
   endOfWeek,
@@ -9,11 +8,15 @@ import {
   isSameMonth,
   startOfMonth,
   startOfWeek,
-  subMonths,
+  addDays,
 } from "date-fns";
-import { ChevronLeft, ChevronRight, Clock } from "lucide-react";
-import React from "react";
+import { Clock, AlertCircle } from "lucide-react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  useGetBlockedDatesQuery,
+  useGetAvailableTimeSlotsQuery,
+} from "@/lib/redux/features/api/deliverySlots/deliverySlotsApiSlice";
 
 interface StepDateTimeProps {
   selectedDate: Date | null;
@@ -33,8 +36,60 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
   setCurrentMonth,
 }) => {
   const { t } = useTranslation();
+
+  // Fetch blocked dates for the next 60 days
+  const startDate = format(new Date(), "yyyy-MM-dd");
+  const endDate = format(addDays(new Date(), 60), "yyyy-MM-dd");
+
+  const { data: blockedDatesData, isLoading: isLoadingBlockedDates } =
+    useGetBlockedDatesQuery({
+      startDate,
+      endDate,
+    });
+
+  // Fetch available time slots for selected date
+  const { data: availableTimeSlotsData, isLoading: isLoadingTimeSlots } =
+    useGetAvailableTimeSlotsQuery(
+      {
+        date: selectedDate ? format(selectedDate, "yyyy-MM-dd") : "",
+      },
+      {
+        skip: !selectedDate, // Only fetch when date is selected
+      },
+    );
+
+  const blockedDates = useMemo(
+    () => blockedDatesData?.data?.blockedDates || [],
+    [blockedDatesData],
+  );
+
+  const availableTimeSlots = useMemo(
+    () => availableTimeSlotsData?.data?.available || [],
+    [availableTimeSlotsData],
+  );
+
+  // Check if a date is blocked
+  const isDateBlocked = (date: Date) => {
+    const dateStr = format(date, "yyyy-MM-dd");
+    return blockedDates.includes(dateStr);
+  };
+
+  // Check if date is in the past
+  const isDateInPast = (date: Date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  };
+
+  // Reset selected time when date changes
+  useEffect(() => {
+    setSelectedTime(null);
+  }, [selectedDate, setSelectedTime]);
+
   const renderCalendar = () => {
-    const monthStart = startOfMonth(currentMonth);
+    // Only show current month - no navigation allowed
+    const today = new Date();
+    const monthStart = startOfMonth(today);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
@@ -44,22 +99,11 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
 
     return (
       <div className="p-4 bg-white rounded-lg select-none">
-        <div className="flex items-center justify-between mb-8 px-2">
-          <button
-            onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
-            className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-md hover:bg-gray-50 transition-colors text-gray-600"
-          >
-            <ChevronLeft size={16} />
-          </button>
+        <div className="flex items-center justify-center mb-8 px-2">
+          {/* No month navigation - only current month allowed */}
           <span className=" text-xl text-charcoal font-medium">
-            {format(currentMonth, "MMMM yyyy")}
+            {format(new Date(), "MMMM yyyy")}
           </span>
-          <button
-            onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
-            className="w-8 h-8 flex items-center justify-center border border-gray-200 rounded-md hover:bg-gray-50 transition-colors text-gray-600"
-          >
-            <ChevronRight size={16} />
-          </button>
         </div>
         <div className="grid grid-cols-7 text-center gap-y-6 text-sm text-gray-400 mb-4 font-medium">
           {weekDays.map((day) => (
@@ -69,18 +113,24 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
         <div className="grid grid-cols-7 gap-y-2">
           {dateRange.map((day, idx) => {
             const isSelected = selectedDate && isSameDay(day, selectedDate);
-            const isCurrentMonth = isSameMonth(day, currentMonth);
+            const today = new Date();
+            const isCurrentMonth = isSameMonth(day, today);
+            const isBlocked = isDateBlocked(day);
+            const isPast = isDateInPast(day);
+            const isDisabled = !isCurrentMonth || isBlocked || isPast;
+
             return (
               <div
                 key={idx}
-                onClick={() => isCurrentMonth && setSelectedDate(day)}
+                onClick={() => !isDisabled && setSelectedDate(day)}
                 className={`
                   text-center text-sm cursor-pointer rounded-full transition-all w-10 h-10 flex items-center justify-center mx-auto
                   ${
-                    !isCurrentMonth
-                      ? "text-gray-300 pointer-events-none"
+                    isDisabled
+                      ? "text-gray-300 pointer-events-none opacity-50"
                       : "text-charcoal hover:bg-gray-100"
                   }
+                  ${isBlocked && isCurrentMonth ? "bg-red-50 line-through" : ""}
                   ${
                     isSelected
                       ? "!bg-green-500 font-semibold !text-white shadow-md transform scale-105"
@@ -93,9 +143,36 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
             );
           })}
         </div>
+
+        {/* Loading indicator */}
+        {isLoadingBlockedDates && (
+          <div className="text-center mt-4 text-xs text-gray-500">
+            Loading availability...
+          </div>
+        )}
       </div>
     );
   };
+
+  // Convert available time slots from backend format to display format
+  const displayTimeSlots = useMemo(() => {
+    if (!selectedDate || isLoadingTimeSlots) {
+      return TIME_SLOTS; // Show default slots while loading
+    }
+
+    // If we have available slots from backend, use them
+    if (availableTimeSlots.length > 0) {
+      return availableTimeSlots;
+    }
+
+    // If selected date is blocked or no slots available, return empty array
+    if (isDateBlocked(selectedDate)) {
+      return [];
+    }
+
+    // Otherwise show default time slots
+    return TIME_SLOTS;
+  }, [selectedDate, availableTimeSlots, isLoadingTimeSlots]);
 
   return (
     <div className="mx-auto px-6 md:px-12 py-10">
@@ -122,21 +199,65 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
           <Clock size={20} className="text-green-500" />{" "}
           {t("menu.steps.deliveryTime")}
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {TIME_SLOTS.map((slot) => (
-            <button
-              key={slot}
-              onClick={() => setSelectedTime(slot)}
-              className={`py-4 px-4 rounded-lg text-sm border transition-all duration-200 ${
-                selectedTime === slot
-                  ? "bg-[#E6FAF2] border-green-500 text-green-500 font-semibold shadow-sm"
-                  : "bg-white border-gray-200 text-gray-600 hover:border-green-500/50 hover:bg-gray-50"
-              }`}
-            >
-              {slot}
-            </button>
-          ))}
-        </div>
+
+        {/* Loading state for time slots */}
+        {isLoadingTimeSlots && selectedDate && (
+          <div className="text-center py-8 text-gray-500">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mb-2"></div>
+            <p className="text-sm">Loading available time slots...</p>
+          </div>
+        )}
+
+        {/* No slots available message */}
+        {!isLoadingTimeSlots &&
+          selectedDate &&
+          displayTimeSlots.length === 0 && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 flex items-start gap-3">
+              <AlertCircle
+                className="text-yellow-600 flex-shrink-0 mt-0.5"
+                size={20}
+              />
+              <div>
+                <p className="text-sm font-semibold text-yellow-800 mb-1">
+                  No Available Time Slots
+                </p>
+                <p className="text-xs text-yellow-700">
+                  Sorry, there are no delivery time slots available for{" "}
+                  {format(selectedDate, "MMMM d, yyyy")}. Please select a
+                  different date.
+                </p>
+              </div>
+            </div>
+          )}
+
+        {/* Time slots grid */}
+        {!isLoadingTimeSlots && displayTimeSlots.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {displayTimeSlots.map((slot) => (
+              <button
+                key={slot}
+                onClick={() => setSelectedTime(slot)}
+                className={`py-4 px-4 rounded-lg text-sm border transition-all duration-200 ${
+                  selectedTime === slot
+                    ? "bg-[#E6FAF2] border-green-500 text-green-500 font-semibold shadow-sm"
+                    : "bg-white border-gray-200 text-gray-600 hover:border-green-500/50 hover:bg-gray-50"
+                }`}
+              >
+                {slot}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Show message when no date is selected */}
+        {!selectedDate && (
+          <div className="text-center py-8 text-gray-400">
+            <Clock size={32} className="mx-auto mb-2 opacity-50" />
+            <p className="text-sm">
+              Please select a date to view available time slots
+            </p>
+          </div>
+        )}
       </div>
 
       {selectedDate && selectedTime && (
