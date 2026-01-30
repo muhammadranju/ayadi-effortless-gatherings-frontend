@@ -47,9 +47,11 @@ const MenuSection: React.FC<MenuSectionProps> = ({
 
   return (
     <div className="mb-16">
-      <h2 className=" text-3xl md:text-4xl text-charcoal mb-2">{title}</h2>
+      <h2 className=" text-3xl md:text-4xl text-charcoal font-semibold mb-2">
+        {title}
+      </h2>
       <div className="flex flex-col gap-2 mb-6">
-        <p className="text-gray-500 font-light text-lg">{subtitle}</p>
+        <p className="text-gray-500 font-normal text-lg">{subtitle}</p>
         {limit && (
           <div className="flex gap-2">
             {Array.from({ length: limit }).map((_, i) => {

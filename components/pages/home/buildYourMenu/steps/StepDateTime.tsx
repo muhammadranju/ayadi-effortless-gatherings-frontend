@@ -1,22 +1,27 @@
 import { TIME_SLOTS } from "@/components/pages/home/buildYourMenu/data";
 import {
+  useGetAvailableTimeSlotsQuery,
+  useGetBlockedDatesQuery,
+} from "@/lib/redux/features/api/deliverySlots/deliverySlotsApiSlice";
+import { isOrderAllowedForDate } from "@/lib/utils/orderStorage";
+import {
+  addDays,
+  addHours,
   eachDayOfInterval,
   endOfMonth,
   endOfWeek,
   format,
+  isAfter,
   isSameDay,
   isSameMonth,
+  parse,
   startOfMonth,
   startOfWeek,
-  addDays,
 } from "date-fns";
-import { Clock, AlertCircle } from "lucide-react";
-import React, { useEffect, useState, useMemo } from "react";
+import { AlertCircle, Clock } from "lucide-react";
+import React, { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  useGetBlockedDatesQuery,
-  useGetAvailableTimeSlotsQuery,
-} from "@/lib/redux/features/api/deliverySlots/deliverySlotsApiSlice";
+import { toast } from "sonner";
 
 interface StepDateTimeProps {
   selectedDate: Date | null;
@@ -68,6 +73,11 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
     [availableTimeSlotsData],
   );
 
+  const blockedTimeSlots = useMemo(
+    () => availableTimeSlotsData?.data?.blocked || [],
+    [availableTimeSlotsData],
+  );
+
   // Check if a date is blocked
   const isDateBlocked = (date: Date) => {
     const dateStr = format(date, "yyyy-MM-dd");
@@ -79,6 +89,24 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     return date < today;
+  };
+
+  const handleDateSelect = (date: Date) => {
+    const dateStr = format(date, "yyyy-MM-dd");
+
+    // Check for same-day reorder restriction
+    const { allowed, remainingMinutes } = isOrderAllowedForDate(dateStr);
+
+    if (!allowed && remainingMinutes) {
+      const hours = Math.floor(remainingMinutes / 60);
+      const mins = remainingMinutes % 60;
+      toast.error(
+        `You cannot place another order for this date yet. Please wait ${hours}h ${mins}m.`,
+      );
+      return;
+    }
+
+    setSelectedDate(date);
   };
 
   // Reset selected time when date changes
@@ -120,15 +148,19 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
             const isDisabled = !isCurrentMonth || isBlocked || isPast;
 
             return (
-              <div
+              <button
                 key={idx}
-                onClick={() => !isDisabled && setSelectedDate(day)}
+                type="button"
+                onClick={() => !isDisabled && handleDateSelect(day)}
+                disabled={isDisabled}
+                aria-label={format(day, "PPP")}
+                aria-pressed={!!isSelected}
                 className={`
-                  text-center text-sm cursor-pointer rounded-full transition-all w-10 h-10 flex items-center justify-center mx-auto
+                  text-center text-sm rounded-full transition-all w-10 h-10 flex items-center justify-center mx-auto
                   ${
                     isDisabled
-                      ? "text-gray-300 pointer-events-none opacity-50"
-                      : "text-charcoal hover:bg-gray-100"
+                      ? "text-gray-300 cursor-not-allowed opacity-50"
+                      : "text-charcoal cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
                   }
                   ${isBlocked && isCurrentMonth ? "bg-red-50 line-through" : ""}
                   ${
@@ -139,7 +171,7 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
                 `}
               >
                 {format(day, "d")}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -154,25 +186,62 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
     );
   };
 
+  // Check if a specific time slot is restricted (5-hour gap or blocked by admin)
+  const isTimeSlotRestricted = (timeSlot: string) => {
+    // 1. Check if blocked by admin
+    if (blockedTimeSlots.includes(timeSlot)) {
+      return { restricted: true, reason: "Blocked by admin" };
+    }
+
+    if (!selectedDate) return { restricted: false };
+
+    // 2. Check 5-hour gap rule
+    try {
+      const now = new Date();
+      // Parse the time slot (e.g. "09:00 AM")
+      const slotDate = parse(timeSlot, "hh:mm a", selectedDate);
+
+      // If parsing fails or invalid date, don't restrict (fallback)
+      if (!slotDate || isNaN(slotDate.getTime())) return { restricted: false };
+
+      // Calculate the minimum allowed time (now + 5 hours)
+      const minAllowedTime = addHours(now, 5);
+
+      if (isAfter(minAllowedTime, slotDate)) {
+        return {
+          restricted: true,
+          reason: "Must be at least 5 hours from now",
+        };
+      }
+    } catch (error) {
+      console.error("Error parsing time slot:", error);
+    }
+
+    return { restricted: false };
+  };
+
   // Convert available time slots from backend format to display format
   const displayTimeSlots = useMemo(() => {
     if (!selectedDate || isLoadingTimeSlots) {
       return TIME_SLOTS; // Show default slots while loading
     }
 
-    // If we have available slots from backend, use them
-    if (availableTimeSlots.length > 0) {
-      return availableTimeSlots;
+    // If we have specific available slots from backend, use them
+    // Note: The backend might return available slots that are already filtered by admin rules
+    // But we still need to apply the 5-hour gap rule on the frontend
+    if (availableTimeSlotsData?.data) {
+      // If available array is provided, use it. If empty, it means no slots.
+      return availableTimeSlotsData.data.available || [];
     }
 
-    // If selected date is blocked or no slots available, return empty array
+    // If selected date is blocked
     if (isDateBlocked(selectedDate)) {
       return [];
     }
 
     // Otherwise show default time slots
     return TIME_SLOTS;
-  }, [selectedDate, availableTimeSlots, isLoadingTimeSlots]);
+  }, [selectedDate, availableTimeSlotsData, isLoadingTimeSlots]);
 
   return (
     <div className="mx-auto px-6 md:px-12 py-10">
@@ -233,19 +302,37 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
         {/* Time slots grid */}
         {!isLoadingTimeSlots && displayTimeSlots.length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {displayTimeSlots.map((slot) => (
-              <button
-                key={slot}
-                onClick={() => setSelectedTime(slot)}
-                className={`py-4 px-4 rounded-lg text-sm border transition-all duration-200 ${
-                  selectedTime === slot
-                    ? "bg-[#E6FAF2] border-green-500 text-green-500 font-semibold shadow-sm"
-                    : "bg-white border-gray-200 text-gray-600 hover:border-green-500/50 hover:bg-gray-50"
-                }`}
-              >
-                {slot}
-              </button>
-            ))}
+            {displayTimeSlots.map((slot) => {
+              const { restricted, reason } = isTimeSlotRestricted(slot);
+
+              return (
+                <button
+                  key={slot}
+                  disabled={restricted}
+                  onClick={() => setSelectedTime(slot)}
+                  title={restricted ? reason : undefined}
+                  className={`py-4 px-4 rounded-lg text-sm border transition-all duration-200 
+                    ${
+                      restricted
+                        ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed decoration-slice"
+                        : selectedTime === slot
+                          ? "bg-[#E6FAF2] border-green-500 text-green-500 font-semibold shadow-sm"
+                          : "bg-white border-gray-200 text-gray-600 hover:border-green-500/50 hover:bg-gray-50"
+                    }`}
+                >
+                  <div className="flex flex-col items-center">
+                    <span>{slot}</span>
+                    {restricted && (
+                      <span className="text-[10px] mt-1 text-red-400 font-normal">
+                        {reason === "Blocked by admin"
+                          ? "Unavailable"
+                          : "Too soon"}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         )}
 

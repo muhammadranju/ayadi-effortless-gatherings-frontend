@@ -19,16 +19,26 @@ const MenuCard: React.FC<MenuCardProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
 
-  const isAribic = i18n.language === "ar";
+  const isArabic = i18n.language === "ar";
 
   return (
     <div
       onClick={() => !disabled && onSelect()}
+      onKeyDown={(e) => {
+        if (!disabled && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      aria-pressed={isSelected}
+      aria-disabled={disabled}
       className={`group relative flex flex-col bg-white rounded-lg overflow-hidden transition-all duration-300 cursor-pointer border ${
         isSelected
           ? "border-forest ring-1 ring-forest shadow-md"
           : "border-gray-200 hover:shadow-lg"
-      } ${disabled && !isSelected ? "opacity-50 cursor-not-allowed" : ""}`}
+      } ${disabled && !isSelected ? "opacity-50 cursor-not-allowed" : "focus:outline-none focus:ring-2 focus:ring-forest focus:ring-offset-2"}`}
     >
       {/* Image Container */}
       {item.image && (
@@ -52,12 +62,12 @@ const MenuCard: React.FC<MenuCardProps> = ({
       {/* Content */}
       <div className="p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
-          <h3 className=" text-lg text-charcoal  leading-tight">
-            {isAribic ? item.platterNameArabic : item.name}
+          <h3 className=" text-lg text-charcoal font-medium leading-tight">
+            {isArabic ? item.platterNameArabic : item.name}
           </h3>
         </div>
-        <p className="text-color text-sm font-light leading-relaxed mb-4 flex-grow">
-          {isAribic ? item.descriptionArabic : item.description}
+        <p className="text-color text-sm font-normal leading-relaxed  mb-4 flex-grow">
+          {isArabic ? item.descriptionArabic : item.description}
         </p>
 
         {item.price && (

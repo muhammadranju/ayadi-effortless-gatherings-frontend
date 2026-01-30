@@ -62,11 +62,15 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
 
         <div className="space-y-6">
           <div>
-            <label className="block text-sm font-semibold text-charcoal mb-2">
+            <label 
+              htmlFor="street-input"
+              className="block text-sm font-semibold text-charcoal mb-2"
+            >
               {t("menu.steps.street")}
             </label>
             <div className="relative group">
               <input
+                id="street-input"
                 type="text"
                 value={deliveryDetails.street}
                 onChange={(e) =>
@@ -83,24 +87,32 @@ const StepDelivery: React.FC<StepDeliveryProps> = ({
                   <MapPin
                     className="absolute left-12 top-1/2 -translate-y-1/2 text-gray-800 group-focus-within:text-green-500 transition-colors "
                     size={20}
+                    aria-hidden="true"
                   />
-                  <Map
+                  <button
                     onClick={() => setIsMapOpen(true)}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer"
-                    size={20}
-                  />
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 rounded-full p-1"
+                    aria-label="Open Map"
+                    type="button"
+                  >
+                    <Map size={20} />
+                  </button>
                 </>
               ) : (
                 <>
                   <MapPin
                     className="absolute right-12 top-1/2 -translate-y-1/2 text-gray-800 group-focus-within:text-green-500 transition-colors "
                     size={20}
+                    aria-hidden="true"
                   />
-                  <Map
+                  <button
                     onClick={() => setIsMapOpen(true)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer"
-                    size={20}
-                  />
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-800 hover:text-green-500 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 rounded-full p-1"
+                    aria-label="Open Map"
+                    type="button"
+                  >
+                    <Map size={20} />
+                  </button>
                 </>
               )}
             </div>
