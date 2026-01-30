@@ -7,7 +7,6 @@ import {
   VerifyOTPRequest,
 } from "@/interface/auth.interface";
 
-import toast from "react-hot-toast";
 import { logout, setCredentials, setLoading } from "../auth/authSlice";
 import { apiSlice } from "./apiSlice";
 
@@ -42,7 +41,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
     getUserProfile: builder.query<UserProfileResponse, void>({
       query: () => ({
-        url: `${process.env.NEXT_PUBLIC_API_URL}/user/profile`,
+        url: "/user/profile",
         headers: {
           "Content-Type": "application/json",
         },
