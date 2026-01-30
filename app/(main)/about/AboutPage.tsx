@@ -63,7 +63,7 @@ const OurStory = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
         {/* Text Content */}
         <div className="order-2 lg:order-1 flex flex-col justify-center space-y-6">
-          <span className="uppercase text-xs tracking-[0.2em] text-gray-500 font-bold mt-4 lg:mt-0">
+          <span className="uppercase text-xs tracking-[0.2em] text-green font-bold mt-4 lg:mt-0">
             {t("about.storyLabel")}
           </span>
 
