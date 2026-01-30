@@ -44,7 +44,7 @@ const MainHeader: React.FC = () => {
   return (
     <>
       <header className="backdrop-blur-lg bg-[#F2EEE6]/80 py-2 px-6 md:px-12 lg:px-20 sticky top-0 z-40 border-b border-orange-100">
-        <div className="lg:container md:max-w-7xl mx-auto flex justify-between items-center">
+        <div className="lg:max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
             <LogoComponent path="/logo/logo.png" />

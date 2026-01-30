@@ -9,7 +9,7 @@ const MainFooter: React.FC = () => {
   const { t } = useTranslation();
   return (
     <footer className="bg-orange-500 text-white pt-12 pb-8 md:pt-20">
-      <div className="container mx-auto px-4 md:px-6 md:max-w-7xl lg:container">
+      <div className="mx-auto px-4 md:px-6 lg:max-w-7xl ">
         <div className="flex flex-col lg:flex-row justify-between flex-wrap lg:gap-20 gap-10  md:gap-12 mb-8 md:mb-10">
           {/* Brand Column */}
           <div className="space-y-4 md:space-y-6">
