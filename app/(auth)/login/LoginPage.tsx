@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { EyeOff, Lock } from "lucide-react";
+import { Eye, EyeOff, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useLoginMutation } from "@/lib/redux/features/api/authApiSlice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import Cookies from "js-cookie";
+import { Input } from "@/components/ui/input";
 
 export const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -76,11 +77,18 @@ export const LoginPage: React.FC = () => {
       if (result?.data?.user?.role === process.env.NEXT_PUBLIC_ROLE) {
         window.location.href = "/dashboard/overview";
         // router.refresh();
-        toast.success("Login successful");
+        toast.success("Login successful", {
+          description: "Welcome to the dashboard",
+        });
       }
     } catch (error: any) {
-      if (error?.status === 400) {
-        toast.error(error?.data?.message);
+      if (
+        error?.data?.message === "Password is incorrect!" ||
+        error?.data?.message === "User doesn't exist!"
+      ) {
+        toast.error("Invalid credentials email or password", {
+          description: "Please try again later",
+        });
         dispatch(logout());
       }
     }
@@ -137,12 +145,14 @@ export const LoginPage: React.FC = () => {
                 Email
               </label>
               <div className="relative">
-                <input
+                <Input
                   type="email"
                   value={email}
                   onChange={handleEmailChange}
                   placeholder="Enter your email"
-                  className="w-full rounded-md border border-gray-300 px-4 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:border-sidebar focus:outline-none focus:ring-1 focus:ring-sidebar transition-shadow"
+                  className={`h-12 bg-neutral-50 border-neutral-200 focus:bg-white rounded-xl ${
+                    emailError ? "border-red-500 focus:border-red-500" : ""
+                  }`}
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-200">
                   <Lock size={20} strokeWidth={1.5} />
@@ -158,19 +168,25 @@ export const LoginPage: React.FC = () => {
                 Password
               </label>
               <div className="relative">
-                <input
-                  type="password"
+                <Input
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="Enter Password"
-                  className="w-full rounded-md border border-gray-300 px-4 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:border-sidebar focus:outline-none focus:ring-1 focus:ring-sidebar transition-shadow"
+                  className={`h-12 bg-neutral-50 border-neutral-200 focus:bg-white rounded-xl ${
+                    emailError ? "border-red-500 focus:border-red-500" : ""
+                  }`}
                 />
                 <button
                   onClick={togglePasswordVisibility}
                   type="button"
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-200 hover:text-gray-400"
                 >
-                  <EyeOff size={20} strokeWidth={1.5} />
+                  {showPassword ? (
+                    <Eye size={20} strokeWidth={1.5} />
+                  ) : (
+                    <EyeOff size={20} strokeWidth={1.5} />
+                  )}
                 </button>
               </div>
               {passwordError && (

@@ -2,21 +2,21 @@ import { Metadata } from "next";
 import { ForgotPasswordPage } from "./ForgotPasswordPage";
 
 export const metadata: Metadata = {
-  title: "Forgot Password - TechAdvantage",
+  title: "Forgot Password - Ayadi Catering",
   description: "Forgot Password",
   openGraph: {
-    title: "Forgot Password - TechAdvantage",
+    title: "Forgot Password - Ayadi Catering",
     description: "Forgot Password",
-    url: "https://www.techadvantage.com/auth/forgot-password",
+    url: "https://www.ayadicatering.com/auth/forgot-password",
     images: [
       {
-        url: "https://www.techadvantage.com/images/auth/forgot-password.png",
+        url: "https://www.ayadicatering.com/images/auth/forgot-password.png",
         width: 1200,
         height: 630,
         alt: "Forgot Password",
       },
     ],
-    siteName: "TechAdvantage",
+    siteName: "Ayadi Catering",
   },
 };
 
