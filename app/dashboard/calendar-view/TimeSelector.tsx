@@ -22,14 +22,18 @@ const DEFAULT_TIME_SLOTS = [
 
 interface TimeSelectorProps {
   selectedDate: Date | null;
-  selectedTimeSlots: string[];
-  setSelectedTimeSlots: (slots: string[]) => void;
+  startTime: string;
+  endTime: string;
+  setStartTime: (time: string) => void;
+  setEndTime: (time: string) => void;
 }
 
 export const TimeSelector: React.FC<TimeSelectorProps> = ({
   selectedDate,
-  selectedTimeSlots,
-  setSelectedTimeSlots,
+  startTime,
+  endTime,
+  setStartTime,
+  setEndTime,
 }) => {
   const { data: deliverySlots } = useGetAllDeliverySlotsQuery({
     startDate: format(new Date(), "yyyy-MM-dd"),
@@ -52,13 +56,19 @@ export const TimeSelector: React.FC<TimeSelectorProps> = ({
 
   const timeSlots = getTimeSlotsForSelectedDate();
 
-  const toggleTimeSlot = (slotStr: string) => {
-    setSelectedTimeSlots(
-      selectedTimeSlots.includes(slotStr)
-        ? selectedTimeSlots.filter((s) => s !== slotStr)
-        : [...selectedTimeSlots, slotStr],
-    );
+  // Helper to check if a slot is within the selected range
+  const isSlotSelected = (slotStart: string, slotEnd: string) => {
+    if (!startTime || !endTime) return false;
+    return slotStart >= startTime && slotEnd <= endTime;
   };
+
+  // Generate options for dropdowns
+  const timeOptions = Array.from(
+    new Set([
+      ...DEFAULT_TIME_SLOTS.map((s) => s.startTime),
+      ...DEFAULT_TIME_SLOTS.map((s) => s.endTime),
+    ]),
+  ).sort();
 
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
@@ -76,39 +86,87 @@ export const TimeSelector: React.FC<TimeSelectorProps> = ({
           <p className="text-sm text-gray-600 mb-4">
             Selected Date: {format(selectedDate, "EEEE, MMMM d, yyyy")}
           </p>
+
+          {/* Range Selection Controls */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 p-4 bg-gray-50 rounded-lg">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Start Time
+              </label>
+              <select
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                className="w-full rounded-md border border-gray-300 p-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+              >
+                <option value="">Select Start Time</option>
+                {timeOptions.map((time) => (
+                  <option key={`start-${time}`} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                End Time
+              </label>
+              <select
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                className="w-full rounded-md border border-gray-300 p-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+              >
+                <option value="">Select End Time</option>
+                {timeOptions.map((time) => (
+                  <option key={`end-${time}`} value={time}>
+                    {time}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Visual Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {timeSlots.map((slot, idx) => {
               const slotStr = `${slot.startTime} - ${slot.endTime}`;
               const isBlocked = Boolean("isBlocked" in slot && slot.isBlocked);
-              const isSelected = selectedTimeSlots.includes(slotStr);
+              const isSelected = isSlotSelected(slot.startTime, slot.endTime);
+
+              let buttonClass =
+                "py-3 px-2 rounded border text-sm font-medium transition-all duration-200 cursor-default";
+
+              if (isBlocked) {
+                buttonClass +=
+                  " border-red-300 bg-red-50 text-red-500 line-through";
+              } else if (isSelected) {
+                buttonClass +=
+                  " border-orange-500 bg-orange-50 text-orange-700 ring-1 ring-orange-500";
+              } else {
+                buttonClass += " border-gray-200 text-gray-600 bg-white";
+              }
 
               return (
-                <button
-                  key={idx}
-                  onClick={() => !isBlocked && toggleTimeSlot(slotStr)}
-                  disabled={isBlocked}
-                  className={`
-                    py-3 px-2 rounded border text-sm font-medium transition-all duration-200
-                    ${
-                      isBlocked
-                        ? "border-red-300 bg-red-50 text-red-500 cursor-not-allowed line-through"
-                        : isSelected
-                          ? "border-orange-600 bg-orange-100 text-orange-700 shadow-sm ring-1 ring-orange-600"
-                          : "border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
-                    }
-                  `}
-                >
+                <div key={idx} className={buttonClass}>
                   {slotStr}
-                  {isBlocked && " (Blocked)"}
-                </button>
+                </div>
               );
             })}
           </div>
-          {selectedTimeSlots.length > 0 && (
-            <p className="text-sm text-gray-600 mt-4">
-              {selectedTimeSlots.length} slot(s) selected for blocking
-            </p>
-          )}
+
+          <div className="mt-4 flex gap-4 text-xs text-gray-500 justify-end">
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded bg-red-50 border border-red-300"></div>
+              <span>Blocked</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded bg-orange-50 border border-orange-500"></div>
+              <span>Selected</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded bg-white border border-gray-200"></div>
+              <span>Available</span>
+            </div>
+          </div>
         </>
       )}
     </div>

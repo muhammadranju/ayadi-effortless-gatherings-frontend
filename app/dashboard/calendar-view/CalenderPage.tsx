@@ -16,7 +16,8 @@ import { Loader2 } from "lucide-react";
 
 function CalenderPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
   const [blockReason, setBlockReason] = useState("");
 
   // Mutations
@@ -54,28 +55,26 @@ function CalenderPage() {
       return;
     }
 
-    if (selectedTimeSlots.length === 0) {
-      toast.error("Please select time slots to block");
+    if (!startTime || !endTime) {
+      toast.error("Please select both start and end times");
       return;
     }
-
-    const timeSlotsToBlock = selectedTimeSlots.map((slot) => {
-      const [start, end] = slot.split(" - ");
-      return {
-        startTime: start,
-        endTime: end,
-        reason: blockReason || undefined,
-      };
-    });
 
     try {
       await blockTimeSlots({
         date: format(selectedDate, "yyyy-MM-dd"),
-        timeSlots: timeSlotsToBlock,
+        timeSlots: [
+          {
+            startTime,
+            endTime,
+            reason: blockReason || undefined,
+          },
+        ],
       }).unwrap();
 
-      toast.success(`${selectedTimeSlots.length} time slots blocked`);
-      setSelectedTimeSlots([]);
+      toast.success(`Time slots from ${startTime} to ${endTime} blocked`);
+      setStartTime("");
+      setEndTime("");
       setBlockReason("");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -148,8 +147,10 @@ function CalenderPage() {
         <div className="w-full">
           <TimeSelector
             selectedDate={selectedDate}
-            selectedTimeSlots={selectedTimeSlots}
-            setSelectedTimeSlots={setSelectedTimeSlots}
+            startTime={startTime}
+            endTime={endTime}
+            setStartTime={setStartTime}
+            setEndTime={setEndTime}
           />
         </div>
 
@@ -157,11 +158,7 @@ function CalenderPage() {
         <div className="flex justify-center pb-8">
           <Button
             onClick={handleBlockTimeSlots}
-            disabled={
-              isBlockingTimeSlots ||
-              !selectedDate ||
-              selectedTimeSlots.length === 0
-            }
+            disabled={isBlockingTimeSlots || !selectedDate || !startTime || !endTime}
             className="w-full md:w-1/3 py-6 rounded-lg text-lg bg-orange-600 hover:bg-orange-700 shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {isBlockingTimeSlots ? (
@@ -170,7 +167,7 @@ function CalenderPage() {
                 Blocking Time Slots...
               </>
             ) : (
-              `Block ${selectedTimeSlots.length > 0 ? selectedTimeSlots.length : ""} Time Slot${selectedTimeSlots.length !== 1 ? "s" : ""}`
+              `Block Selected Range`
             )}
           </Button>
         </div>
