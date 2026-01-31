@@ -11,13 +11,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { OrderCardSkeleton } from "@/components/skeletons/OrderCardSkeleton";
+import { Button } from "@/components/ui/button";
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState("pending");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("newest");
   const [currentPage, setCurrentPage] = useState(1);
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 5;
 
   // Fetch ALL orders from API (limit 1000 to get a large set)
   // We remove 'page' and 'status' params to get raw data for client-side processing
@@ -76,6 +77,7 @@ const App: React.FC = () => {
     setCurrentPage(1);
   }, [activeTab, searchQuery, sortOption]);
 
+  console.log(filteredAndSortedOrders);
   return (
     <>
       {/* Orders Page Content */}
@@ -170,23 +172,23 @@ const App: React.FC = () => {
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-6 flex justify-center gap-2">
-            <button
+            <Button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="px-4 py-2 rounded border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="px-4 py-2 rounded-full  border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-500"
             >
               Previous
-            </button>
+            </Button>
             <span className="px-4 py-2 text-sm text-gray-600">
               Page {currentPage} of {totalPages}
             </span>
-            <button
+            <Button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="px-4 py-2 rounded-full  border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-500"
             >
               Next
-            </button>
+            </Button>
           </div>
         )}
       </main>

@@ -94,6 +94,10 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             <h3 className="text-lg font-medium text-gray-900">
               {order.deliveryDetails?.email || "Customer"}
             </h3>
+            <span className="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-2 border rounded-full px-2 py-1 bg-gray-100">
+              <Calendar size={14} />
+              {format(new Date(order.createdAt), "d MMM yyyy / hh:mm a")}
+            </span>
           </div>
           <p className="mt-1 text-xs uppercase text-gray-400">
             #{order._id.slice(-6)}
