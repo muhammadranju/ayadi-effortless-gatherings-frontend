@@ -138,7 +138,7 @@ export const ChangePasswordPage: React.FC = () => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-56 rounded-lg bg-emerald-900 py-3.5 text-lg font-medium text-white shadow-md transition-colors hover:bg-emerald-900/80"
+                className="w-56 rounded-lg bg-emerald-900 py-6 text-lg font-medium text-white shadow-md transition-colors hover:bg-emerald-900/80"
               >
                 {isLoading ? <ClipLoader color="#ffffff" size={20} /> : "Save"}
               </Button>

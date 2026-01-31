@@ -65,9 +65,9 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   const weekDays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   return (
-    <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 h-full">
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800">
+    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 h-full">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold text-gray-800">
           {format(currentDate, "MMMM yyyy")}
         </h2>
         <div className="flex gap-2">
@@ -77,11 +77,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-4">
+      <div className="grid grid-cols-7 gap-2">
         {weekDays.map((day) => (
           <div
             key={day}
-            className="text-center text-xs font-bold text-gray-400 tracking-widest uppercase py-2"
+            className="text-center text-[10px] font-bold text-gray-400 tracking-widest uppercase py-1"
           >
             {day}
           </div>
@@ -128,41 +128,41 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               key={idx}
               onClick={() => setSelectedDate(date as Date)}
               className={`
-                aspect-square rounded-2xl flex flex-col items-center justify-center relative cursor-pointer transition-all duration-200
+                aspect-square rounded-lg flex flex-col items-center justify-center relative cursor-pointer transition-all duration-200
                 ${containerClasses}
               `}
             >
               <span
-                className={`text-lg font-medium ${isSelected ? "text-white" : ""}`}
+                className={`text-sm font-medium ${isSelected ? "text-white" : ""}`}
               >
                 {format(date as Date, "d")}
               </span>
 
               {/* Status Indicator Dot */}
               {dotColor && (
-                <div className={`w-1.5 h-1.5 rounded-full mt-2 ${dotColor}`} />
+                <div className={`w-1 h-1 rounded-full mt-1 ${dotColor}`} />
               )}
             </div>
           );
         })}
       </div>
 
-      <div className="flex gap-6 mt-10 pt-6 border-t border-gray-100 justify-end">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-500"></div>
-          <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+      <div className="flex gap-4 mt-6 pt-4 border-t border-gray-100 justify-end">
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+          <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
             Available
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-orange-500"></div>
-          <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+          <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
             Partially Blocked
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-red-500"></div>
-          <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+          <span className="text-[10px] text-gray-500 font-medium uppercase tracking-wide">
             Fully Blocked
           </span>
         </div>

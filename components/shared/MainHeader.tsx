@@ -128,9 +128,11 @@ const MainHeader: React.FC = () => {
             </div>
 
             {/* CTA Button */}
-            <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-5 rounded-sm font-medium transition-colors duration-200 shadow-sm">
-              {t("header.whatsapp")} <FaWhatsapp size={24} className="ml-2" />
-            </Button>
+            <Link href={"https://wa.me/966506464065"} target="_blank">
+              <Button className="bg-green-500 hover:bg-green-600 text-white px-6 py-5 rounded-sm font-medium transition-colors duration-200 shadow-sm">
+                {t("header.whatsapp")} <FaWhatsapp size={24} className="ml-2" />
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}

@@ -87,17 +87,17 @@ function CalenderPage() {
       </h3>
       <div className="mx-auto space-y-8">
         {/* Top Grid: Calendar & Event Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Calendar Section - Spans 8 cols */}
-          <div className="lg:col-span-8 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Calendar Section - Spans 7 cols */}
+          <div className="lg:col-span-7">
             <CalendarView
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
             />
           </div>
 
-          {/* Event Card Section - Spans 4 cols */}
-          <div className="lg:col-span-4 h-full">
+          {/* Event Card Section - Spans 5 cols */}
+          <div className="lg:col-span-5">
             <EventCard selectedDate={selectedDate} />
           </div>
         </div>

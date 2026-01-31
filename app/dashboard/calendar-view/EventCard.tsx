@@ -53,7 +53,7 @@ export const EventCard: React.FC<EventCardProps> = ({ selectedDate }) => {
               <div className="text-gray-500">Loading orders...</div>
             </div>
           ) : orders.length > 0 ? (
-            <div className="flex-1 overflow-y-auto pr-2 space-y-4 max-h-[600px] scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto pr-2 space-y-4 max-h-[calc(100vh-250px)] scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
               {orders.map((order: any) => (
                 <div
                   key={order._id}

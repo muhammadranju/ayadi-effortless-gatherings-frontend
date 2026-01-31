@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { FaWhatsapp } from "react-icons/fa6";
 
@@ -34,10 +35,11 @@ function CTA_SECTION() {
         <p className="text-white/90 text-lg md:text-xl font-sans max-w-2xl mx-auto mb-10 font-light leading-relaxed">
           {t("gallery.stressFreeDesc")}
         </p>
-
-        <button className="bg-orange-700 hover:bg-orange-600 text-white px-8 py-3 rounded-sm font-medium transition-colors duration-300 flex items-center gap-2 mx-auto cursor-pointer">
-          {t("gallery.whatsapp")} <FaWhatsapp size={24} />
-        </button>
+        <Link href={"https://wa.me/966506464065"} target="_blank">
+          <button className="bg-orange-700 hover:bg-orange-600 text-white px-8 py-3 rounded-sm font-medium transition-colors duration-300 flex items-center gap-2 mx-auto cursor-pointer">
+            {t("gallery.whatsapp")} <FaWhatsapp size={24} />
+          </button>
+        </Link>
       </div>
     </section>
   );

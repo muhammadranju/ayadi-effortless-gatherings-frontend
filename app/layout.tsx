@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     siteName: "AYADI Catering",
     images: [
       {
-        url: "/images/booking.png", // Ensure this path is correct relative to public
+        url: "/bg/login-bg.png", // Ensure this path is correct relative to public
         width: 1200,
         height: 630,
         alt: "AYADI Catering - Premium Food Services",
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AYADI Catering",
     description: "Premium food catering services for all occasions.",
-    images: ["/images/booking.png"], // Ensure this path is correct
+    images: ["/bg/login-bg.png"], // Ensure this path is correct
   },
   robots: {
     index: true,
@@ -88,7 +88,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "CateringService",
     name: "AYADI Catering",
-    image: "https://www.ayadicatering.com/images/booking.png",
+    image: "https://www.ayadicatering.com/bg/login-bg.png",
     "@id": "https://www.ayadicatering.com",
     url: "https://www.ayadicatering.com",
     telephone: "+966500000000", // Update with actual phone if known or leave generic
@@ -134,7 +134,12 @@ export default function RootLayout({
         />
         <StoreProvider>
           {children}
-          <Toaster richColors closeButton position="top-center" />
+          <Toaster
+            richColors
+            closeButton
+            position="top-right"
+            duration={3000}
+          />
         </StoreProvider>
       </body>
     </html>
