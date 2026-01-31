@@ -237,8 +237,6 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
 
     // Otherwise show default time slots
     return TIME_SLOTS;
-    // Otherwise show default time slots
-    return TIME_SLOTS;
   }, [selectedDate, availableTimeSlotsData, isLoadingTimeSlots, isDateBlocked]);
 
   return (
