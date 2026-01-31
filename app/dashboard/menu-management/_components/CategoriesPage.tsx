@@ -70,7 +70,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
         setActiveTab={(tab) => {
           if (tab === "PACKAGES") navigateToPackages();
         }}
-        setBuildOwnView={(view) => {
+        setBuildOwnView={() => {
           // If user clicks "Categories" in build own, it might re-trigger but we are already here.
           // If user clicks "Items" (not possible from tab unless we allow it? Actually current MenuTabs allows clicking 'BUILD YOUR OWN' which resets to categories)
           // The MenuTabs implementation:

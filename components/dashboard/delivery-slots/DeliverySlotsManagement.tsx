@@ -6,7 +6,6 @@ import {
   Calendar,
   Clock,
   AlertCircle,
-  CheckCircle,
   Loader2,
   Ban,
   Unlock,
@@ -20,6 +19,7 @@ import {
   useUnblockDateMutation,
   useBulkBlockDatesMutation,
 } from "@/lib/redux/features/api/deliverySlots/deliverySlotsApiSlice";
+import { DeliverySlot, TimeSlot } from "@/interface/deliverySlots.interface";
 
 // Default time slots (9 AM to 9 PM, hourly)
 const DEFAULT_TIME_SLOTS = [
@@ -70,10 +70,11 @@ const DeliverySlotsManagement = () => {
   // Get blocked status for a specific date
   const getDateBlockStatus = (date: Date) => {
     const dateStr = format(date, "yyyy-MM-dd");
-    const slots = deliverySlots?.data?.data || [];
-    const slot = slots.find((s: any) => s.date === dateStr);
+    const slots = deliverySlots?.data || [];
+    const slot = slots.find((s: DeliverySlot) => s.date === dateStr);
     if (slot?.isFullDayBlocked) return "full";
-    if (slot?.timeSlots?.some((ts) => ts.isBlocked)) return "partial";
+    if (slot?.timeSlots?.some((ts: { isBlocked: boolean }) => ts.isBlocked))
+      return "partial";
     return "available";
   };
 
@@ -81,8 +82,8 @@ const DeliverySlotsManagement = () => {
   const getTimeSlotsForSelectedDate = () => {
     if (!selectedDate) return [];
     const dateStr = format(selectedDate, "yyyy-MM-dd");
-    const slots = deliverySlots?.data?.data || [];
-    const slot = slots.find((s: any) => s.date === dateStr);
+    const slots = deliverySlots?.data || [];
+    const slot = slots.find((s: DeliverySlot) => s.date === dateStr);
     return slot?.timeSlots || DEFAULT_TIME_SLOTS;
   };
 
@@ -102,8 +103,10 @@ const DeliverySlotsManagement = () => {
       toast.success("Date blocked successfully");
       setBlockReason("");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to block date");
+      refetch();
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "Failed to block date");
     }
   };
 
@@ -138,8 +141,10 @@ const DeliverySlotsManagement = () => {
       setSelectedTimeSlots([]);
       setBlockReason("");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to block time slots");
+      refetch();
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "Failed to block time slots");
     }
   };
 
@@ -157,8 +162,10 @@ const DeliverySlotsManagement = () => {
 
       toast.success("Date unblocked successfully");
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to unblock date");
+      refetch();
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "Failed to unblock date");
     }
   };
 
@@ -180,8 +187,10 @@ const DeliverySlotsManagement = () => {
       setBlockReason("");
       setIsBulkMode(false);
       refetch();
-    } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to bulk block dates");
+      refetch();
+    } catch (error) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || "Failed to bulk block dates");
     }
   };
 
@@ -420,31 +429,38 @@ const DeliverySlotsManagement = () => {
                     Select Time Slots to Block
                   </label>
                   <div className="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto">
-                    {timeSlots.map((slot, idx) => {
-                      const slotStr = `${slot.startTime} - ${slot.endTime}`;
-                      const isBlocked = Boolean(
-                        "isBlocked" in slot && slot.isBlocked,
-                      );
-                      const isSelected = selectedTimeSlots.includes(slotStr);
+                    {timeSlots.map(
+                      (
+                        slot: TimeSlot | { startTime: string; endTime: string },
+                        idx: number,
+                      ) => {
+                        const slotStr = `${slot.startTime} - ${slot.endTime}`;
+                        const isBlocked = Boolean(
+                          "isBlocked" in slot && slot.isBlocked,
+                        );
+                        const isSelected = selectedTimeSlots.includes(slotStr);
 
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => !isBlocked && toggleTimeSlot(slotStr)}
-                          disabled={isBlocked}
-                          className={`px-3 py-2 rounded-lg text-xs font-medium border transition-all ${
-                            isBlocked
-                              ? "bg-red-100 border-red-300 text-red-700 cursor-not-allowed"
-                              : isSelected
-                                ? "bg-blue-500 text-white border-blue-600"
-                                : "bg-white border-gray-300 hover:border-blue-500"
-                          }`}
-                        >
-                          {slotStr}
-                          {isBlocked && " (Blocked)"}
-                        </button>
-                      );
-                    })}
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() =>
+                              !isBlocked && toggleTimeSlot(slotStr)
+                            }
+                            disabled={isBlocked}
+                            className={`px-3 py-2 rounded-lg text-xs font-medium border transition-all ${
+                              isBlocked
+                                ? "bg-red-100 border-red-300 text-red-700 cursor-not-allowed"
+                                : isSelected
+                                  ? "bg-blue-500 text-white border-blue-600"
+                                  : "bg-white border-gray-300 hover:border-blue-500"
+                            }`}
+                          >
+                            {slotStr}
+                            {isBlocked && " (Blocked)"}
+                          </button>
+                        );
+                      },
+                    )}
                   </div>
                   {selectedTimeSlots.length > 0 && (
                     <p className="text-xs text-gray-600 mt-2">

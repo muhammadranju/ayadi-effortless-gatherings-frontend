@@ -19,7 +19,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { AlertCircle, Clock } from "lucide-react";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
@@ -37,8 +37,6 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
   setSelectedDate,
   selectedTime,
   setSelectedTime,
-  currentMonth,
-  setCurrentMonth,
 }) => {
   const { t } = useTranslation();
 
@@ -68,21 +66,19 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
     [blockedDatesData],
   );
 
-  const availableTimeSlots = useMemo(
-    () => availableTimeSlotsData?.data?.available || [],
-    [availableTimeSlotsData],
-  );
-
   const blockedTimeSlots = useMemo(
     () => availableTimeSlotsData?.data?.blocked || [],
     [availableTimeSlotsData],
   );
 
   // Check if a date is blocked
-  const isDateBlocked = (date: Date) => {
-    const dateStr = format(date, "yyyy-MM-dd");
-    return blockedDates.includes(dateStr);
-  };
+  const isDateBlocked = useCallback(
+    (date: Date) => {
+      const dateStr = format(date, "yyyy-MM-dd");
+      return blockedDates.includes(dateStr);
+    },
+    [blockedDates],
+  );
 
   // Check if date is in the past
   const isDateInPast = (date: Date) => {
@@ -241,7 +237,9 @@ const StepDateTime: React.FC<StepDateTimeProps> = ({
 
     // Otherwise show default time slots
     return TIME_SLOTS;
-  }, [selectedDate, availableTimeSlotsData, isLoadingTimeSlots]);
+    // Otherwise show default time slots
+    return TIME_SLOTS;
+  }, [selectedDate, availableTimeSlotsData, isLoadingTimeSlots, isDateBlocked]);
 
   return (
     <div className="mx-auto px-6 md:px-12 py-10">

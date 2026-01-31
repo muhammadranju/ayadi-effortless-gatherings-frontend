@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 // FAQ Data Structure
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FAQ_IDS = ["01", "02", "03", "04", "05", "06", "07"];
 
 interface IFaq {
@@ -71,6 +72,7 @@ const FaqPage: React.FC = () => {
           {/* Right Column: Accordion */}
           <div className="lg:w-2/3 w-full">
             <div className="divide-y divide-gray-200">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {faqs.map((faq: any) => (
                 <div key={faq.id} className="py-6 md:py-8 group  ">
                   <button

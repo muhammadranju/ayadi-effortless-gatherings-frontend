@@ -40,9 +40,16 @@ export const ChangeNamePage: React.FC = () => {
         refetch();
         toast.success("Name updated successfully");
       }
-    } catch (error: any) {
-      console.log(error);
-      toast.error((error.data.message as string) || "Error updating name");
+    } catch (error: unknown) {
+      const errorMessage =
+        typeof error === "object" &&
+        error !== null &&
+        "data" in error &&
+        typeof (error as { data?: { message?: string } }).data?.message ===
+          "string"
+          ? (error as { data?: { message?: string } }).data?.message
+          : "Error updating name";
+      toast.error(errorMessage);
     }
   };
 

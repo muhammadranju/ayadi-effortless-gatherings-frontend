@@ -31,7 +31,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
               token: token,
             }),
           );
-        } catch (error) {
+        } catch {
           // dispatch(logout());
         } finally {
           dispatch(setLoading(false));

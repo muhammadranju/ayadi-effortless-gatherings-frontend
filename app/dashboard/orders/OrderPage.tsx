@@ -3,6 +3,7 @@ import { ChevronDown, Search } from "lucide-react";
 import React, { useState, useMemo } from "react";
 import { OrderCard } from "./OrderCard";
 import { useGetAllOrdersQuery } from "@/lib/redux/features/api/orders/ordersApiSlice";
+import { Order } from "@/interface/order.interface";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,28 +26,28 @@ const App: React.FC = () => {
     page: 1,
   });
 
-  const allOrders = ordersData?.data?.data || [];
-
   // Client-side filtering and sorting
   const filteredAndSortedOrders = useMemo(() => {
+    // Determine allOrders *inside* useMemo or add it to dependencies
+    const allOrders = ordersData?.data?.data || [];
     let result = [...allOrders];
 
     // 1. Filter by Status (Tab)
     // "All" tab logic could be added here if needed, currently strict tabs
-    result = result.filter((order: any) => order.status === activeTab);
+    result = result.filter((order: Order) => order.status === activeTab);
 
     // 2. Filter by Search Query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
-        (order: any) =>
+        (order: Order) =>
           order._id.toLowerCase().includes(query) ||
           order.deliveryDetails?.email?.toLowerCase().includes(query),
       );
     }
 
     // 3. Sort
-    result.sort((a: any, b: any) => {
+    result.sort((a: Order, b: Order) => {
       const dateA = new Date(a.createdAt).getTime();
       const dateB = new Date(b.createdAt).getTime();
 
@@ -59,7 +60,7 @@ const App: React.FC = () => {
     });
 
     return result;
-  }, [allOrders, activeTab, searchQuery, sortOption]);
+  }, [ordersData, activeTab, searchQuery, sortOption]);
 
   // Pagination Logic
   const totalItems = filteredAndSortedOrders.length;
@@ -160,7 +161,7 @@ const App: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            {paginatedOrders.map((order: any) => (
+            {paginatedOrders.map((order: Order) => (
               <OrderCard key={order._id} order={order} />
             ))}
           </div>

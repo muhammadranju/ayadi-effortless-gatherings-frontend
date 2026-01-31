@@ -35,6 +35,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
     if (!isPackageMode || !packageId || !setPackagesData?.data?.data)
       return null;
     return (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setPackagesData.data.data.find((pkg: any) => pkg._id === packageId) ||
       null
     );
@@ -80,6 +81,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
 
   const { salads, classics, signatures, customAddons, allItemsForCalculation } =
     useMemo(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const items: any[] = buildPackagesData?.data?.data || [];
 
       const transformedItems: MenuItem[] = items.map((item) => {
@@ -305,6 +307,7 @@ const BuildYourMenu: React.FC<BuildYourMenuProps> = ({
   // ... existing imports ...
 
   // Inside component:
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [createOrder, { isLoading: isSubmitting }] = useCreateOrderMutation();
 
   // --- NEW: Data Aggregation & Logging ---

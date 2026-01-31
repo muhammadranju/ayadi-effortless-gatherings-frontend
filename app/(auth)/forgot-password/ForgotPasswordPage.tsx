@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 export const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [openDialog, setOpenDialog] = useState(false);
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
   const dispatch = useAppDispatch();
@@ -65,6 +66,7 @@ export const ForgotPasswordPage: React.FC = () => {
           }, 2000);
         }
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // Handle error if needed
       if (typeof window !== "undefined") {
@@ -80,6 +82,7 @@ export const ForgotPasswordPage: React.FC = () => {
   };
 
   // Clear error when user starts typing
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     if (emailError) setEmailError("");

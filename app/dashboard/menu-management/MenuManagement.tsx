@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from "react";
 import { PackagesPage } from "./_components/PackagesPage";
@@ -29,7 +28,7 @@ export const MenuManagement: React.FC = () => {
       {activeTab === "BUILD_OWN" && buildOwnView === "CATEGORIES" && (
         <CategoriesPage
           navigateToPackages={() => setActiveTab("PACKAGES")}
-          navigateToItems={(categoryId) => {
+          navigateToItems={(categoryId: string) => {
             setSelectedCategory(categoryId);
             setBuildOwnView("ITEMS");
           }}

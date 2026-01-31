@@ -81,6 +81,7 @@ export const LoginPage: React.FC = () => {
           description: "Welcome to the dashboard",
         });
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (
         error?.data?.message === "Password is incorrect!" ||

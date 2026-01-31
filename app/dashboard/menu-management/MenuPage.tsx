@@ -1,6 +1,6 @@
 "use client";
 
-import { Order } from "@/types/types";
+import { Order } from "@/interface/order.interface";
 import { ChevronDown, Search } from "lucide-react";
 import React, { useState } from "react";
 import { OrderCard } from "../orders/OrderCard";
@@ -9,37 +9,70 @@ import { MenuManagement } from "./MenuManagement";
 // Mock Data for Orders
 const orders: Order[] = [
   {
-    id: "ORD-2024-001",
-    customerName: "Prince Ahmed Al-Saud",
-    isVip: true,
+    _id: "ORD-2024-001",
     status: "CONFIRMED",
-    date: "2024-12-25",
-    time: "8:00 PM",
-    menu: "The Royal Banquet",
-    guests: 150,
-    amount: "12,500 SAR",
+    createdAt: new Date().toISOString(),
+    orderType: "package",
+    dateTime: {
+      date: "2024-12-25",
+      time: "8:00 PM",
+    },
+    deliveryDetails: {
+      email: "prince@example.com",
+      firstName: "Prince Ahmed",
+      lastName: "Al-Saud",
+    },
+    selectedPackage: {
+      platterName: "The Royal Banquet",
+      person: 150,
+    },
+    pricing: {
+      total: 12500,
+    },
   },
   {
-    id: "ORD-2024-002",
-    customerName: "Prince Ahmed Al-Saud",
-    isVip: true,
+    _id: "ORD-2024-002",
     status: "CONFIRMED",
-    date: "2024-12-25",
-    time: "8:00 PM",
-    menu: "The Royal Banquet",
-    guests: 150,
-    amount: "12,500 SAR",
+    createdAt: new Date().toISOString(),
+    orderType: "package",
+    dateTime: {
+      date: "2024-12-25",
+      time: "8:00 PM",
+    },
+    deliveryDetails: {
+      email: "prince@example.com",
+      firstName: "Prince Ahmed",
+      lastName: "Al-Saud",
+    },
+    selectedPackage: {
+      platterName: "The Royal Banquet",
+      person: 150,
+    },
+    pricing: {
+      total: 12500,
+    },
   },
   {
-    id: "ORD-2024-003",
-    customerName: "Prince Ahmed Al-Saud",
-    isVip: true,
+    _id: "ORD-2024-003",
     status: "CONFIRMED",
-    date: "2024-12-25",
-    time: "8:00 PM",
-    menu: "The Royal Banquet",
-    guests: 150,
-    amount: "12,500 SAR",
+    createdAt: new Date().toISOString(),
+    orderType: "package",
+    dateTime: {
+      date: "2024-12-25",
+      time: "8:00 PM",
+    },
+    deliveryDetails: {
+      email: "prince@example.com",
+      firstName: "Prince Ahmed",
+      lastName: "Al-Saud",
+    },
+    selectedPackage: {
+      platterName: "The Royal Banquet",
+      person: 150,
+    },
+    pricing: {
+      total: 12500,
+    },
   },
 ];
 
@@ -105,7 +138,7 @@ const App: React.FC = () => {
           {/* Orders List */}
           <div className="space-y-4">
             {orders.map((order, index) => (
-              <OrderCard key={`${order.id}-${index}`} order={order} />
+              <OrderCard key={`${order._id}-${index}`} order={order} />
             ))}
           </div>
         </main>

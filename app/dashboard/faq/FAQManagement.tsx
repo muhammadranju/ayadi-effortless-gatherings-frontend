@@ -27,10 +27,18 @@ import { toast } from "sonner";
 import { TableRowSkeleton } from "@/components/skeletons/TableRowSkeleton";
 import { Button } from "@/components/ui/button";
 
+interface FAQItem {
+  _id: string;
+  question: string;
+  questionArabic: string;
+  answer: string;
+  answerArabic: string;
+}
+
 export const FAQManagement: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"ADD" | "EDIT">("ADD");
-  const [selectedFaq, setSelectedFaq] = useState<any>(null);
+  const [selectedFaq, setSelectedFaq] = useState<FAQItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [faqToDelete, setFaqToDelete] = useState<string | null>(null);
@@ -40,7 +48,9 @@ export const FAQManagement: React.FC = () => {
 
   // Safely extract data handling potential pagination structure
   const rawData = faqData?.data;
-  const faqs = Array.isArray(rawData) ? rawData : rawData?.data || [];
+  const faqs = Array.isArray(rawData)
+    ? (rawData as FAQItem[])
+    : (rawData?.data as FAQItem[]) || [];
 
   const handleOpenAdd = () => {
     setModalType("ADD");
@@ -48,7 +58,7 @@ export const FAQManagement: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  const handleOpenEdit = (faq: any) => {
+  const handleOpenEdit = (faq: FAQItem) => {
     setModalType("EDIT");
     setSelectedFaq(faq);
     setIsModalOpen(true);
@@ -74,7 +84,7 @@ export const FAQManagement: React.FC = () => {
   };
 
   const filteredFaqs = faqs.filter(
-    (faq: any) =>
+    (faq) =>
       faq.question?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       faq.answer?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       faq.questionArabic?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -132,7 +142,7 @@ export const FAQManagement: React.FC = () => {
                 </td>
               </tr>
             ) : (
-              filteredFaqs.map((faq: any) => (
+              filteredFaqs.map((faq) => (
                 <tr
                   key={faq._id}
                   className="border-b border-gray-50 last:border-b-0 hover:bg-gray-50 transition-colors"

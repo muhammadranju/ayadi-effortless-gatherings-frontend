@@ -1,5 +1,4 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calendar } from "lucide-react";
 
 export const EventCardSkeleton = () => {
   return (

@@ -80,7 +80,7 @@ export function LoginPage() {
       }).unwrap();
 
       // user successfully logged in
-      if (result.role === process.env.NEXT_PUBLIC_ROLE) {
+      if (result?.role === process.env.NEXT_PUBLIC_ROLE) {
         // window.location.href = "/dashboard/overview";
         // router.refresh();
         toast.success("Login successful");

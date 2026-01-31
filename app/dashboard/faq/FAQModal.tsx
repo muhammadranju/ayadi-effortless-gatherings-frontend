@@ -8,11 +8,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+interface FAQItem {
+  _id: string;
+  question: string;
+  questionArabic: string;
+  answer: string;
+  answerArabic: string;
+}
+
 interface FAQModalProps {
   isOpen: boolean;
   onClose: () => void;
   type: "ADD" | "EDIT";
-  initialData?: any;
+  initialData?: FAQItem | null;
 }
 
 export const FAQModal: React.FC<FAQModalProps> = ({
@@ -61,6 +69,10 @@ export const FAQModal: React.FC<FAQModalProps> = ({
         await createFaq(formData).unwrap();
         toast.success("FAQ added successfully");
       } else {
+        if (!initialData?._id) {
+          toast.error("FAQ not found");
+          return;
+        }
         await updateFaq({
           id: initialData._id,
           data: formData,

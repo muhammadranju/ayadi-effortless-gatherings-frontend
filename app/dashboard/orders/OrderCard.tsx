@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Order } from "@/interface/order.interface";
 import { useUpdateOrderStatusMutation } from "@/lib/redux/features/api/orders/ordersApiSlice";
 import { format } from "date-fns";
 import { Calendar, Clock, Users } from "lucide-react";
@@ -17,7 +18,7 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 interface OrderCardProps {
-  order: any;
+  order: Order;
 }
 
 export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
@@ -111,7 +112,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
             <Calendar size={14} /> DATE
           </div>
           <p className="text-sm font-medium text-gray-900">
-            {formatDate(order.dateTime?.date)}
+            {order.dateTime?.date ? formatDate(order.dateTime.date) : "N/A"}
           </p>
         </div>
 

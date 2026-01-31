@@ -23,8 +23,8 @@ interface IPackages {
 const PackagesPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === "ar";
-  const [packages, setPackages] = React.useState([]);
-  const { data, isLoading, error } = useGetSetPackageListQuery(null);
+  const [packages, setPackages] = React.useState<IPackages[]>([]);
+  const { data } = useGetSetPackageListQuery(null);
   useEffect(() => {
     if (data) {
       setPackages(data.data.data);

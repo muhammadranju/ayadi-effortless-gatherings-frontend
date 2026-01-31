@@ -22,7 +22,6 @@ import {
   Settings,
   ShoppingBag,
   Utensils,
-  Clock,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -99,7 +98,7 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const handleLogout = React.useCallback(() => {
     dispatch(logout());
     router.push("/");
-  }, [dispatch]);
+  }, [dispatch, router]);
 
   return (
     <Sidebar {...props} className="text-white flex flex-col z-50 fixed">

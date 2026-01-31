@@ -14,7 +14,7 @@ interface StepPaymentProps {
   total: number;
   basePrice: number;
   isPackageMode?: boolean;
-  selectedPackage?: any;
+  selectedPackage?: { platterName?: string; person?: number | string };
   onComplete: () => void;
   isLoading?: boolean;
 }
@@ -24,7 +24,6 @@ const StepPayment: React.FC<StepPaymentProps> = ({
   setPaymentMethod,
   selectedDate,
   selectedTime,
-  selectedAddons,
   subtotal,
   vat,
   total,

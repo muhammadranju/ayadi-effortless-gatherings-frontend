@@ -15,11 +15,9 @@ interface StatCardProps {
 export const StatCard: React.FC<StatCardProps> = ({
   title,
   value,
-  trend,
   isDark,
   accentColor,
   icon,
-  actionNeeded,
 }) => {
   return (
     <div

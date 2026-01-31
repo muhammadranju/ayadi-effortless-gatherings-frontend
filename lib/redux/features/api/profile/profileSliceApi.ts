@@ -16,7 +16,7 @@ export const profileApiSlice = apiSlice.injectEndpoints({
       transformResponse: (response) => response,
     }),
     updateUserNameProfile: builder.mutation({
-      query: ({ body, userId }) => ({
+      query: ({ body }) => ({
         url: `user/profile`,
         method: "PATCH",
         body: { name: body.name },

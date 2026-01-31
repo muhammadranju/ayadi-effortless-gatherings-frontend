@@ -53,9 +53,11 @@ export interface LoginResponse {
   data: {
     token: string;
     user: User;
+    role: string;
   };
   message?: string;
   success?: boolean;
+  role?: string;
 }
 
 export interface UserProfileResponse {

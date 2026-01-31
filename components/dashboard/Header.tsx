@@ -8,16 +8,10 @@ import {
 import { useAuthCheck } from "@/hooks/useAuthCheck";
 import { Bell, Camera, Lock } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { PiPencilFill } from "react-icons/pi";
 import { SpinnerCustom } from "../ui/SpinnerCustom";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-interface User {
-  name: string;
-  image: string;
-  role: string;
-  email: string;
-}
+
 interface MenuItemProps {
   href: string;
   icon: React.ReactNode;
@@ -44,11 +38,6 @@ function UserMenuItem({ href, icon, label, withBorder }: MenuItemProps) {
 export function Header() {
   const { userProfile, isLoading } = useAuthCheck();
   const user = userProfile?.user?.data;
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   console.log(user);
 

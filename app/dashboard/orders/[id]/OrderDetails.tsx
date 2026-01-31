@@ -390,7 +390,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
                     </p>
                     <ul className="space-y-1">
                       {order.menuSelection.appetizers.map(
-                        (item: any, index: number) => (
+                        (item: { platterName: string }, index: number) => (
                           <li
                             key={index}
                             className="text-sm font-medium text-gray-900"
@@ -412,7 +412,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ orderId }) => {
                     </p>
                     <ul className="space-y-1">
                       {order.menuSelection.mains.map(
-                        (item: any, index: number) => (
+                        (item: { platterName: string }, index: number) => (
                           <li
                             key={index}
                             className="text-sm font-medium text-gray-900"

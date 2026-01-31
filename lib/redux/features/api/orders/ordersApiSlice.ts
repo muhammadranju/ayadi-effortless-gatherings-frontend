@@ -1,9 +1,10 @@
 import { apiSlice } from "../apiSlice";
+import { OrdersResponse } from "@/interface/order.interface";
 
 export const ordersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllOrders: builder.query<
-      any,
+      OrdersResponse,
       {
         page?: number;
         limit?: number;
@@ -32,7 +33,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         };
       },
       providesTags: ["Orders"],
-      transformResponse: (response) => response,
+      transformResponse: (response: unknown) => response as OrdersResponse,
     }),
 
     getOrderById: builder.query({

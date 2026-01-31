@@ -163,7 +163,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({
         setPreview("");
       }
     }
-  }, [isOpen, editingItem, type]);
+  }, [isOpen, editingItem, type, categoryId]);
 
   if (!isOpen) return null;
 

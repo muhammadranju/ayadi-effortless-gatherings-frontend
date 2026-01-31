@@ -5,6 +5,7 @@ import { CalendarView } from "./CalendarView";
 import { EventCard } from "./EventCard";
 import { Button } from "@/components/ui/button";
 import { TimeSelector } from "./TimeSelector";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { format, addDays } from "date-fns";
 import toast from "react-hot-toast";
 import {
@@ -40,6 +41,7 @@ function CalenderPage() {
       toast.success("Date blocked successfully");
       setBlockReason("");
       setSelectedDate(null);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to block date");
     }
@@ -75,6 +77,7 @@ function CalenderPage() {
       toast.success(`${selectedTimeSlots.length} time slots blocked`);
       setSelectedTimeSlots([]);
       setBlockReason("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to block time slots");
     }
