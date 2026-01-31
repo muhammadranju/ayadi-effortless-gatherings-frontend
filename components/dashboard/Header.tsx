@@ -39,8 +39,6 @@ export function Header() {
   const { userProfile, isLoading } = useAuthCheck();
   const user = userProfile?.user?.data;
 
-  console.log(user);
-
   return (
     <header className="fixed top-0 left-0 right-0 z-10 px-10 py-4 bg-neutral/80 backdrop-blur-md border-neutral-200/20 w-full">
       <div className="flex items-center justify-end space-x-4">
